@@ -1,0 +1,617 @@
+@import url(responsive.css);
+
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Estilo Geral */
+body {
+    font-family: 'Poppins', sans-serif;
+    overflow: auto;
+}
+
+.container {
+    max-width: 1400px;
+    /* Largura máxima do container */
+    margin: 0 auto;
+    /* Centraliza o container */
+    padding: 40px 20px;
+    /* Espaçamento interno nas laterais */
+    width: 100%;
+    /* Garante que o container ocupe toda a largura */
+}
+
+/* Cabeçalho fixo */
+
+header {
+    position: relative;
+    /* Fixa o header na tela */
+    top: 0;
+    /* Posiciona o header no topo da página */
+    left: 0;
+    width: 100%;
+    /* Largura total da tela */
+    z-index: 1000;
+    /* Garante que o header fique acima de outros elementos */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    height: 120px;
+    background-color: black;
+    /* Fundo inicial preto */
+    transition: all 0.3s ease;
+}
+
+header.scrolled {
+    background-color: rgba(2, 2, 2, 0.8);
+    /* Fundo com blur após rolar */
+    backdrop-filter: blur(10px);
+}
+
+header h1 {
+    color: #FFFFFF;
+    font-size: 24px;
+}
+
+header nav {
+    margin-top: 0;
+}
+
+header nav ul {
+    display: flex;
+    align-items: center;
+}
+
+header li {
+    list-style: none;
+    margin-right: 20px;
+}
+
+li a {
+    text-decoration: none;
+    color: #b3b3b3;
+    font-size: 16px;
+    transition: color 0.3s;
+}
+
+li a:hover {
+    color: #d4af37;
+}
+
+/* Títulos */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: #fefefe;
+}
+
+/* Texto */
+p {
+    color: #070707;
+}
+
+/* Container principal */
+.imagem-marcelo-container {
+    position: relative;
+    text-align: center;
+    height: calc(100vh - 90px);
+    overflow: hidden;
+}
+
+/* Imagem de fundo */
+.fundo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(100%) contrast(150%) brightness(50%);
+}
+
+/* Imagem Marcelo */
+.imagem-marcelo {
+    position: absolute;
+    bottom: 0;
+    left: 78%;
+    transform: translateX(-50%) translateY(20px);
+    max-height: 100%;
+    max-width: 100%;
+    opacity: 0;
+    /* Inicialmente invisível */
+    transition: opacity 0.6s ease, transform 0.6s ease, filter 0.3s ease;
+    z-index: 1;
+    pointer-events: auto;
+    /* Permitir eventos apenas na imagem */
+}
+
+.imagem-marcelo-container {
+    pointer-events: none;
+    /* Desabilitar eventos no contêiner */
+}
+
+.imagem-marcelo:hover {
+    transform: translateY(-10px) scale(1.05);
+    filter: drop-shadow(0px 0px 15px #ffffff);
+    /* Sombra branca apenas no hover */
+}
+
+.imagem-marcelo.visible {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+    /* Animação de entrada */
+}
+
+/* Texto Container */
+.texto-container {
+    position: absolute;
+    top: 60%;
+    left: 30%;
+    transform: translateY(20px);
+    text-align: left;
+    max-width: 40%;
+    opacity: 0;
+    /* Inicialmente invisível */
+    transition: opacity 0.6s ease, transform 0.6s ease;
+    z-index: 2;
+}
+
+.texto-container p {
+    font-size: 2.0rem;
+    color: #d4af37;
+}
+
+.texto-container h1 {
+    font-size: 4.0rem;
+    color: #d4af37;
+}
+
+.texto-container.visible {
+    opacity: 1;
+    transform: translateY(0);
+    /* Animação de entrada */
+}
+
+/* Animação de Escrita */
+@keyframes typing {
+    from {
+        width: 0;
+    }
+
+    to {
+        width: 100%;
+    }
+}
+
+@keyframes blink-caret {
+
+    from,
+    to {
+        border-color: transparent;
+    }
+
+    50% {
+        border-color: orange;
+    }
+}
+
+.typing-effect {
+    display: inline-block;
+    border-right: 2px solid orange;
+    white-space: nowrap;
+    overflow: hidden;
+    font-size: 24px;
+    animation: typing 1s steps(20, end), blink-caret 0.3s step-end infinite;
+}
+
+/* Seção Mais Procurados */
+.mais-procurados {
+    display: flex;
+    align-items: center;
+    font-size: 2rem;
+    color: #d4af37;
+    font-family: "Space Grotesk", sans-serif !important; /* Aplica a fonte especificada */
+}
+
+/* Estilo para o <hr> */
+.linha-separadora {
+    border: none;
+    border-top: 1px solid #ccc;
+    /* Define a espessura e cor da linha */
+    margin: 20px 0 40px;
+    /* Espaçamento em cima e embaixo */
+    width: 100%;
+    /* Largura do container */
+}
+
+.hidden {
+    display: none;
+}
+
+
+.filter-aside {
+    position: fixed;
+    top: 120px;
+    /* Ajuste para não ser coberto pelo header */
+    left: 0;
+    width: 250px;
+    height: calc(100% - 120px);
+    background-color: #f5f5f5;
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+}
+
+.filter-aside h2 {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.filter-group {
+    margin-bottom: 20px;
+}
+
+.filter-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #333;
+}
+
+.filter-group select,
+.filter-group input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.filter-group button {
+    width: 100%;
+    padding: 10px;
+    background-color: #d4af37;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.filter-group button:hover {
+    background-color: #b38b30;
+}
+
+.property-card {
+    position: relative;
+    width: 400px;
+    /* Aumenta a largura do card */
+    height: 450px;
+    /* Reduz a altura do card */
+    border-radius: 8px; /* Bordas arredondadas */
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    /* Ajuste na sombra */
+    font-family: 'Roboto Condensed', Arial, 'Helvetica Neue', Helvetica, sans-serif; /* Define a fonte especificada */
+    margin: 20px;
+    background-color: #ffffff !important; /* Garante que o fundo do card seja branco */
+    color: #1a1a1a; /* Ajusta a cor do texto para contraste */
+    border: 1px solid #ccc; /* Adiciona uma borda sutil */
+    font-weight: 300; /* Torna as escritas mais finas */
+}
+
+.property-title h3,
+.property-price h3,
+.property-features span,
+.property-tags .tag {
+    font-weight: 300; /* Torna os textos e números mais finos */
+}
+
+.property-image {
+    position: relative;
+    height: 200px; /* Ajusta a altura da imagem */
+    background: #eee;
+}
+
+.property-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.property-content {
+    padding: 15px;
+    background-color: #ffffff; /* Fundo branco */
+    border-top: 1px solid #ccc; /* Linha separadora */
+    position: relative; /* Para posicionar o ícone no canto */
+}
+
+.property-title h3 {
+    margin: 5px 0;
+    font-size: 16px;
+    color: #333; /* Texto escuro */
+}
+
+.property-features {
+    display: flex;
+    justify-content: space-between;
+    margin: 15px 0;
+    padding: 10px 0;
+    border-top: 1px solid #444;
+    /* Linha sutil */
+    border-bottom: 1px solid #444;
+    /* Linha sutil */
+}
+
+.feature span {
+    color: #d4af37;
+    /* Destaque dourado para os números */
+}
+
+.property-price h3 {
+    margin: 10px 0;
+    font-size: 20px;
+    color: #000; /* Define a cor preta para o valor do imóvel */
+    font-weight: bold;
+}
+
+.property-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-top: 10px;
+}
+
+.property-tags .tag {
+    background: #f0f7ff; /* Fundo azul claro */
+    color: #2a6496; /* Texto azul */
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+}
+
+.property-content .location {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.property-content .location h2 {
+    font-size: 14px;
+    color: #666;
+}
+
+.property-content .icon {
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    font-size: 24px;
+    color: #d4af37; /* Dourado */
+}
+
+.nav-arrow {
+    position: absolute;
+    top: 35%;
+    transform: translateY(-50%);
+    background: none; /* Remove o fundo */
+    border: none; /* Remove a borda */
+    z-index: 10;
+    cursor: pointer;
+    font-size: 50px; /* Aumenta o tamanho da seta */
+    color: white;
+    transition: color 0.3s ease; /* Transição para o hover */
+}
+
+.nav-arrow:hover {
+    color: #d4af37; /* Cor dourada no hover */
+}
+
+.prev {
+    left: 10px; /* Ajuste para posicionar na borda esquerda da imagem */
+}
+
+.next {
+    right: 10px; /* Ajuste para posicionar na borda direita da imagem */
+}
+
+.property-image {
+    position: relative;
+    /* Necessário para posicionar as setas dentro da imagem */
+    height: 250px; /* Aumenta a altura da imagem */
+    background: #eee;
+}
+
+.property-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.dots-container {
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+}
+
+.dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+}
+
+.dot.active {
+    background: white;
+}
+
+.property-slide {
+    display: none; /* Oculta todas as imagens inicialmente */
+}
+
+.property-slide[aria-hidden="false"] {
+    display: block; /* Mostra apenas a imagem ativa */
+}
+
+.dots-container[role="tablist"] {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+}
+
+.dot[role="tab"] {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    border: none;
+}
+
+.dot[role="tab"].active {
+    background: white;
+}
+
+.dot[role="tab"]:focus {
+    outline: 2px solid #d4af37;
+}
+
+/* Layout de grade para os cards */
+.grid {
+    display: flex; /* Altere para flex para permitir o scroll horizontal */
+    gap: 20px; /* Espaçamento entre os cards */
+    overflow-x: auto; /* Adiciona scroll horizontal */
+    padding-bottom: 10px; /* Espaçamento para evitar que o scroll fique muito próximo */
+    scroll-behavior: smooth; /* Suaviza o scroll */
+}
+
+.grid::-webkit-scrollbar {
+    height: 8px; /* Altura da barra de rolagem */
+}
+
+.grid::-webkit-scrollbar-thumb {
+    background: #d4af37; /* Cor da barra de rolagem */
+    border-radius: 4px; /* Bordas arredondadas */
+}
+
+.grid::-webkit-scrollbar-track {
+    background: #f0f0f0; /* Fundo da barra de rolagem */
+}
+
+/* Seção Sobre */
+#sobre {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0; /* Remove o padding para ajustar ao tamanho da imagem */
+    background-color: #000; /* Fundo preto */
+    color: #fefefe; /* Texto branco */
+    height: auto; /* Altura ajustada ao conteúdo */
+}
+
+.sobre-container {
+    max-width: 1200px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    align-items: center;
+    justify-content: center;
+}
+
+.sobre-texto {
+    flex: 1;
+    min-width: 300px;
+    font-family: 'Roboto Condensed', sans-serif;
+    line-height: 1.6;
+}
+
+.sobre-texto h2 {
+    font-size: 2.5rem;
+    color: #d4af37; /* Dourado */
+    margin-bottom: 20px;
+    text-align: center; /* Centraliza o título */
+    margin-top: 0px; /* Aproxima o título do topo */
+}
+
+.sobre-texto p {
+    font-size: 1.2rem;
+    color: #b3b3b3; /* Cinza claro */
+    margin-bottom: 15px;
+}
+
+.sobre-texto .destaque {
+    font-weight: bold;
+    color: #d4af37; /* Dourado */
+}
+
+.sobre-imagem {
+    flex: 1;
+    min-width: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative; /* Necessário para o gradiente */
+    overflow: hidden; /* Garante que o gradiente não ultrapasse os limites */
+}
+
+.sobre-foto {
+    width: 80%; /* Reduz a largura da imagem */
+    height: auto; /* Mantém a proporção da altura */
+    object-fit: contain; /* Mantém a proporção da imagem */
+    border-radius: 0; /* Remove a borda arredondada */
+    max-width: 400px; /* Define um limite máximo de largura */
+    position: relative; /* Para sobrepor o gradiente */
+    z-index: 1; /* Garante que a imagem fique acima do gradiente */
+}
+
+.sobre-imagem::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0) 30%);
+    pointer-events: none; /* Garante que o gradiente não interfira nos eventos */
+    z-index: 0; /* Fica atrás da imagem */
+}
+
+.login-icon {
+    background: none;
+    border: none;
+    color: #333;
+    font-size: 2rem;
+    cursor: pointer;
+    transition: color 0.2s;
+    margin-left: 10px;
+    vertical-align: middle;
+}
+
+.login-icon:hover {
+    color: #007bff;
+}
+
+.header-floating-login {
+    position: static;
+    right: unset;
+    bottom: unset;
+    z-index: unset;
+}
+
+.nav-login-btn {
+    position: relative;
+    top: 0;
+    /* Remove ajuste vertical */
+    display: flex;
+    align-items: center;
+    height: 100%;
+}

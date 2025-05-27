@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marcelo Augusto</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/reponsive.css">
+    <link rel="stylesheet" href="../css/dropdown.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <h1 id="animated-heading">
+            <img id="svg1" src="../assets/svg/1.svg" alt="Escrita 1" class="hidden svg-text">
+            <img id="svg2" src="../assets/svg/2.svg" alt="Escrita 2" class="hidden svg-text">
+        </h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="#">Sobre</a></li>
+                <li class="dropdown">
+                    <a href="#">Empreendimentos <span class="arrow">&#9662;</span></a>
+                    <ul class="dropdown-content">
+                        <li><a href="lancamentos.html">Lançamentos</a></li>
+                        <li><a href="mais-procurados.html">Mais Procurados</a></li>
+                        <li><a href="beira-mar.html">Beira Mar</a></li>
+                    </ul>
+                </li>
+                <li><a href="formularios.html">Contato</a></li>
+                <li>
+                    <button id="login-btn" class="login-icon nav-login-btn" aria-label="Login">
+                        <i class="fas fa-user"></i>
+                    </button>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Seção Principal -->
+        <section class="main-section">
+            <div class="imagem-marcelo-container">
+                <img class="fundo" src="../assets/images/fundo.jpg" alt="maceió">
+                <img class="imagem-marcelo" src="../assets/images/marcelo 2.png" alt="Marcelo Augusto">
+                <div class="texto-container">
+                    <p>Descubra imóveis em Alagoas onde cada detalhe conecta você ao </p>
+                    <h1 class="litoral">litoral!</h1>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção de Mais Procurados -->
+        <section id="mais-procurados">
+            <div class="container">
+                <h2 class="mais-procurados">Mais Procurados</h2>
+                <hr class="linha-separadora">
+                <hr class="linha-separadora">
+                <div class="carousel-wrapper" style="position:relative;">
+                    <!-- Setas personalizadas nas extremidades -->
+                    <button class="carousel-arrow custom-arrow left" aria-label="Anterior" style="position:absolute;left:-55px;top:50%;transform:translateY(-50%);">
+                        <span class="arrow-icon">&#10094;</span>
+                    </button>
+                    <div class="grid carousel-cards">
+                        <!-- Card 1 -->
+                        <div class="property-card">
+                            <button class="nav-arrow prev" aria-label="Slide anterior">‹</button>
+                            <button class="nav-arrow next" aria-label="Próximo slide">›</button>
+                            <div class="property-image">
+                                <div class="property-slide" aria-hidden="false">
+                                    <img src="../assets/images/edifício.jpg" alt="Vista do apartamento">
+                                </div>
+                                <div class="property-slide" aria-hidden="true" style="display:none">
+                                    <img src="../assets/images/fundo.jpg" alt="Sala de estar">
+                                </div>
+                                <div class="property-slide" aria-hidden="true" style="display:none">
+                                    <img src="../assets/images/aloy.png" alt="Cozinha moderna">
+                                </div>
+                                <div class="dots-container" role="tablist">
+                                    <button class="dot active" role="tab" aria-selected="true" aria-controls="slide1"></button>
+                                    <button class="dot" role="tab" aria-selected="false" aria-controls="slide2"></button>
+                                    <button class="dot" role="tab" aria-selected="false" aria-controls="slide3"></button>
+                                </div>
+                            </div>
+                            <div class="property-content">
+                                <div class="location">
+                                    <h2>ITAJAÍ - PRAIA BRAVA</h2>
+                                    <span>#4.185</span>
+                                </div>
+                                <div class="property-title">
+                                    <h3>Apartamento no Edifício Surfers Paradise</h3>
+                                </div>
+                                <div class="property-features">
+                                    <div class="feature">
+                                        <i class="fas fa-bed"></i>
+                                        <span>3</span>
+                                    </div>
+                                    <div class="feature">
+                                        <i class="fas fa-bath"></i>
+                                        <span>4</span>
+                                    </div>
+                                    <div class="feature">
+                                        <i class="fas fa-car"></i>
+                                        <span>2</span>
+                                    </div>
+                                    <div class="feature">
+                                        <i class="fas fa-vector-square"></i>
+                                        <span>212,00 m²</span>
+                                    </div>
+                                    <div class="feature">
+                                        <i class="fas fa-building"></i>
+                                        <span>R$ 1.334,90</span>
+                                    </div>
+                                </div>
+                                <div class="property-price">
+                                    <h3>R$ 3.100.000,00</h3>
+                                </div>
+                                <div class="property-tags">
+                                    <span class="tag">Aceita imóveis de menor valor!</span>
+                                    <span class="tag">Pronto para morar</span>
+                                </div>
+                                <i class="fas fa-star icon"></i>
+                            </div>
+                        </div>
+                        <!-- Card 2 -->
+                        <div class="property-card">
+                            <button class="nav-arrow prev" aria-label="Slide anterior">‹</button>
+                            <button class="nav-arrow next" aria-label="Próximo slide">›</button>
+                            <div class="property-image">
+                                <div class="property-slide" aria-hidden="false">
+                                    <img src="../assets/images/edifício.jpg" alt="Vista do apartamento">
+                                </div>
+                                <div class="property-slide" aria-hidden="true" style="display:none">
+                                    <img src="../assets/images/fundo.jpg" alt="Sala de estar">
+                                </div>
+                                <div class="property-slide" aria-hidden="true" style="display:none">
+                                    <img src="../assets/images/aloy.png" alt="Cozinha moderna">
+                                </div>
+                                <div class="dots-container" role="tablist">
+                                    <button class="dot active" role="tab" aria-selected="true" aria-controls="slide1"></button>
+                                    <button class="dot" role="tab" aria-selected="false" aria-controls="slide2"></button>
+                                    <button class="dot" role="tab" aria-selected="false" aria-controls="slide3"></button>
+                                </div>
+                            </div>
+                            <div class="property-content">
+                                <div class="location">
+                                    <h2>ITAJAÍ - PRAIA BRAVA</h2>
+                                    <span>#4.185</span>
+                                </div>
+                                <div class="property-title">
+                                    <h3>Apartamento no Edifício Surfers Paradise</h3>
+                                </div>
+                                <div class="property-features">
+                                    <div class="feature">
+                                        <i class="fas fa-bed"></i>
+                                        <span>3</span>
+                                    </div>
+                                    <div class="feature">
+                                        <i class="fas fa-bath"></i>
+                                        <span>4</span>
+                                    </div>
+                                    <div class="feature">
+                                        <i class="fas fa-car"></i>
+                                        <span>2</span>
+                                    </div>
+                                    <div class="feature">
+                                        <i class="fas fa-vector-square"></i>
+                                        <span>212,00 m²</span>
+                                    </div>
+                                    <div class="feature">
+                                        <i class="fas fa-building"></i>
+                                        <span>R$ 1.334,90</span>
+                                    </div>
+                                </div>
+                                <div class="property-price">
+                                    <h3>R$ 3.100.000,00</h3>
+                                </div>
+                                <div class="property-tags">
+                                    <span class="tag">Aceita imóveis de menor valor!</span>
+                                    <span class="tag">Pronto para morar</span>
+                                </div>
+                                <i class="fas fa-star icon"></i>
+                            </div>
+                        </div>
+                        <!-- Card 3 -->
+                        <div class="property-card">
+                            <button class="nav-arrow prev" aria-label="Slide anterior">‹</button>
+                            <button class="nav-arrow next" aria-label="Próximo slide">›</button>
+                            <div class="property-image">
+                                <div class="property-slide" aria-hidden="false">
+                                    <img src="../assets/images/edifício.jpg" alt="Vista do apartamento">
+                                </div>
+                                <div class="property-slide" aria-hidden="true" style="display:none">
+                                    <img src="../assets/images/fundo.jpg" alt="Sala de estar">
+                                </div>
+                                <div class="property-slide" aria-hidden="true" style="display:none">
+                                    <img src="../assets/images/aloy.png" alt="Cozinha moderna">
+                                </div>
+                                <div class="dots-container" role="tablist">
+                                    <button class="dot active" role="tab" aria-selected="true" aria-controls="slide1"></button>
+                                    <button class="dot" role="tab" aria-selected="false" aria-controls="slide2"></button>
+                                    <button class="dot" role="tab" aria-selected="false" aria-controls="slide3"></button>
+                                </div>
+                            </div>
+                            <div class="property-content">
+                                <div class="location">
+                                    <h2>ITAJAÍ - PRAIA BRAVA</h2>
+                                    <span>#4.185</span>
+                                </div>
+                                <div class="property-title">
+                                    <h3>Apartamento no Edifício Surfers Paradise</h3>
+                                </div>
+                                <div class="property-features">
+                                    <div class="feature">
+                                        <i class="fas fa-bed"></i>
+                                        <span>3</span>
+                                    </div>
+                                    <div class="feature">
+                                        <i class="fas fa-bath"></i>
+                                        <span>4</span>
+                                    </div>
+                                    <div class="feature">
+                                        <i class="fas fa-car"></i>
+                                        <span>2</span>
+                                    </div>
+                                    <div class="feature">
+                                        <i class="fas fa-vector-square"></i>
+                                        <span>212,00 m²</span>
+                                    </div>
+                                    <div class="feature">
+                                        <i class="fas fa-building"></i>
+                                        <span>R$ 1.334,90</span>
+                                    </div>
+                                </div>
+                                <div class="property-price">
+                                    <h3>R$ 3.100.000,00</h3>
+                                </div>
+                                <div class="property-tags">
+                                    <span class="tag">Aceita imóveis de menor valor!</span>
+                                    <span class="tag">Pronto para morar</span>
+                                </div>
+                                <i class="fas fa-star icon"></i>
+                            </div>
+                        </div>
+                        <!-- Card 4 -->
+                        <div class="property-card">
+                            <button class="nav-arrow prev" aria-label="Slide anterior">‹</button>
+                            <button class="nav-arrow next" aria-label="Próximo slide">›</button>
+                            <div class="property-image">
+                                <div class="property-slide" aria-hidden="false">
+                                    <img src="../assets/images/edifício.jpg" alt="Vista do apartamento">
+                                </div>
+                                <div class="property-slide" aria-hidden="true" style="display:none">
+                                    <img src="../assets/images/fundo.jpg" alt="Sala de estar">
+                                </div>
+                                <div class="property-slide" aria-hidden="true" style="display:none">
+                                    <img src="../assets/images/aloy.png" alt="Cozinha moderna">
+                                </div>
+                                <div class="dots-container" role="tablist">
+                                    <button class="dot active" role="tab" aria-selected="true" aria-controls="slide1"></button>
+                                    <button class="dot" role="tab" aria-selected="false" aria-controls="slide2"></button>
+                                    <button class="dot" role="tab" aria-selected="false" aria-controls="slide3"></button>
+                                </div>
+                            </div>
+                            <div class="property-content">
+                                <div class="location">
+                                    <h2>ITAJAÍ - PRAIA BRAVA</h2>
+                                    <span>#4.185</span>
+                                </div>
+                                <div class="property-title">
+                                    <h3>Apartamento no Edifício Surfers Paradise</h3>
+                                </div>
+                                <div class="property-features">
+                                    <div class="feature">
+                                        <i class="fas fa-bed"></i>
+                                        <span>3</span>
+                                    </div>
+                                    <div class="feature">
+                                        <i class="fas fa-bath"></i>
+                                        <span>4</span>
+                                    </div>
+                                    <div class="feature">
+                                        <i class="fas fa-car"></i>
+                                        <span>2</span>
+                                    </div>
+                                    <div class="feature">
+                                        <i class="fas fa-vector-square"></i>
+                                        <span>212,00 m²</span>
+                                    </div>
+                                    <div class="feature">
+                                        <i class="fas fa-building"></i>
+                                        <span>R$ 1.334,90</span>
+                                    </div>
+                                </div>
+                                <div class="property-price">
+                                    <h3>R$ 3.100.000,00</h3>
+                                </div>
+                                <div class="property-tags">
+                                    <span class="tag">Aceita imóveis de menor valor!</span>
+                                    <span class="tag">Pronto para morar</span>
+                                </div>
+                                <i class="fas fa-star icon"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="carousel-arrow custom-arrow right" aria-label="Próximo" style="position:absolute;right:-55px;top:50%;transform:translateY(-50%);">
+                        <span class="arrow-icon">&#10095;</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção de Lançamentos -->
+        <section id="Lançamento">
+            <div class="container">
+                <h2 class="mais-procurados">Lançamentos</h2>
+                <hr class="linha-separadora">
+                <hr class="linha-separadora">
+                <div class="carousel-wrapper" style="position:relative;">
+                    <button class="carousel-arrow custom-arrow left lancamentos-arrow" aria-label="Anterior" style="position:absolute;left:-55px;top:50%;transform:translateY(-50%);">
+                        <span class="arrow-icon">&#10094;</span>
+                    </button>
+                    <div class="grid carousel-cards lancamentos-cards">
+                        <!-- Card 1 -->
+                        <div class="property-card">
+                            <button class="nav-arrow prev" aria-label="Slide anterior">‹</button>
+                            <button class="nav-arrow next" aria-label="Próximo slide">›</button>
+                            <div class="property-image">
+                                <div class="property-slide" aria-hidden="false">
+                                    <img src="../assets/images/edifício.jpg" alt="Vista do apartamento">
+                                </div>
+                                <div class="property-slide" aria-hidden="true" style="display:none">
+                                    <img src="../assets/images/fundo.jpg" alt="Sala de estar">
+                                </div>
+                                <div class="property-slide" aria-hidden="true" style="display:none">
+                                    <img src="../assets/images/aloy.png" alt="Cozinha moderna">
+                                </div>
+                                <div class="dots-container" role="tablist">
+                                    <button class="dot active" role="tab" aria-selected="true" aria-controls="slide1"></button>
+                                    <button class="dot" role="tab" aria-selected="false" aria-controls="slide2"></button>
+                                    <button class="dot" role="tab" aria-selected="false" aria-controls="slide3"></button>
+                                </div>
+                            </div>
+                            <div class="property-content">
+                                <div class="location">
+                                    <h2>ITAJAÍ - PRAIA BRAVA</h2>
+                                    <span>#4.185</span>
+                                </div>
+                                <div class="property-title">
+                                    <h3>Apartamento no Edifício Surfers Paradise</h3>
+                                </div>
+                                <div class="property-features">
+                                    <div class="feature">
+                                        <i class="fas fa-bed"></i>
+                                        <span>3</span>
+                                    </div>
+                                    <div class="feature">
+                                        <i class="fas fa-bath"></i>
+                                        <span>4</span>
+                                    </div>
+                                    <div class="feature">
+                                        <i class="fas fa-car"></i>
+                                        <span>2</span>
+                                    </div>
+                                    <div class="feature">
+                                        <i class="fas fa-vector-square"></i>
+                                        <span>212,00 m²</span>
+                                    </div>
+                                    <div class="feature">
+                                        <i class="fas fa-building"></i>
+                                        <span>R$ 1.334,90</span>
+                                    </div>
+                                </div>
+                                <div class="property-price">
+                                    <h3>R$ 3.100.000,00</h3>
+                                </div>
+                                <div class="property-tags">
+                                    <span class="tag">Aceita imóveis de menor valor!</span>
+                                    <span class="tag">Pronto para morar</span>
+                                </div>
+                                <i class="fas fa-star icon"></i>
+                            </div>
+                        </div>
+                        <!-- Card 2 -->
+                        <div class="property-card">
+                            <button class="nav-arrow prev" aria-label="Slide anterior">‹</button>
+                            <button class="nav-arrow next" aria-label="Próximo slide">›</button>
+                            <div class="property-image">
+                                <div class="property-slide" aria-hidden="false">
+                                    <img src="../assets/images/edifício.jpg" alt="Vista do apartamento">
+                                </div>
+                                <div class="property-slide" aria-hidden="true" style="display:none">
+                                    <img src="../assets/images/fundo.jpg" alt="Sala de estar">
+                                </div>
+                                <div class="property-slide" aria-hidden="true" style="display:none">
+                                    <img src="../assets/images/aloy.png" alt="Cozinha moderna">
+                                </div>
+                                <div class="dots-container" role="tablist">
+                                    <button class="dot active" role="tab" aria-selected="true" aria-controls="slide1"></button>
+                                    <button class="dot" role="tab" aria-selected="false" aria-controls="slide2"></button>
+                                    <button class="dot" role="tab" aria-selected="false" aria-controls="slide3"></button>
+                                </div>
+                            </div>
+                            <div class="property-content">
+                                <div class="location">
+                                    <h2>ITAJAÍ - PRAIA BRAVA</h2>
+                                    <span>#4.185</span>
+                                </div>
+                                <div class="property-title">
+                                    <h3>Apartamento no Edifício Surfers Paradise</h3>
+                                </div>
+                                <div class="property-features">
+                                    <div class="feature">
+                                        <i class="fas fa-bed"></i>
+                                        <span>3</span>
+                                    </div>
+                                    <div class="feature">
+                                        <i class="fas fa-bath"></i>
+                                        <span>4</span>
+                                    </div>
+                                    <div class="feature">
+                                        <i class="fas fa-car"></i>
+                                        <span>2</span>
+                                    </div>
+                                    <div class="feature">
+                                        <i class="fas fa-vector-square"></i>
+                                        <span>212,00 m²</span>
+                                    </div>
+                                    <div class="feature">
+                                        <i class="fas fa-building"></i>
+                                        <span>R$ 1.334,90</span>
+                                    </div>
+                                </div>
+                                <div class="property-price">
+                                    <h3>R$ 3.100.000,00</h3>
+                                </div>
+                                <div class="property-tags">
+                                    <span class="tag">Aceita imóveis de menor valor!</span>
+                                    <span class="tag">Pronto para morar</span>
+                                </div>
+                                <i class="fas fa-star icon"></i>
+                            </div>
+                        </div>
+                        <!-- Card 3 -->
+                        <div class="property-card">
+                            <button class="nav-arrow prev" aria-label="Slide anterior">‹</button>
+                            <button class="nav-arrow next" aria-label="Próximo slide">›</button>
+                            <div class="property-image">
+                                <div class="property-slide" aria-hidden="false">
+                                    <img src="../assets/images/edifício.jpg" alt="Vista do apartamento">
+                                </div>
+                                <div class="property-slide" aria-hidden="true" style="display:none">
+                                    <img src="../assets/images/fundo.jpg" alt="Sala de estar">
+                                </div>
+                                <div class="property-slide" aria-hidden="true" style="display:none">
+                                    <img src="../assets/images/aloy.png" alt="Cozinha moderna">
+                                </div>
+                                <div class="dots-container" role="tablist">
+                                    <button class="dot active" role="tab" aria-selected="true" aria-controls="slide1"></button>
+                                    <button class="dot" role="tab" aria-selected="false" aria-controls="slide2"></button>
+                                    <button class="dot" role="tab" aria-selected="false" aria-controls="slide3"></button>
+                                </div>
+                            </div>
+                            <div class="property-content">
+                                <div class="location">
+                                    <h2>ITAJAÍ - PRAIA BRAVA</h2>
+                                    <span>#4.185</span>
+                                </div>
+                                <div class="property-title">
+                                    <h3>Apartamento no Edifício Surfers Paradise</h3>
+                                </div>
+                                <div class="property-features">
+                                    <div class="feature">
+                                        <i class="fas fa-bed"></i>
+                                        <span>3</span>
+                                    </div>
+                                    <div class="feature">
+                                        <i class="fas fa-bath"></i>
+                                        <span>4</span>
+                                    </div>
+                                    <div class="feature">
+                                        <i class="fas fa-car"></i>
+                                        <span>2</span>
+                                    </div>
+                                    <div class="feature">
+                                        <i class="fas fa-vector-square"></i>
+                                        <span>212,00 m²</span>
+                                    </div>
+                                    <div class="feature">
+                                        <i class="fas fa-building"></i>
+                                        <span>R$ 1.334,90</span>
+                                    </div>
+                                </div>
+                                <div class="property-price">
+                                    <h3>R$ 3.100.000,00</h3>
+                                </div>
+                                <div class="property-tags">
+                                    <span class="tag">Aceita imóveis de menor valor!</span>
+                                    <span class="tag">Pronto para morar</span>
+                                </div>
+                                <i class="fas fa-star icon"></i>
+                            </div>
+                        </div>
+                        <!-- Card 4 -->
+                        <div class="property-card">
+                            <button class="nav-arrow prev" aria-label="Slide anterior">‹</button>
+                            <button class="nav-arrow next" aria-label="Próximo slide">›</button>
+                            <div class="property-image">
+                                <div class="property-slide" aria-hidden="false">
+                                    <img src="../assets/images/edifício.jpg" alt="Vista do apartamento">
+                                </div>
+                                <div class="property-slide" aria-hidden="true" style="display:none">
+                                    <img src="../assets/images/fundo.jpg" alt="Sala de estar">
+                                </div>
+                                <div class="property-slide" aria-hidden="true" style="display:none">
+                                    <img src="../assets/images/aloy.png" alt="Cozinha moderna">
+                                </div>
+                                <div class="dots-container" role="tablist">
+                                    <button class="dot active" role="tab" aria-selected="true" aria-controls="slide1"></button>
+                                    <button class="dot" role="tab" aria-selected="false" aria-controls="slide2"></button>
+                                    <button class="dot" role="tab" aria-selected="false" aria-controls="slide3"></button>
+                                </div>
+                            </div>
+                            <div class="property-content">
+                                <div class="location">
+                                    <h2>ITAJAÍ - PRAIA BRAVA</h2>
+                                    <span>#4.185</span>
+                                </div>
+                                <div class="property-title">
+                                    <h3>Apartamento no Edifício Surfers Paradise</h3>
+                                </div>
+                                <div class="property-features">
+                                    <div class="feature">
+                                        <i class="fas fa-bed"></i>
+                                        <span>3</span>
+                                    </div>
+                                    <div class="feature">
+                                        <i class="fas fa-bath"></i>
+                                        <span>4</span>
+                                    </div>
+                                    <div class="feature">
+                                        <i class="fas fa-car"></i>
+                                        <span>2</span>
+                                    </div>
+                                    <div class="feature">
+                                        <i class="fas fa-vector-square"></i>
+                                        <span>212,00 m²</span>
+                                    </div>
+                                    <div class="feature">
+                                        <i class="fas fa-building"></i>
+                                        <span>R$ 1.334,90</span>
+                                    </div>
+                                </div>
+                                <div class="property-price">
+                                    <h3>R$ 3.100.000,00</h3>
+                                </div>
+                                <div class="property-tags">
+                                    <span class="tag">Aceita imóveis de menor valor!</span>
+                                    <span class="tag">Pronto para morar</span>
+                                </div>
+                                <i class="fas fa-star icon"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="carousel-arrow custom-arrow right lancamentos-arrow" aria-label="Próximo" style="position:absolute;right:-55px;top:50%;transform:translateY(-50%);">
+                        <span class="arrow-icon">&#10095;</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção de Pronto para Morar -->
+        <section id="pronto-para-morar">
+            <div class="container">
+                <h2 class="mais-procurados">Pronto para morar</h2>
+                <hr class="linha-separadora">
+                <hr class="linha-separadora">
+                <div class="carousel-wrapper" style="position:relative;">
+                    <button class="carousel-arrow custom-arrow left pronto-arrow" aria-label="Anterior" style="position:absolute;left:-55px;top:50%;transform:translateY(-50%);">
+                        <span class="arrow-icon">&#10094;</span>
+                    </button>
+                    <div class="grid carousel-cards pronto-cards">
+                        <!-- Card 1 -->
+                        <div class="property-card">
+                            <button class="nav-arrow prev" aria-label="Slide anterior">‹</button>
+                            <button class="nav-arrow next" aria-label="Próximo slide">›</button>
+                            <div class="property-image">
+                                <div class="property-slide" aria-hidden="false">
+                                    <img src="../assets/images/edifício.jpg" alt="Vista do apartamento">
+                                </div>
+                                <div class="property-slide" aria-hidden="true" style="display:none">
+                                    <img src="../assets/images/fundo.jpg" alt="Sala de estar">
+                                </div>
+                                <div class="property-slide" aria-hidden="true" style="display:none">
+                                    <img src="../assets/images/aloy.png" alt="Cozinha moderna">
+                                </div>
+                                <div class="dots-container" role="tablist">
+                                    <button class="dot active" role="tab" aria-selected="true" aria-controls="slide1"></button>
+                                    <button class="dot" role="tab" aria-selected="false" aria-controls="slide2"></button>
+                                    <button class="dot" role="tab" aria-selected="false" aria-controls="slide3"></button>
+                                </div>
+                            </div>
+                            <div class="property-content">
+                                <div class="location">
+                                    <h2>ITAJAÍ - PRAIA BRAVA</h2>
+                                    <span>#4.185</span>
+                                </div>
+                                <div class="property-title">
+                                    <h3>Apartamento no Edifício Surfers Paradise</h3>
+                                </div>
+                                <div class="property-features">
+                                    <div class="feature">
+                                        <i class="fas fa-bed"></i>
+                                        <span>3</span>
+                                    </div>
+                                    <div class="feature">
+                                        <i class="fas fa-bath"></i>
+                                        <span>4</span>
+                                    </div>
+                                    <div class="feature">
+                                        <i class="fas fa-car"></i>
+                                        <span>2</span>
+                                    </div>
+                                    <div class="feature">
+                                        <i class="fas fa-vector-square"></i>
+                                        <span>212,00 m²</span>
+                                    </div>
+                                    <div class="feature">
+                                        <i class="fas fa-building"></i>
+                                        <span>R$ 1.334,90</span>
+                                    </div>
+                                </div>
+                                <div class="property-price">
+                                    <h3>R$ 3.100.000,00</h3>
+                                </div>
+                                <div class="property-tags">
+                                    <span class="tag">Aceita imóveis de menor valor!</span>
+                                    <span class="tag">Pronto para morar</span>
+                                </div>
+                                <i class="fas fa-star icon"></i>
+                            </div>
+                        </div>
+                        <!-- Card 2 -->
+                        <div class="property-card">
+                            <button class="nav-arrow prev" aria-label="Slide anterior">‹</button>
+                            <button class="nav-arrow next" aria-label="Próximo slide">›</button>
+                            <div class="property-image">
+                                <div class="property-slide" aria-hidden="false">
+                                    <img src="../assets/images/edifício.jpg" alt="Vista do apartamento">
+                                </div>
+                                <div class="property-slide" aria-hidden="true" style="display:none">
+                                    <img src="../assets/images/fundo.jpg" alt="Sala de estar">
+                                </div>
+                                <div class="property-slide" aria-hidden="true" style="display:none">
+                                    <img src="../assets/images/aloy.png" alt="Cozinha moderna">
+                                </div>
+                                <div class="dots-container" role="tablist">
+                                    <button class="dot active" role="tab" aria-selected="true" aria-controls="slide1"></button>
+                                    <button class="dot" role="tab" aria-selected="false" aria-controls="slide2"></button>
+                                    <button class="dot" role="tab" aria-selected="false" aria-controls="slide3"></button>
+                                </div>
+                            </div>
+                            <div class="property-content">
+                                <div class="location">
+                                    <h2>ITAJAÍ - PRAIA BRAVA</h2>
+                                    <span>#4.185</span>
+                                </div>
+                                <div class="property-title">
+                                    <h3>Apartamento no Edifício Surfers Paradise</h3>
+                                </div>
+                                <div class="property-features">
+                                    <div class="feature">
+                                        <i class="fas fa-bed"></i>
+                                        <span>3</span>
+                                    </div>
+                                    <div class="feature">
+                                        <i class="fas fa-bath"></i>
+                                        <span>4</span>
+                                    </div>
+                                    <div class="feature">
+                                        <i class="fas fa-car"></i>
+                                        <span>2</span>
+                                    </div>
+                                    <div class="feature">
+                                        <i class="fas fa-vector-square"></i>
+                                        <span>212,00 m²</span>
+                                    </div>
+                                    <div class="feature">
+                                        <i class="fas fa-building"></i>
+                                        <span>R$ 1.334,90</span>
+                                    </div>
+                                </div>
+                                <div class="property-price">
+                                    <h3>R$ 3.100.000,00</h3>
+                                </div>
+                                <div class="property-tags">
+                                    <span class="tag">Aceita imóveis de menor valor!</span>
+                                    <span class="tag">Pronto para morar</span>
+                                </div>
+                                <i class="fas fa-star icon"></i>
+                            </div>
+                        </div>
+                        <!-- Card 3 -->
+                        <div class="property-card">
+                            <button class="nav-arrow prev" aria-label="Slide anterior">‹</button>
+                            <button class="nav-arrow next" aria-label="Próximo slide">›</button>
+                            <div class="property-image">
+                                <div class="property-slide" aria-hidden="false">
+                                    <img src="../assets/images/edifício.jpg" alt="Vista do apartamento">
+                                </div>
+                                <div class="property-slide" aria-hidden="true" style="display:none">
+                                    <img src="../assets/images/fundo.jpg" alt="Sala de estar">
+                                </div>
+                                <div class="property-slide" aria-hidden="true" style="display:none">
+                                    <img src="../assets/images/aloy.png" alt="Cozinha moderna">
+                                </div>
+                                <div class="dots-container" role="tablist">
+                                    <button class="dot active" role="tab" aria-selected="true" aria-controls="slide1"></button>
+                                    <button class="dot" role="tab" aria-selected="false" aria-controls="slide2"></button>
+                                    <button class="dot" role="tab" aria-selected="false" aria-controls="slide3"></button>
+                                </div>
+                            </div>
+                            <div class="property-content">
+                                <div class="location">
+                                    <h2>ITAJAÍ - PRAIA BRAVA</h2>
+                                    <span>#4.185</span>
+                                </div>
+                                <div class="property-title">
+                                    <h3>Apartamento no Edifício Surfers Paradise</h3>
+                                </div>
+                                <div class="property-features">
+                                    <div class="feature">
+                                        <i class="fas fa-bed"></i>
+                                        <span>3</span>
+                                    </div>
+                                    <div class="feature">
+                                        <i class="fas fa-bath"></i>
+                                        <span>4</span>
+                                    </div>
+                                    <div class="feature">
+                                        <i class="fas fa-car"></i>
+                                        <span>2</span>
+                                    </div>
+                                    <div class="feature">
+                                        <i class="fas fa-vector-square"></i>
+                                        <span>212,00 m²</span>
+                                    </div>
+                                    <div class="feature">
+                                        <i class="fas fa-building"></i>
+                                        <span>R$ 1.334,90</span>
+                                    </div>
+                                </div>
+                                <div class="property-price">
+                                    <h3>R$ 3.100.000,00</h3>
+                                </div>
+                                <div class="property-tags">
+                                    <span class="tag">Aceita imóveis de menor valor!</span>
+                                    <span class="tag">Pronto para morar</span>
+                                </div>
+                                <i class="fas fa-star icon"></i>
+                            </div>
+                        </div>
+                        <!-- Card 4 -->
+                        <div class="property-card">
+                            <button class="nav-arrow prev" aria-label="Slide anterior">‹</button>
+                            <button class="nav-arrow next" aria-label="Próximo slide">›</button>
+                            <div class="property-image">
+                                <div class="property-slide" aria-hidden="false">
+                                    <img src="../assets/images/edifício.jpg" alt="Vista do apartamento">
+                                </div>
+                                <div class="property-slide" aria-hidden="true" style="display:none">
+                                    <img src="../assets/images/fundo.jpg" alt="Sala de estar">
+                                </div>
+                                <div class="property-slide" aria-hidden="true" style="display:none">
+                                    <img src="../assets/images/aloy.png" alt="Cozinha moderna">
+                                </div>
+                                <div class="dots-container" role="tablist">
+                                    <button class="dot active" role="tab" aria-selected="true" aria-controls="slide1"></button>
+                                    <button class="dot" role="tab" aria-selected="false" aria-controls="slide2"></button>
+                                    <button class="dot" role="tab" aria-selected="false" aria-controls="slide3"></button>
+                                </div>
+                            </div>
+                            <div class="property-content">
+                                <div class="location">
+                                    <h2>ITAJAÍ - PRAIA BRAVA</h2>
+                                    <span>#4.185</span>
+                                </div>
+                                <div class="property-title">
+                                    <h3>Apartamento no Edifício Surfers Paradise</h3>
+                                </div>
+                                <div class="property-features">
+                                    <div class="feature">
+                                        <i class="fas fa-bed"></i>
+                                        <span>3</span>
+                                    </div>
+                                    <div class="feature">
+                                        <i class="fas fa-bath"></i>
+                                        <span>4</span>
+                                    </div>
+                                    <div class="feature">
+                                        <i class="fas fa-car"></i>
+                                        <span>2</span>
+                                    </div>
+                                    <div class="feature">
+                                        <i class="fas fa-vector-square"></i>
+                                        <span>212,00 m²</span>
+                                    </div>
+                                    <div class="feature">
+                                        <i class="fas fa-building"></i>
+                                        <span>R$ 1.334,90</span>
+                                    </div>
+                                </div>
+                                <div class="property-price">
+                                    <h3>R$ 3.100.000,00</h3>
+                                </div>
+                                <div class="property-tags">
+                                    <span class="tag">Aceita imóveis de menor valor!</span>
+                                    <span class="tag">Pronto para morar</span>
+                                </div>
+                                <i class="fas fa-star icon"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="carousel-arrow custom-arrow right pronto-arrow" aria-label="Próximo" style="position:absolute;right:-55px;top:50%;transform:translateY(-50%);">
+                        <span class="arrow-icon">&#10095;</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+        <section id="sobre">
+            <div class="sobre-container">
+                <div class="sobre-texto">
+                    <h2>Marcelo Augusto</h2>
+                    <p>Se você deseja alcançar uma vida de prosperidade, desfrutar de mais conforto e aumentar o seu patrimônio pessoal, você veio ao lugar certo! Estou aqui para ajudá-lo nessa jornada! Tenho uma ampla variedade de imóveis incríveis disponíveis, desde empreendimentos em fase de construção até imóveis prontos para morar ou até mesmo para rentabilizar.
+
+                        Meu objetivo é garantir que você conquiste uma vida financeiramente saudável e alcance todos os seus objetivos. Imagine-se desfrutando de uma qualidade de vida excepcional, em um imóvel perfeitamente adequado às suas necessidades ou de seus hóspedes.
+                        
+                        Com minha experiência e conhecimento do mercado imobiliário, posso ajudá-lo a encontrar a opção ideal. Vamos marcar um encontro para tomarmos um cafezinho e discutirmos todas as oportunidades que temos disponíveis para você? Não perca tempo! Estou ansiosa para ajudá-lo a alcançar o estilo de vida dos seus sonhos. Entre em contato agora mesmo e vamos transformar seus objetivos em realidade!</p>
+                    <p>Com uma ampla variedade de <span class="destaque">imóveis incríveis</span>, desde empreendimentos em fase de construção até imóveis prontos para morar ou rentabilizar, estamos aqui para ajudá-lo a transformar seus objetivos em realidade.</p>
+                </div>
+                <div class="sobre-imagem">
+                    <img class="sobre-foto" src="../assets/images/Imagem do WhatsApp de 2025-04-24 à(s) 13.59.50_a06bc2b1.jpg" alt="Consultora de Imóveis">
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer></footer>
+
+    <script src="../js/script.js"></script>
+    <script src="../js/scripts.js"></script>
+    <script>
+        // Redireciona para o backend Python ao clicar no login
+        document.getElementById('login-btn').addEventListener('click', function() {
+            window.location.href = 'https://meu-backend.com/cadastro-imoveis'; // Troque para a URL real do backend
+        });
+    </script>
+    <!-- Sugestão de CSS para as setas -->
+    <style>
+    .carousel-arrow.custom-arrow {
+        background: #ffffff !important; /* Fundo preto */
+        border: 2px solid #fff;
+        border-radius: 12px;
+        box-shadow: 0 2px 8px rgba(30,136,229,0.10);
+        width: 48px;
+        height: 48px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2.2rem;
+        color: #d4af37 !important; /* Dourado do site */
+        cursor: pointer;
+        z-index: 10;
+        transition: background 0.2s, color 0.2s, box-shadow 0.2s, border 0.2s;
+    }
+    .carousel-arrow.custom-arrow:hover {
+        background: #222 !important;
+        color: #fff !important;
+        border: 2px solid #d4af37;
+        box-shadow: 0 4px 16px rgba(212,175,55,0.18);
+    }
+    .arrow-icon {
+        pointer-events: none;
+    }
+    @media (max-width: 700px) {
+        .carousel-arrow.custom-arrow {
+            width: 36px;
+            height: 36px;
+            font-size: 1.3rem;
+        }
+    }
+    </style>
+</body>
+
+</html>
