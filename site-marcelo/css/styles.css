@@ -1,4 +1,6 @@
-@import url(responsive.css);
+/* ========================================
+   RESET E CONFIGURAÇÕES BÁSICAS
+======================================== */
 
 /* Reset básico */
 * {
@@ -15,40 +17,33 @@ body {
 
 .container {
     max-width: 1400px;
-    /* Largura máxima do container */
     margin: 0 auto;
-    /* Centraliza o container */
     padding: 40px 20px;
-    /* Espaçamento interno nas laterais */
     width: 100%;
-    /* Garante que o container ocupe toda a largura */
 }
 
-/* Cabeçalho fixo */
+/* ========================================
+   CABEÇALHO E NAVEGAÇÃO
+======================================== */
 
+/* Cabeçalho fixo */
 header {
     position: relative;
-    /* Fixa o header na tela */
     top: 0;
-    /* Posiciona o header no topo da página */
     left: 0;
     width: 100%;
-    /* Largura total da tela */
     z-index: 1000;
-    /* Garante que o header fique acima de outros elementos */
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 10px 20px;
     height: 120px;
     background-color: black;
-    /* Fundo inicial preto */
     transition: all 0.3s ease;
 }
 
 header.scrolled {
     background-color: rgba(2, 2, 2, 0.8);
-    /* Fundo com blur após rolar */
     backdrop-filter: blur(10px);
 }
 
@@ -82,13 +77,100 @@ li a:hover {
     color: #d4af37;
 }
 
+/* ========================================
+   COMPONENTE DROPDOWN
+======================================== */
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown a {
+    display: flex;
+    align-items: center;
+    color: #b3b3b3; 
+    font-weight: bold;
+}
+
+.arrow {
+    margin-left: 5px;
+    transition: transform 0.3s;
+}
+
+.dropdown:hover .arrow {
+    transform: rotate(180deg);
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    min-width: 200px;
+    border: 1px solid #ddd;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.dropdown-content a {
+    color: #000000;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.dropdown-content a:hover {
+    background-color: #f0f0f0;
+    color: #d4af37;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* ========================================
+   BOTÃO DE LOGIN NO HEADER
+======================================== */
+
+.login-icon {
+    background: none;
+    border: none;
+    color: #333;
+    font-size: 2rem;
+    cursor: pointer;
+    transition: color 0.2s;
+    margin-left: 10px;
+    vertical-align: middle;
+}
+
+.login-icon:hover {
+    color: #007bff;
+}
+
+.header-floating-login {
+    position: static;
+    right: unset;
+    bottom: unset;
+    z-index: unset;
+}
+
+.nav-login-btn {
+    position: relative;
+    top: 0;
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+/* ========================================
+   TIPOGRAFIA
+======================================== */
+
 /* Títulos */
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
+h1, h2, h3, h4, h5, h6 {
     color: #fefefe;
 }
 
@@ -97,7 +179,9 @@ p {
     color: #070707;
 }
 
-/* Container principal */
+/* ========================================
+   SEÇÃO PRINCIPAL (HERO)
+======================================== */
 .imagem-marcelo-container {
     position: relative;
     text-align: center;
@@ -122,28 +206,23 @@ p {
     max-height: 100%;
     max-width: 100%;
     opacity: 0;
-    /* Inicialmente invisível */
     transition: opacity 0.6s ease, transform 0.6s ease, filter 0.3s ease;
     z-index: 1;
     pointer-events: auto;
-    /* Permitir eventos apenas na imagem */
 }
 
 .imagem-marcelo-container {
     pointer-events: none;
-    /* Desabilitar eventos no contêiner */
 }
 
 .imagem-marcelo:hover {
     transform: translateY(-10px) scale(1.05);
     filter: drop-shadow(0px 0px 15px #ffffff);
-    /* Sombra branca apenas no hover */
 }
 
 .imagem-marcelo.visible {
     opacity: 1;
     transform: translateX(-50%) translateY(0);
-    /* Animação de entrada */
 }
 
 /* Texto Container */
@@ -155,7 +234,6 @@ p {
     text-align: left;
     max-width: 40%;
     opacity: 0;
-    /* Inicialmente invisível */
     transition: opacity 0.6s ease, transform 0.6s ease;
     z-index: 2;
 }
@@ -173,27 +251,26 @@ p {
 .texto-container.visible {
     opacity: 1;
     transform: translateY(0);
-    /* Animação de entrada */
 }
+
+/* ========================================
+   ANIMAÇÕES
+======================================== */
 
 /* Animação de Escrita */
 @keyframes typing {
     from {
         width: 0;
     }
-
     to {
         width: 100%;
     }
 }
 
 @keyframes blink-caret {
-
-    from,
-    to {
+    from, to {
         border-color: transparent;
     }
-
     50% {
         border-color: orange;
     }
@@ -208,35 +285,38 @@ p {
     animation: typing 1s steps(20, end), blink-caret 0.3s step-end infinite;
 }
 
+/* ========================================
+   SEÇÕES DE CONTEÚDO
+======================================== */
+
 /* Seção Mais Procurados */
 .mais-procurados {
     display: flex;
     align-items: center;
     font-size: 2rem;
     color: #d4af37;
-    font-family: "Space Grotesk", sans-serif !important; /* Aplica a fonte especificada */
+    font-family: "Space Grotesk", sans-serif !important;
 }
 
 /* Estilo para o <hr> */
 .linha-separadora {
     border: none;
     border-top: 1px solid #ccc;
-    /* Define a espessura e cor da linha */
     margin: 20px 0 40px;
-    /* Espaçamento em cima e embaixo */
     width: 100%;
-    /* Largura do container */
 }
 
 .hidden {
     display: none;
 }
 
+/* ========================================
+   FILTROS LATERAIS
+======================================== */
 
 .filter-aside {
     position: fixed;
     top: 120px;
-    /* Ajuste para não ser coberto pelo header */
     left: 0;
     width: 250px;
     height: calc(100% - 120px);
@@ -287,34 +367,34 @@ p {
     background-color: #b38b30;
 }
 
+/* ========================================
+   CARDS DE PROPRIEDADES
+======================================== */
+
 .property-card {
     position: relative;
     width: 400px;
-    /* Aumenta a largura do card */
     height: 450px;
-    /* Reduz a altura do card */
-    border-radius: 8px; /* Bordas arredondadas */
+    border-radius: 8px;
     overflow: hidden;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    /* Ajuste na sombra */
-    font-family: 'Roboto Condensed', Arial, 'Helvetica Neue', Helvetica, sans-serif; /* Define a fonte especificada */
-    margin: 20px;
-    background-color: #ffffff !important; /* Garante que o fundo do card seja branco */
-    color: #1a1a1a; /* Ajusta a cor do texto para contraste */
-    border: 1px solid #ccc; /* Adiciona uma borda sutil */
-    font-weight: 300; /* Torna as escritas mais finas */
+    font-family: 'Roboto Condensed', Arial, 'Helvetica Neue', Helvetica, sans-serif;
+    background-color: #ffffff !important;
+    color: #1a1a1a;
+    border: 1px solid #ccc;
+    font-weight: 300;
 }
 
 .property-title h3,
 .property-price h3,
 .property-features span,
 .property-tags .tag {
-    font-weight: 300; /* Torna os textos e números mais finos */
+    font-weight: 300;
 }
 
 .property-image {
     position: relative;
-    height: 200px; /* Ajusta a altura da imagem */
+    height: 200px;
     background: #eee;
 }
 
@@ -326,15 +406,15 @@ p {
 
 .property-content {
     padding: 15px;
-    background-color: #ffffff; /* Fundo branco */
-    border-top: 1px solid #ccc; /* Linha separadora */
-    position: relative; /* Para posicionar o ícone no canto */
+    background-color: #ffffff;
+    border-top: 1px solid #ccc;
+    position: relative;
 }
 
 .property-title h3 {
     margin: 5px 0;
     font-size: 16px;
-    color: #333; /* Texto escuro */
+    color: #333;
 }
 
 .property-features {
@@ -343,20 +423,17 @@ p {
     margin: 15px 0;
     padding: 10px 0;
     border-top: 1px solid #444;
-    /* Linha sutil */
     border-bottom: 1px solid #444;
-    /* Linha sutil */
 }
 
 .feature span {
     color: #d4af37;
-    /* Destaque dourado para os números */
 }
 
 .property-price h3 {
     margin: 10px 0;
     font-size: 20px;
-    color: #000; /* Define a cor preta para o valor do imóvel */
+    color: #000;
     font-weight: bold;
 }
 
@@ -368,8 +445,8 @@ p {
 }
 
 .property-tags .tag {
-    background: #f0f7ff; /* Fundo azul claro */
-    color: #2a6496; /* Texto azul */
+    background: #f0f7ff;
+    color: #2a6496;
     padding: 5px 10px;
     border-radius: 4px;
     font-size: 12px;
@@ -391,38 +468,41 @@ p {
     bottom: 15px;
     right: 15px;
     font-size: 24px;
-    color: #d4af37; /* Dourado */
+    color: #d4af37;
 }
+
+/* ========================================
+   NAVEGAÇÃO DOS CARDS (SLIDER)
+======================================== */
 
 .nav-arrow {
     position: absolute;
     top: 35%;
     transform: translateY(-50%);
-    background: none; /* Remove o fundo */
-    border: none; /* Remove a borda */
+    background: none;
+    border: none;
     z-index: 10;
     cursor: pointer;
-    font-size: 50px; /* Aumenta o tamanho da seta */
+    font-size: 50px;
     color: white;
-    transition: color 0.3s ease; /* Transição para o hover */
+    transition: color 0.3s ease;
 }
 
 .nav-arrow:hover {
-    color: #d4af37; /* Cor dourada no hover */
+    color: #d4af37;
 }
 
 .prev {
-    left: 10px; /* Ajuste para posicionar na borda esquerda da imagem */
+    left: 10px;
 }
 
 .next {
-    right: 10px; /* Ajuste para posicionar na borda direita da imagem */
+    right: 10px;
 }
 
 .property-image {
     position: relative;
-    /* Necessário para posicionar as setas dentro da imagem */
-    height: 250px; /* Aumenta a altura da imagem */
+    height: 250px;
     background: #eee;
 }
 
@@ -455,11 +535,11 @@ p {
 }
 
 .property-slide {
-    display: none; /* Oculta todas as imagens inicialmente */
+    display: none;
 }
 
 .property-slide[aria-hidden="false"] {
-    display: block; /* Mostra apenas a imagem ativa */
+    display: block;
 }
 
 .dots-container[role="tablist"] {
@@ -485,37 +565,149 @@ p {
     outline: 2px solid #d4af37;
 }
 
+/* ========================================
+   LAYOUT DE GRADE E RESPONSIVIDADE
+======================================== */
+
 /* Layout de grade para os cards */
 .grid {
-    display: flex; /* Altere para flex para permitir o scroll horizontal */
-    gap: 20px; /* Espaçamento entre os cards */
-    overflow-x: auto; /* Adiciona scroll horizontal */
-    padding-bottom: 10px; /* Espaçamento para evitar que o scroll fique muito próximo */
-    scroll-behavior: smooth; /* Suaviza o scroll */
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 10px;
+    scroll-behavior: smooth;
+    white-space: nowrap;
+}
+
+/* Evita que os cards quebrem linha */
+.grid .property-card {
+    flex: 0 0 auto;
+    width: 400px;
+}
+
+/* Seções específicas para dashboard */
+#mais-procurados-section {
+    margin-bottom: 60px;
+}
+
+#lancamentos-section {
+    margin-bottom: 60px;
+}
+
+#beira-mar-section {
+    margin-bottom: 60px;
+}
+
+/* Container para cada seção */
+.section-container {
+    position: relative;
+    margin-bottom: 40px;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.section-title {
+    font-size: 2rem;
+    color: #d4af37;
+    font-family: "Space Grotesk", sans-serif !important;
+}
+
+.section-controls {
+    display: flex;
+    gap: 10px;
+}
+
+.dashboard-btn {
+    background-color: #d4af37;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s;
+}
+
+.dashboard-btn:hover {
+    background-color: #b38b30;
+}
+
+/* Atributos de dados para dashboard */
+.property-card[data-section] {
+    position: relative;
+}
+
+.property-card[data-section="mais-procurados"] {
+    border-left: 4px solid #d4af37;
+}
+
+.property-card[data-section="lancamentos"] {
+    border-left: 4px solid #2a6496;
+}
+
+.property-card[data-section="beira-mar"] {
+    border-left: 4px solid #28a745;
+}
+
+/* Badge indicador da seção */
+.section-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 10px;
+    font-weight: bold;
+    text-transform: uppercase;
+    z-index: 5;
+}
+
+.section-badge.mais-procurados {
+    background-color: #d4af37;
+}
+
+.section-badge.lancamentos {
+    background-color: #2a6496;
+}
+
+.section-badge.beira-mar {
+    background-color: #28a745;
 }
 
 .grid::-webkit-scrollbar {
-    height: 8px; /* Altura da barra de rolagem */
+    height: 8px;
 }
 
 .grid::-webkit-scrollbar-thumb {
-    background: #d4af37; /* Cor da barra de rolagem */
-    border-radius: 4px; /* Bordas arredondadas */
+    background: #d4af37;
+    border-radius: 4px;
 }
 
 .grid::-webkit-scrollbar-track {
-    background: #f0f0f0; /* Fundo da barra de rolagem */
+    background: #f0f0f0;
 }
+
+/* ========================================
+   SEÇÃO SOBRE
+======================================== */
 
 /* Seção Sobre */
 #sobre {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 0; /* Remove o padding para ajustar ao tamanho da imagem */
-    background-color: #000; /* Fundo preto */
-    color: #fefefe; /* Texto branco */
-    height: auto; /* Altura ajustada ao conteúdo */
+    padding: 0;
+    background-color: #000;
+    color: #fefefe;
+    height: auto;
 }
 
 .sobre-container {
@@ -536,21 +728,21 @@ p {
 
 .sobre-texto h2 {
     font-size: 2.5rem;
-    color: #d4af37; /* Dourado */
+    color: #d4af37;
     margin-bottom: 20px;
-    text-align: center; /* Centraliza o título */
-    margin-top: 0px; /* Aproxima o título do topo */
+    text-align: center;
+    margin-top: 0px;
 }
 
 .sobre-texto p {
     font-size: 1.2rem;
-    color: #b3b3b3; /* Cinza claro */
+    color: #b3b3b3;
     margin-bottom: 15px;
 }
 
 .sobre-texto .destaque {
     font-weight: bold;
-    color: #d4af37; /* Dourado */
+    color: #d4af37;
 }
 
 .sobre-imagem {
@@ -559,18 +751,18 @@ p {
     display: flex;
     justify-content: center;
     align-items: center;
-    position: relative; /* Necessário para o gradiente */
-    overflow: hidden; /* Garante que o gradiente não ultrapasse os limites */
+    position: relative;
+    overflow: hidden;
 }
 
 .sobre-foto {
-    width: 80%; /* Reduz a largura da imagem */
-    height: auto; /* Mantém a proporção da altura */
-    object-fit: contain; /* Mantém a proporção da imagem */
-    border-radius: 0; /* Remove a borda arredondada */
-    max-width: 400px; /* Define um limite máximo de largura */
-    position: relative; /* Para sobrepor o gradiente */
-    z-index: 1; /* Garante que a imagem fique acima do gradiente */
+    width: 80%;
+    height: auto;
+    object-fit: contain;
+    border-radius: 0;
+    max-width: 400px;
+    position: relative;
+    z-index: 1;
 }
 
 .sobre-imagem::before {
@@ -581,37 +773,44 @@ p {
     width: 100%;
     height: 100%;
     background: linear-gradient(to right, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0) 30%);
-    pointer-events: none; /* Garante que o gradiente não interfira nos eventos */
-    z-index: 0; /* Fica atrás da imagem */
+    pointer-events: none;
+    z-index: 0;
 }
 
-.login-icon {
-    background: none;
-    border: none;
-    color: #333;
-    font-size: 2rem;
-    cursor: pointer;
-    transition: color 0.2s;
-    margin-left: 10px;
-    vertical-align: middle;
+/* ========================================
+   MEDIA QUERIES - RESPONSIVIDADE
+======================================== */
+
+/* Responsividade para outros elementos */
+@media (max-width: 768px) {
+    .texto-container {
+        left: 10%;
+        max-width: 80%;
+    }
+    
+    .texto-container h1 {
+        font-size: 2.5rem;
+    }
+    
+    .texto-container p {
+        font-size: 1.5rem;
+    }
+    
+    .property-card {
+        width: 350px;
+    }
 }
 
-.login-icon:hover {
-    color: #007bff;
-}
-
-.header-floating-login {
-    position: static;
-    right: unset;
-    bottom: unset;
-    z-index: unset;
-}
-
-.nav-login-btn {
-    position: relative;
-    top: 0;
-    /* Remove ajuste vertical */
-    display: flex;
-    align-items: center;
-    height: 100%;
+@media (max-width: 480px) {
+    .property-card {
+        width: 300px;
+    }
+    
+    .texto-container h1 {
+        font-size: 2rem;
+    }
+    
+    .texto-container p {
+        font-size: 1.2rem;
+    }
 }
