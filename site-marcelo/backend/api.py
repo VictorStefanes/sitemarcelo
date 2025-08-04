@@ -1,10 +1,13 @@
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 import sqlite3
 import hashlib
 import re
 import os
 
 app = Flask(__name__)
+CORS(app)  # Permite requisições de outros domínios
+
 DB_PATH = os.path.join(os.path.dirname(__file__), 'usuarios.db')
 
 def conecta_db():
@@ -69,14 +72,25 @@ def login():
     senha = data.get('senha', '')
     if not username or not senha:
         return jsonify({'erro': 'Preencha todos os campos!'}), 400
+    
     conn, cursor = conecta_db()
-    cursor.execute('SELECT SENHA FROM usuarios WHERE USERNAME = ?', (username,))
+    # Permite login por username ou email
+    cursor.execute('SELECT ID, USERNAME, EMAIL, SENHA FROM usuarios WHERE USERNAME = ? OR EMAIL = ?', (username, username))
     resultado = cursor.fetchone()
     conn.close()
+    
     if resultado:
+        user_id, user_username, user_email, stored_password = resultado
         senha_hash = hashlib.sha256(senha.encode()).hexdigest()
-        if senha_hash == resultado[0]:
-            return jsonify({'mensagem': 'Login realizado com sucesso!'}), 200
+        if senha_hash == stored_password:
+            return jsonify({
+                'mensagem': 'Login realizado com sucesso!',
+                'user': {
+                    'id': user_id,
+                    'username': user_username,
+                    'email': user_email
+                }
+            }), 200
         else:
             return jsonify({'erro': 'Senha incorreta.'}), 401
     else:

@@ -83,6 +83,8 @@ body {
     gap: 30px;
     margin-top: 20px;
     padding: 10px;
+    max-width: 100%;
+    width: 100%;
 }
 
 /* Cards de propriedades otimizados */
@@ -95,6 +97,7 @@ body {
     position: relative;
     height: 500px; /* Altura fixa para uniformidade */
     border: 1px solid #e9ecef;
+    max-width: 100%;
 }
 
 .property-card:hover {
@@ -215,7 +218,7 @@ body {
 }
 
 /* Responsividade */
-@media (max-width: 1400px) {
+@media (max-width: 1200px) {
     .properties-grid {
         grid-template-columns: repeat(2, 1fr);
         gap: 25px;

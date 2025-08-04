@@ -68,39 +68,6 @@ document.addEventListener("DOMContentLoaded", function () {
             });
     });
 
-    // Botão de login AJAX
-    const loginBtn = document.getElementById('login-btn');
-    if (loginBtn) {
-        loginBtn.addEventListener('click', function () {
-            fetch('http://127.0.0.1:5000/login', {
-                method: 'GET',
-                headers: {
-                    'X-Requested-With': 'XMLHttpRequest'
-                }
-            })
-            .then(response => response.text())
-            .then(html => {
-                // Exibe o conteúdo retornado do backend (pode ser um modal futuramente)
-                const modal = document.createElement('div');
-                modal.id = 'login-modal';
-                modal.innerHTML = html;
-                Object.assign(modal.style, {
-                    position: 'fixed',
-                    top: '0', left: '0', right: '0', bottom: '0',
-                    background: 'rgba(0,0,0,0.5)',
-                    zIndex: '9999',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center'
-                });
-                modal.addEventListener('click', e => {
-                    if (e.target === modal) modal.remove();
-                });
-                document.body.appendChild(modal);
-            })
-            .catch(() => alert('Erro ao conectar com o backend.'));
-        });
-    }
 });
 
 /**

@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Marcelo Imóveis</title>
+    
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="../css/dashboard-animations.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Mobile Menu Toggle -->
+    <button class="mobile-menu-toggle" id="mobileMenuToggle">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Sidebar -->
+    <aside class="dashboard-sidebar" id="dashboardSidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <i class="fas fa-building"></i>
+                <span>Marcelo Dashboard</span>
+            </div>
+            <button class="sidebar-close" id="sidebarClose">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+
+        <nav class="sidebar-nav">
+            <ul>
+                <li class="nav-item active" data-view="overview">
+                    <i class="fas fa-chart-pie"></i>
+                    <span>Visão Geral</span>
+                </li>
+                <li class="nav-item" data-view="properties">
+                    <i class="fas fa-home"></i>
+                    <span>Imóveis</span>
+                    <span class="count" id="totalPropertiesCount">0</span>
+                </li>
+                <li class="nav-item" data-view="add-property">
+                    <i class="fas fa-plus-circle"></i>
+                    <span>Adicionar Imóvel</span>
+                </li>
+                <li class="nav-item" data-view="sales">
+                    <i class="fas fa-handshake"></i>
+                    <span>Vendas</span>
+                    <span class="count" id="salesCount">0</span>
+                </li>
+                <li class="nav-item" data-view="analytics">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Relatórios</span>
+                </li>
+                <li class="nav-item" data-view="highlights">
+                    <i class="fas fa-star"></i>
+                    <span>Destaques</span>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="sidebar-footer">
+            <a href="../html/index.html" class="back-to-site">
+                <i class="fas fa-arrow-left"></i>
+                <span>Voltar ao Site</span>
+            </a>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="dashboard-main">
+        <!-- Header -->
+        <header class="dashboard-header">
+            <div class="header-left">
+                <h1 class="page-title" id="pageTitle">Visão Geral</h1>
+                <p class="page-subtitle" id="pageSubtitle">Acompanhe suas vendas e gerencie seus imóveis</p>
+            </div>
+            <div class="header-right">
+                <div class="header-stats">
+                    <div class="stat-item">
+                        <i class="fas fa-calendar"></i>
+                        <span id="currentDate"></span>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-clock"></i>
+                        <span id="currentTime"></span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Content Container -->
+        <div class="dashboard-content" id="dashboardContent">
+            <!-- Overview Section -->
+            <section class="content-section dashboard-section active" id="overview" data-section="overview">
+                <div class="stats-grid">
+                    <div class="stat-card gradient-blue">
+                        <div class="stat-icon">
+                            <i class="fas fa-home"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 id="totalProperties">0</h3>
+                            <p>Total de Imóveis</p>
+                            <span class="trend positive">
+                                <i class="fas fa-arrow-up"></i>
+                                +12% este mês
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="stat-card gradient-green">
+                        <div class="stat-icon">
+                            <i class="fas fa-handshake"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 id="totalSales">0</h3>
+                            <p>Vendas Realizadas</p>
+                            <span class="trend positive">
+                                <i class="fas fa-arrow-up"></i>
+                                +8% este mês
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="stat-card gradient-purple">
+                        <div class="stat-icon">
+                            <i class="fas fa-eye"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 id="totalViews">0</h3>
+                            <p>Visualizações</p>
+                            <span class="trend positive">
+                                <i class="fas fa-arrow-up"></i>
+                                +25% este mês
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="stat-card gradient-orange">
+                        <div class="stat-icon">
+                            <i class="fas fa-dollar-sign"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 id="totalRevenue">R$ 0</h3>
+                            <p>Receita Total</p>
+                            <span class="trend positive">
+                                <i class="fas fa-arrow-up"></i>
+                                +15% este mês
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="charts-container">
+                    <div class="chart-card">
+                        <h3>Imóveis por Categoria</h3>
+                        <canvas id="categoryChart"></canvas>
+                    </div>
+                    <div class="chart-card">
+                        <h3>Vendas Mensais</h3>
+                        <canvas id="salesChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="recent-activities">
+                    <h3>Atividades Recentes</h3>
+                    <div class="activities-list" id="activitiesList">
+                        <!-- Activities will be populated by JavaScript -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Properties Section -->
+            <section class="content-section dashboard-section" id="properties" data-section="properties">
+                <div class="section-header">
+                    <h3>Gerenciar Imóveis</h3>
+                    <div class="header-actions">
+                        <div class="search-box">
+                            <i class="fas fa-search"></i>
+                            <input type="text" placeholder="Buscar imóveis..." id="propertySearch">
+                        </div>
+                        <select class="filter-select" id="categoryFilter">
+                            <option value="">Todas as categorias</option>
+                            <option value="lancamentos">Lançamentos</option>
+                            <option value="mais-procurados">Mais Procurados</option>
+                            <option value="beira-mar">Beira Mar</option>
+                            <option value="pronto-morar">Pronto para Morar</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="properties-grid" id="propertiesGrid">
+                    <!-- Properties will be populated by JavaScript -->
+                </div>
+            </section>
+
+            <!-- Add Property Section -->
+            <section class="content-section dashboard-section" id="add-property" data-section="add-property">
+                <div class="add-property-container">
+                    <h3>Adicionar Novo Imóvel</h3>
+                    <form class="property-form" id="propertyForm">
+                        <input type="hidden" name="id" id="propertyId">
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="propertyTitle">Título do Imóvel *</label>
+                                <input type="text" id="propertyTitle" name="title" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="propertySection">Categoria *</label>
+                                <select id="propertySection" name="category" required>
+                                    <option value="">Selecione a categoria</option>
+                                    <option value="lancamentos">Lançamentos</option>
+                                    <option value="mais-procurados">Mais Procurados</option>
+                                    <option value="beira-mar">Beira Mar</option>
+                                    <option value="pronto-morar">Pronto para Morar</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="propertyPrice">Preço *</label>
+                                <input type="text" id="propertyPrice" name="price" placeholder="R$ 0,00" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="propertyType">Tipo do Imóvel *</label>
+                                <select id="propertyType" name="type" required>
+                                    <option value="">Selecione o tipo</option>
+                                    <option value="Casa">Casa</option>
+                                    <option value="Apartamento">Apartamento</option>
+                                    <option value="Cobertura">Cobertura</option>
+                                    <option value="Studio">Studio</option>
+                                    <option value="Kitnet">Kitnet</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="propertyLocation">Localização *</label>
+                                <input type="text" id="propertyLocation" name="location" placeholder="Bairro - Cidade/Estado" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="propertyArea">Área (m²) *</label>
+                                <input type="number" id="propertyArea" name="area" required>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="propertyBedrooms">Quartos</label>
+                                <input type="number" id="propertyBedrooms" name="bedrooms" min="0">
+                            </div>
+                            <div class="form-group">
+                                <label for="propertyBathrooms">Banheiros</label>
+                                <input type="number" id="propertyBathrooms" name="bathrooms" min="0">
+                            </div>
+                            <div class="form-group">
+                                <label for="propertyParking">Vagas de Garagem</label>
+                                <input type="number" id="propertyParking" name="parking" min="0">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="propertyDescription">Descrição</label>
+                            <textarea id="propertyDescription" name="description" rows="4" placeholder="Descreva as características do imóvel..."></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="propertyTags">Tags/Características (separadas por vírgula)</label>
+                            <input type="text" id="propertyTags" name="features" placeholder="Vista mar, Varanda, Piscina, etc.">
+                            <small>As tags ajudam na busca e destacam características especiais</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="propertyImages">Imagens (máximo 10)</label>
+                            <div class="image-upload-area" id="imageUploadArea">
+                                <div class="upload-placeholder">
+                                    <i class="fas fa-cloud-upload-alt"></i>
+                                    <p>Clique ou arraste múltiplas imagens aqui</p>
+                                    <small>Formatos aceitos: JPG, PNG, WebP • Máximo 5MB por imagem</small>
+                                </div>
+                                <input type="file" id="propertyImages" name="images" multiple accept="image/*" hidden>
+                            </div>
+                            <div class="images-preview" id="imagesPreview"></div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="button" class="btn-secondary" id="previewProperty">
+                                <i class="fas fa-eye"></i>
+                                Visualizar
+                            </button>
+                            <button type="submit" class="btn-primary">
+                                <i class="fas fa-save"></i>
+                                Adicionar Imóvel
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+
+            <!-- Analytics Section -->
+            <section class="content-section dashboard-section" id="analytics" data-section="analytics">
+                <div class="section-header">
+                    <h3>Relatórios e Analytics</h3>
+                </div>
+                
+                <div class="analytics-grid">
+                    <div class="chart-card">
+                        <h4>Vendas por Categoria</h4>
+                        <canvas id="salesByCategoryChart"></canvas>
+                    </div>
+                    
+                    <div class="chart-card">
+                        <h4>Performance Mensal</h4>
+                        <canvas id="performanceChart"></canvas>
+                    </div>
+                    
+                    <div class="chart-card">
+                        <h4>Leads por Fonte</h4>
+                        <canvas id="leadsChart"></canvas>
+                    </div>
+                    
+                    <div class="chart-card">
+                        <h4>Ticket Médio</h4>
+                        <canvas id="ticketChart"></canvas>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <script src="../js/dashboard-auth.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="../js/dashboard-backend.js"></script>
+    <script src="../js/dashboard-core.js"></script>
+    <script src="../js/dashboard-ui.js"></script>
+    <script src="../js/dashboard-properties.js"></script>
+    <script src="../js/dashboard-analytics.js"></script>
+</body>
+</html>
