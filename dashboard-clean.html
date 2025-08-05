@@ -242,28 +242,16 @@
                                 <input type="text" id="propertyLocation" name="location" placeholder="Bairro - Cidade/Estado" required>
                             </div>
                             <div class="form-group">
-                                <label for="propertyStatus">Status *</label>
-                                <select id="propertyStatus" name="status" required>
-                                    <option value="disponivel">Disponível</option>
-                                    <option value="em-negociacao">Em Negociação</option>
-                                    <option value="vendido">Vendido</option>
-                                    <option value="em-construcao">Em Construção</option>
-                                </select>
+                                <label for="propertyArea">Área (m²) *</label>
+                                <input type="number" id="propertyArea" name="area" required>
                             </div>
                         </div>
 
                         <div class="form-row">
-                            <div class="form-group">
-                                <label for="propertyArea">Área (m²) *</label>
-                                <input type="number" id="propertyArea" name="area" required>
-                            </div>
                             <div class="form-group">
                                 <label for="propertyBedrooms">Quartos</label>
                                 <input type="number" id="propertyBedrooms" name="bedrooms" min="0">
                             </div>
-                        </div>
-
-                        <div class="form-row">
                             <div class="form-group">
                                 <label for="propertyBathrooms">Banheiros</label>
                                 <input type="number" id="propertyBathrooms" name="bathrooms" min="0">
@@ -344,8 +332,6 @@
     </main>
 
     <!-- Scripts -->
-    <script src="../js/config.js"></script>
-    <script src="../js/dashboard-api.js"></script>
     <script src="../js/dashboard-auth.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="../js/dashboard-backend.js"></script>

@@ -13,6 +13,8 @@
 body {
     font-family: 'Poppins', sans-serif;
     overflow: auto;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    min-height: 100vh;
 }
 
 .container {
@@ -803,11 +805,59 @@ p {
    FOOTER PREMIUM
 ======================================== */
 
+/* Seções principais com background */
+main {
+    background: #ffffff;
+    position: relative;
+    z-index: 1;
+    padding-bottom: 0;
+}
+
+section {
+    background: #ffffff;
+}
+
+section:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+/* Seção de contato específica */
+#contato {
+    padding-bottom: 0;
+    margin-bottom: 0;
+}
+
+.contact-hero {
+    padding-bottom: 0;
+    margin-bottom: 0;
+}
+
+.contact-container {
+    padding-bottom: 0;
+    margin-bottom: 0;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 40px 20px 0 20px;
+}
+
 .premium-footer {
     background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
     color: #ffffff;
     padding: 60px 0 20px;
-    margin-top: 80px;
+    margin-top: -20px;
+    position: relative;
+}
+
+.premium-footer::before {
+    content: '';
+    position: absolute;
+    top: -40px;
+    left: 0;
+    right: 0;
+    height: 40px;
+    background: linear-gradient(to bottom, rgba(255,255,255,1), rgba(26,26,46,1));
+    z-index: -1;
 }
 
 .footer-container {

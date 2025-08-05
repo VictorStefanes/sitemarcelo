@@ -1,0 +1,306 @@
+/* ========================================
+   LAYOUT FIXO E GRID RESPONSIVO
+======================================== */
+
+/* Header fixo no topo */
+header {
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    background-color: black !important;
+    height: 120px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Body padding para compensar header fixo */
+body {
+    padding-top: 120px;
+}
+
+/* Filtros laterais fixos */
+.filters-container {
+    position: fixed !important;
+    top: 120px !important;
+    left: 0;
+    width: 280px;
+    height: calc(100vh - 120px) !important;
+    z-index: 900;
+    overflow-y: auto;
+}
+
+/* Conteúdo principal com margens corretas */
+.main-content {
+    margin-left: 280px !important;
+    margin-top: 0 !important;
+    padding: 10px 30px 30px 30px; /* Reduzido ainda mais o padding superior */
+    min-height: calc(100vh - 120px);
+    background-color: #f8f9fa;
+}
+
+/* Container das propriedades */
+.properties-container {
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+/* Header da seção */
+.properties-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px; /* Reduzido de 30px para 20px */
+    padding: 15px 20px; /* Reduzido padding vertical */
+    border-bottom: 3px solid #d4af37;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.section-title-main {
+    font-size: 2.5rem;
+    color: #d4af37;
+    font-family: "Space Grotesk", sans-serif;
+    margin: 0;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.properties-count {
+    background: linear-gradient(135deg, #d4af37 0%, #b38b30 100%);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-weight: 600;
+    font-size: 1rem;
+    box-shadow: 0 3px 10px rgba(212, 175, 55, 0.3);
+}
+
+/* Grid de propriedades - 3 cards por linha */
+.properties-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    margin-top: 20px;
+    padding: 10px;
+    max-width: 100%;
+    width: 100%;
+}
+
+/* Cards de propriedades otimizados */
+.property-card {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    position: relative;
+    height: 500px; /* Altura fixa para uniformidade */
+    border: 1px solid #e9ecef;
+    max-width: 100%;
+}
+
+.property-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+    border-color: #d4af37;
+}
+
+/* Imagem do card */
+.property-image {
+    height: 250px;
+    position: relative;
+    overflow: hidden;
+}
+
+.property-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.property-card:hover .property-image img {
+    transform: scale(1.05);
+}
+
+/* Conteúdo do card */
+.property-content {
+    padding: 20px;
+    height: 250px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* Features do imóvel */
+.property-features {
+    display: flex;
+    justify-content: space-between;
+    margin: 15px 0;
+    padding: 15px 0;
+    border-top: 1px solid #e9ecef;
+    border-bottom: 1px solid #e9ecef;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+.feature {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 0.85rem;
+    color: #666;
+}
+
+.feature i {
+    color: #d4af37;
+    margin-bottom: 3px;
+    font-size: 1rem;
+}
+
+/* Preço do imóvel */
+.property-price h3 {
+    color: #d4af37;
+    font-size: 1.4rem;
+    font-weight: bold;
+    margin: 10px 0;
+    text-align: center;
+}
+
+/* Tags do imóvel */
+.property-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-top: 10px;
+}
+
+.property-tags .tag {
+    background: linear-gradient(135deg, #f0f7ff 0%, #e3f2fd 100%);
+    color: #2a6496;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+
+/* Estado vazio */
+.empty-state {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 80px 20px;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-radius: 15px;
+    border: 2px dashed #d4af37;
+    margin: 20px 0;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.empty-state h3 {
+    color: #495057;
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+
+.empty-state p {
+    color: #6c757d;
+    font-size: 1.1rem;
+    margin: 0;
+    line-height: 1.6;
+}
+
+.empty-state i {
+    display: block;
+    margin: 0 auto 1.5rem;
+    opacity: 0.7;
+}
+
+/* Responsividade */
+@media (max-width: 1200px) {
+    .properties-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 25px;
+    }
+    
+    .main-content {
+        padding: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    /* Esconde filtros em mobile */
+    .filters-container {
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+    }
+    
+    .filters-container.show {
+        transform: translateX(0);
+    }
+    
+    .filter-toggle {
+        display: block !important;
+    }
+    
+    /* Conteúdo ocupa tela toda em mobile */
+    .main-content {
+        margin-left: 0 !important;
+        padding: 15px !important;
+    }
+    
+    /* 1 card por linha em mobile */
+    .properties-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    /* Cards menores em mobile */
+    .property-card {
+        height: 450px;
+    }
+    
+    .property-image {
+        height: 200px;
+    }
+    
+    .property-content {
+        height: 250px;
+        padding: 15px;
+    }
+    
+    /* Header responsivo */
+    .properties-header {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+        padding: 15px;
+    }
+    
+    .section-title-main {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .property-card {
+        height: 400px;
+    }
+    
+    .property-image {
+        height: 180px;
+    }
+    
+    .section-title-main {
+        font-size: 1.8rem;
+    }
+    
+    .property-features {
+        gap: 3px;
+    }
+    
+    .feature {
+        font-size: 0.8rem;
+    }
+}

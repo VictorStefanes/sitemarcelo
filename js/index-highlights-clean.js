@@ -56,9 +56,8 @@ class IndexHighlights {
 
     async fetchLatestProperties(section, limit = 4) {
         try {
-            // Conectar com API usando configuração dinâmica
-            const baseUrl = window.Config ? window.Config.apiBaseURL : 'http://localhost:5001';
-            const response = await fetch(`${baseUrl}/properties?category=${section}&limit=${limit}`);
+            // Conectar com API real do dashboard no localhost:5001
+            const response = await fetch(`http://localhost:5001/properties?category=${section}&limit=${limit}`);
             if (!response.ok) throw new Error('API não disponível');
             const data = await response.json();
             

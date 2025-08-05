@@ -1,0 +1,28 @@
+[build]
+  publish = "."
+  
+[build.environment]
+  NODE_VERSION = "18"
+
+[[redirects]]
+  from = "/dashboard/*"
+  to = "/dashboard.html"
+  status = 200
+
+[[redirects]]
+  from = "/admin/*"
+  to = "/dashboard.html"
+  status = 200
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+    X-Content-Type-Options = "nosniff"
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https:;"

@@ -4,8 +4,7 @@
 
 class AuthSystem {
     constructor() {
-        // Usa configuração dinâmica se disponível, senão fallback
-        this.apiBaseURL = window.Config ? window.Config.apiBaseURL : 'http://localhost:5001';
+        this.apiBaseURL = 'http://localhost:5001';
         
         // Detecta o caminho correto para o dashboard
         const currentPath = window.location.pathname;
@@ -48,68 +47,43 @@ class AuthSystem {
 
     setupEventListeners() {
         // Modal controls
-        const closeModalBtn = document.getElementById('closeModal');
-        if (closeModalBtn) {
-            closeModalBtn.addEventListener('click', () => {
-                this.closeModal();
-            });
-        }
+        document.getElementById('closeModal').addEventListener('click', () => {
+            this.closeModal();
+        });
 
         // Click fora do modal para fechar
-        const loginModal = document.getElementById('loginModal');
-        if (loginModal) {
-            loginModal.addEventListener('click', (e) => {
-                if (e.target.id === 'loginModal') {
-                    this.closeModal();
-                }
-            });
-        }
+        document.getElementById('loginModal').addEventListener('click', (e) => {
+            if (e.target.id === 'loginModal') {
+                this.closeModal();
+            }
+        });
 
         // Navegação entre formulários
-        const showRegisterForm = document.getElementById('showRegisterForm');
-        if (showRegisterForm) {
-            showRegisterForm.addEventListener('click', (e) => {
-                e.preventDefault();
-                this.showForm('register');
-            });
-        }
+        document.getElementById('showRegisterForm').addEventListener('click', (e) => {
+            e.preventDefault();
+            this.showForm('register');
+        });
 
-        const showLoginForm = document.getElementById('showLoginForm');
-        if (showLoginForm) {
-            showLoginForm.addEventListener('click', (e) => {
-                e.preventDefault();
-                this.showForm('login');
-            });
-        }
+        document.getElementById('showLoginForm').addEventListener('click', (e) => {
+            e.preventDefault();
+            this.showForm('login');
+        });
 
-        const showForgotForm = document.getElementById('showForgotForm');
-        if (showForgotForm) {
-            showForgotForm.addEventListener('click', (e) => {
-                e.preventDefault();
-                this.showForm('forgot');
-            });
-        }
+        document.getElementById('showForgotForm').addEventListener('click', (e) => {
+            e.preventDefault();
+            this.showForm('forgot');
+        });
 
-        const backToLogin = document.getElementById('backToLogin');
-        if (backToLogin) {
-            backToLogin.addEventListener('click', (e) => {
-                e.preventDefault();
-                this.showForm('login');
-            });
-        }
+        document.getElementById('backToLogin').addEventListener('click', (e) => {
+            e.preventDefault();
+            this.showForm('login');
+        });
 
-        // Formulário de Login
-        const loginFormElement = document.getElementById('loginFormElement');
-        if (loginFormElement) {
-            loginFormElement.addEventListener('submit', (e) => {
-                e.preventDefault();
-                console.log('📝 Formulário de login submetido');
-                this.handleLogin(e);
-            });
-            console.log('✅ Event listener do formulário de login configurado');
-        } else {
-            console.error('❌ Formulário de login não encontrado');
-        }
+        // Formulários
+        document.getElementById('loginFormElement').addEventListener('submit', (e) => {
+            e.preventDefault();
+            this.handleLogin(e);
+        });
 
         // ESC para fechar modal
         document.addEventListener('keydown', (e) => {
@@ -181,7 +155,6 @@ class AuthSystem {
     }
 
     async handleLogin(e) {
-        console.log('🔐 handleLogin chamado');
         const form = e.target;
         const formData = new FormData(form);
         const submitBtn = document.getElementById('loginSubmit');
@@ -194,7 +167,7 @@ class AuthSystem {
             senha: formData.get('senha')
         };
 
-        console.log('🔐 Dados de login:', { username: loginData.username, senha: '***' });
+        console.log('🔐 Tentando login:', loginData);
 
         // Credenciais de teste
         const testCredentials = {
@@ -223,10 +196,8 @@ class AuthSystem {
             const data = await response.json();
 
             if (response.ok) {
-                console.log('✅ Login via API bem-sucedido');
                 this.handleLoginSuccess(loginData.username);
             } else {
-                console.log('❌ Erro no login via API:', data);
                 this.showMessage('error', data.erro || 'Erro no login', 'loginForm');
             }
         } catch (error) {
@@ -238,8 +209,6 @@ class AuthSystem {
     }
 
     handleLoginSuccess(username) {
-        console.log('🎉 handleLoginSuccess chamado para:', username);
-        
         const sessionData = {
             username: username,
             loginTime: new Date().toISOString(),
@@ -252,35 +221,10 @@ class AuthSystem {
         this.isLoggedIn = true;
         this.showMessage('success', 'Login realizado com sucesso! Redirecionando...', 'loginForm');
 
-        console.log('� URL atual:', window.location.href);
-        console.log('🎯 Dashboard URL configurado:', this.dashboardURL);
-
-        // Tenta diferentes caminhos para o dashboard
-        const possiblePaths = [
-            './dashboard.html',
-            '../dashboard.html', 
-            '/html/dashboard.html',
-            'dashboard.html'
-        ];
-
-        let finalDashboardURL = this.dashboardURL;
-        
-        // Se estamos em /html/, usa caminho relativo simples
-        if (window.location.pathname.includes('/html/')) {
-            finalDashboardURL = './dashboard.html';
-        }
-
-        console.log('🔄 Redirecionando para:', finalDashboardURL);
+        console.log('🔄 Redirecionando para:', this.dashboardURL);
 
         setTimeout(() => {
-            try {
-                window.location.href = finalDashboardURL;
-                console.log('✅ Redirecionamento executado');
-            } catch (error) {
-                console.error('❌ Erro no redirecionamento:', error);
-                // Fallback
-                window.location.href = './dashboard.html';
-            }
+            window.location.href = this.dashboardURL;
         }, 1500);
     }
 
@@ -339,8 +283,6 @@ document.addEventListener('DOMContentLoaded', () => {
             window.authSystem.openModal();
         });
         console.log('✅ Event listener do login configurado');
-    } else {
-        console.error('❌ Botão de login não encontrado');
     }
     
     // Função de debug
@@ -349,26 +291,5 @@ document.addEventListener('DOMContentLoaded', () => {
         window.authSystem.openModal();
     };
     
-    // Função de teste de login
-    window.testLogin = () => {
-        console.log('🧪 Teste de login com credenciais admin/admin123');
-        const loginData = { username: 'admin', senha: 'admin123' };
-        
-        const testCredentials = {
-            'admin': 'admin123',
-            'marcelo': 'marcelo123',
-            'teste': '123456'
-        };
-        
-        if (testCredentials[loginData.username] === loginData.senha) {
-            console.log('✅ Credenciais válidas');
-            window.authSystem.handleLoginSuccess(loginData.username);
-        } else {
-            console.log('❌ Credenciais inválidas');
-        }
-    };
-    
-    console.log('💡 Funções de teste disponíveis:');
-    console.log('   - testModal() - Abre o modal');
-    console.log('   - testLogin() - Testa login direto');
+    console.log('💡 Para testar modal: testModal()');
 });

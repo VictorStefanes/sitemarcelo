@@ -1,0 +1,180 @@
+/* ===========================================
+   ESTADOS VAZIOS - EMPTY STATES CSS
+   =========================================== */
+
+/* Estado vazio geral */
+.empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 60px 30px;
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    border-radius: 20px;
+    border: 2px dashed #e0e0e0;
+    margin: 20px 0;
+    min-height: 300px;
+    width: 100%;
+    grid-column: 1 / -1; /* Ocupa toda a largura do grid */
+    transition: all 0.3s ease;
+}
+
+.empty-state:hover {
+    border-color: #d4af37;
+    background: linear-gradient(135deg, #fff9f0 0%, #f8f9fa 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(212, 175, 55, 0.1);
+}
+
+.empty-state i {
+    font-size: 4rem !important;
+    color: #d4af37 !important;
+    margin-bottom: 1.5rem !important;
+    opacity: 0.8;
+    transition: all 0.3s ease;
+}
+
+.empty-state:hover i {
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+.empty-state h3 {
+    font-size: 1.8rem;
+    color: #333;
+    margin: 0 0 1rem 0;
+    font-family: "Space Grotesk", sans-serif;
+    font-weight: 600;
+}
+
+.empty-state p {
+    font-size: 1.1rem;
+    color: #666;
+    margin: 0;
+    font-family: "Poppins", sans-serif;
+    line-height: 1.6;
+    max-width: 400px;
+}
+
+/* Estados vazios específicos para seções */
+.empty-state.mais-procurados {
+    background: linear-gradient(135deg, #fff8f0 0%, #f8f9fa 100%);
+}
+
+.empty-state.lancamentos {
+    background: linear-gradient(135deg, #f0f8ff 0%, #f8f9fa 100%);
+}
+
+.empty-state.beira-mar {
+    background: linear-gradient(135deg, #f0fff8 0%, #f8f9fa 100%);
+}
+
+.empty-state.pronto-morar {
+    background: linear-gradient(135deg, #fff0f8 0%, #f8f9fa 100%);
+}
+
+/* Responsividade para estados vazios */
+@media (max-width: 768px) {
+    .empty-state {
+        padding: 40px 20px;
+        min-height: 250px;
+        margin: 15px 0;
+    }
+    
+    .empty-state i {
+        font-size: 3rem !important;
+        margin-bottom: 1rem !important;
+    }
+    
+    .empty-state h3 {
+        font-size: 1.5rem;
+        margin-bottom: 0.8rem;
+    }
+    
+    .empty-state p {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .empty-state {
+        padding: 30px 15px;
+        min-height: 200px;
+    }
+    
+    .empty-state i {
+        font-size: 2.5rem !important;
+    }
+    
+    .empty-state h3 {
+        font-size: 1.3rem;
+    }
+    
+    .empty-state p {
+        font-size: 0.9rem;
+    }
+}
+
+/* Animação de entrada para estados vazios */
+.empty-state {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Estado de carregamento */
+.loading-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 60px 30px;
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    border-radius: 20px;
+    border: 2px solid #e0e0e0;
+    margin: 20px 0;
+    min-height: 300px;
+    width: 100%;
+    grid-column: 1 / -1;
+}
+
+.loading-state .spinner {
+    width: 50px;
+    height: 50px;
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #d4af37;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 1.5rem;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.loading-state h3 {
+    font-size: 1.5rem;
+    color: #666;
+    margin: 0 0 0.5rem 0;
+    font-family: "Space Grotesk", sans-serif;
+    font-weight: 500;
+}
+
+.loading-state p {
+    font-size: 1rem;
+    color: #888;
+    margin: 0;
+    font-family: "Poppins", sans-serif;
+}
