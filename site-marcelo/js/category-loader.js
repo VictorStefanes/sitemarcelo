@@ -310,6 +310,25 @@ if (window.location.pathname.includes('lancamentos') ||
     window.location.pathname.includes('beira-mar') || 
     window.location.pathname.includes('pronto-morar')) {
     
+    // Limpeza imediata para evitar flash de conteúdo
+    function clearInitialContent() {
+        const container = document.querySelector('.properties-grid, .grid, .lancamentos-grid');
+        if (container) {
+            // Remove o empty-state inicial imediatamente
+            const emptyState = container.querySelector('.empty-state');
+            if (emptyState) {
+                emptyState.style.display = 'none';
+            }
+        }
+    }
+    
+    // Executa a limpeza assim que o script for carregado
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', clearInitialContent);
+    } else {
+        clearInitialContent();
+    }
+    
     document.addEventListener('DOMContentLoaded', () => {
         window.categoryLoader = new CategoryLoader();
     });

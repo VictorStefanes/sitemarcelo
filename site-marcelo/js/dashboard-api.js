@@ -5,28 +5,36 @@
 
 class DashboardAPI {
     constructor() {
-        this.apiUrl = '/api/properties'; // URL da API real do dashboard
-        this.initialized = false;
+        this.apiUrl = 'http://localhost:5001/properties'; // URL da API real do backend Flask
+        this.isOnlineMode = false;
         this.init();
     }
 
     async init() {
         // Verifica se a API está disponível
         try {
-            await fetch(this.apiUrl + '/health');
-            this.initialized = true;
-            console.log('Dashboard API conectada');
+            const response = await fetch('http://localhost:5001/properties?limit=1');
+            if (response.ok) {
+                this.isOnlineMode = true;
+                console.log('✅ Dashboard API conectada ao backend Flask');
+            } else {
+                throw new Error('API não respondeu');
+            }
         } catch (error) {
-            console.warn('Dashboard API não disponível, modo offline');
+            console.warn('⚠️ Backend não disponível, usando modo offline');
+            this.isOnlineMode = false;
         }
     }
 
     // Adicionar propriedade
     async addProperty(propertyData) {
         try {
-            if (!this.initialized) {
+            if (!this.isOnlineMode) {
+                console.log('📱 Modo offline - salvando localmente');
                 return this.mockAddProperty(propertyData);
             }
+
+            console.log('🚀 Enviando propriedade para backend:', propertyData);
 
             const response = await fetch(this.apiUrl, {
                 method: 'POST',
@@ -36,14 +44,21 @@ class DashboardAPI {
                 body: JSON.stringify(propertyData)
             });
 
-            if (!response.ok) throw new Error('Erro ao adicionar propriedade');
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.erro || 'Erro ao adicionar propriedade');
+            }
             
             const result = await response.json();
-            this.notifyPageUpdate(propertyData.section);
-            return result;
+            console.log('✅ Propriedade adicionada com sucesso:', result);
+            
+            // Notifica outras páginas para atualizar
+            this.notifyPageUpdate(propertyData.category);
+            return { success: true, data: result };
 
         } catch (error) {
-            console.error('Erro ao adicionar propriedade:', error);
+            console.error('❌ Erro ao adicionar propriedade:', error);
+            console.log('📱 Fallback para modo offline');
             return this.mockAddProperty(propertyData);
         }
     }
@@ -183,6 +198,24 @@ class DashboardAPI {
         return Promise.resolve([]);
     }
 
+    // Métodos específicos que o dashboard-core.js espera
+    async savePropertyToBackend(property) {
+        return await this.addProperty(property);
+    }
+
+    async updatePropertyInBackend(id, property) {
+        return await this.updateProperty(id, property);
+    }
+
+    async deletePropertyFromBackend(id) {
+        // O dashboard-core não passa a categoria, então usamos uma genérica
+        return await this.deleteProperty(id, 'unknown');
+    }
+
+    async loadPropertiesFromBackend() {
+        return await this.getProperties();
+    }
+
     mockUploadImage(file) {
         console.log('Mock: Upload de imagem', file.name);
         return Promise.resolve({ 
@@ -258,3 +291,11 @@ await window.DashboardAPI.deleteProperty(123, 'lancamentos');
 // Buscar propriedades
 const properties = await window.DashboardAPI.getProperties('mais-procurados');
 */
+
+// Inicialização global
+document.addEventListener('DOMContentLoaded', () => {
+    if (!window.dashboardBackend) {
+        window.dashboardBackend = new DashboardAPI();
+        console.log('🔌 DashboardAPI inicializada como dashboardBackend');
+    }
+});

@@ -70,11 +70,6 @@
                     </button>
                     <div class="grid carousel-cards">
                         <!-- Cards serão inseridos aqui pelo dashboard via JavaScript -->
-                        <div class="empty-state">
-                            <i class="fas fa-star" style="font-size: 3rem; color: #d4af37; margin-bottom: 1rem;"></i>
-                            <h3>Nenhum imóvel destacado</h3>
-                            <p>Os imóveis mais procurados aparecerão aqui quando forem adicionados pelo dashboard.</p>
-                        </div>
                     </div>
                     <button class="carousel-arrow custom-arrow right" aria-label="Próximo" style="position:absolute;right:-55px;top:50%;transform:translateY(-50%);">
                         <span class="arrow-icon">&#10095;</span>
@@ -95,11 +90,6 @@
                     </button>
                     <div class="grid carousel-cards lancamentos-cards">
                         <!-- Cards serão inseridos aqui pelo dashboard via JavaScript -->
-                        <div class="empty-state">
-                            <i class="fas fa-home" style="font-size: 3rem; color: #d4af37; margin-bottom: 1rem;"></i>
-                            <h3>Nenhum lançamento cadastrado</h3>
-                            <p>Os imóveis aparecerão aqui quando forem adicionados pelo dashboard.</p>
-                        </div>
                     </div>
                     <button class="carousel-arrow custom-arrow right lancamentos-arrow" aria-label="Próximo" style="position:absolute;right:-55px;top:50%;transform:translateY(-50%);">
                         <span class="arrow-icon">&#10095;</span>
@@ -120,11 +110,6 @@
                     </button>
                     <div class="grid carousel-cards pronto-cards">
                         <!-- Cards serão inseridos aqui pelo dashboard via JavaScript -->
-                        <div class="empty-state">
-                            <i class="fas fa-key" style="font-size: 3rem; color: #d4af37; margin-bottom: 1rem;"></i>
-                            <h3>Nenhum imóvel pronto para morar</h3>
-                            <p>Os imóveis aparecerão aqui quando forem adicionados pelo dashboard.</p>
-                        </div>
                     </div>
                     <button class="carousel-arrow custom-arrow right pronto-arrow" aria-label="Próximo" style="position:absolute;right:-55px;top:50%;transform:translateY(-50%);">
                         <span class="arrow-icon">&#10095;</span>
@@ -293,21 +278,8 @@
     <script src="../js/script.js"></script>
     <script src="../js/scripts.js"></script>
     <script src="../js/auth-system.js"></script>
-    <script>
-        // Sistema de login integrado
-        document.getElementById('login-btn').addEventListener('click', function() {
-            // Verifica se o usuário já está logado
-            const authToken = localStorage.getItem('user_session');
-            
-            if (authToken) {
-                // Se já está logado, vai direto para o dashboard
-                window.location.href = 'dashboard.html';
-            } else {
-                // Se não está logado, abre o modal de login
-                document.getElementById('loginModal').style.display = 'block';
-            }
-        });
-    </script>
+    <script src="../js/dashboard-api.js"></script>
+    <script src="../js/index-highlights.js"></script>
     <!-- Sugestão de CSS para as setas -->
     <style>
     .carousel-arrow.custom-arrow {
@@ -345,8 +317,8 @@
     </style>
     
     <!-- Scripts -->
-    <script src="../js/script.js"></script>
     <script src="../js/auth-system.js"></script>
+    <script src="../js/script.js"></script>
     <script src="../js/scripts.js"></script>
     <script src="../js/dashboard-api.js"></script>
     <script src="../js/index-highlights.js"></script>

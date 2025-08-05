@@ -8,13 +8,36 @@
     top: 120px;
     left: 0;
     width: 280px;
-    height: calc(100% - 120px);
+    height: calc(100vh - 120px);
     background: linear-gradient(180deg, #1a1a1a 0%, #000000 100%);
     border-right: 3px solid #d4af37;
     box-shadow: 4px 0 15px rgba(0, 0, 0, 0.3);
     overflow-y: auto;
+    overflow-x: hidden;
     z-index: 100;
     transition: transform 0.3s ease;
+    /* Garantir que o scroll funcione */
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: #d4af37 #333;
+}
+
+/* Customizar scrollbar */
+.filters-container::-webkit-scrollbar {
+    width: 8px;
+}
+
+.filters-container::-webkit-scrollbar-track {
+    background: #333;
+}
+
+.filters-container::-webkit-scrollbar-thumb {
+    background: #d4af37;
+    border-radius: 4px;
+}
+
+.filters-container::-webkit-scrollbar-thumb:hover {
+    background: #b8941f;
 }
 
 .filters-container.hidden {
@@ -52,6 +75,7 @@
 /* Corpo dos filtros */
 .filters-body {
     padding: 20px;
+    padding-bottom: 40px; /* Espaço extra para o scroll */
 }
 
 /* Grupos de filtros */
@@ -63,6 +87,7 @@
 
 .filter-group:last-child {
     border-bottom: none;
+    margin-bottom: 30px; /* Espaço extra no último grupo */
 }
 
 .filter-group h3 {
@@ -80,6 +105,10 @@
     margin-bottom: 8px;
     cursor: pointer;
     transition: color 0.3s ease;
+    line-height: 1.5;
+    gap: 10px;
+    font-size: 0.9rem;
+    padding: 2px 0;
 }
 
 .filter-label:hover {
@@ -87,8 +116,32 @@
 }
 
 .filter-input {
-    margin-right: 10px;
+    margin: 0;
+    padding: 0;
     accent-color: #d4af37;
+    flex-shrink: 0;
+    width: 16px;
+    height: 16px;
+    vertical-align: baseline;
+    position: relative;
+    top: 0;
+}
+
+/* Estilo específico para radio buttons */
+.filter-input[type="radio"] {
+    border-radius: 50%;
+}
+
+/* Estilo específico para checkboxes */
+.filter-input[type="checkbox"] {
+    border-radius: 3px;
+}
+
+/* Texto dos labels - garantir alinhamento */
+.filter-label > *:not(.filter-input) {
+    line-height: 1.2;
+    vertical-align: middle;
+    display: inline-block;
 }
 
 /* Inputs de texto e selects */
@@ -118,6 +171,7 @@
 
 .price-range {
     -webkit-appearance: none;
+    appearance: none;
     width: 100%;
     height: 6px;
     background: #333;
@@ -152,8 +206,10 @@
 /* Botões de ação */
 .filter-actions {
     padding: 20px;
+    padding-bottom: 30px; /* Espaço extra para scroll */
     border-top: 2px solid #d4af37;
     background: rgba(212, 175, 55, 0.05);
+    margin-bottom: 20px; /* Margem inferior adicional */
 }
 
 .filter-btn {

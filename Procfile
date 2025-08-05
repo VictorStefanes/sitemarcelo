@@ -1,1 +1,1 @@
-web: gunicorn api:app
+web: cd site-marcelo/backend && python properties_api.py

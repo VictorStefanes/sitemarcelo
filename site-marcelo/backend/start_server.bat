@@ -1,12 +1,11 @@
 @echo off
-echo ================================
-echo   INICIALIZACAO DO SISTEMA
-echo   Marcelo Imoveis Dashboard
-echo ================================
+title Marcelo Imoveis - Backend Server
+echo ================================================
+echo     MARCELO IMOVEIS - BACKEND SERVER
+echo ================================================
 echo.
-
 echo [1] Instalando dependencias Python...
-pip install -r requirements.txt
+pip install flask flask-cors
 echo.
 
 echo [2] Inicializando banco de dados...
