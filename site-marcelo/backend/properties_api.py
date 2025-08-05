@@ -10,7 +10,14 @@ from datetime import datetime
 import json
 
 app = Flask(__name__)
-CORS(app)  # Permite requisições de outros domínios
+# Configuração CORS para produção
+CORS(app, origins=[
+    "https://*.netlify.app",  # Qualquer subdomínio do Netlify
+    "https://marcelo-imoveis.netlify.app",  # URL específica (será seu site)
+    "http://localhost:3000",  # Desenvolvimento local
+    "http://localhost:5000",  # Desenvolvimento local Flask
+    "http://127.0.0.1:5000"   # Desenvolvimento local Flask
+])  # Permite requisições de domínios autorizados
 
 # Configurações
 DB_PATH = os.path.join(os.path.dirname(__file__), 'imoveis.db')

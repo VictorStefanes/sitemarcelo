@@ -9,8 +9,8 @@ const API_CONFIG = {
     // 🏠 Local Development
     LOCAL: 'http://localhost:5000',
     
-    // 🌐 Production (ATUALIZAR COM SUA URL DO RENDER)
-    PRODUCTION: 'YOUR_RENDER_URL', // ← SUBSTITUA AQUI!
+    // 🌐 Production - URL do Render (será atualizada após deploy)
+    PRODUCTION: 'https://marcelo-imoveis-api.onrender.com',
     
     // 🔄 Auto detect environment
     get BASE_URL() {
