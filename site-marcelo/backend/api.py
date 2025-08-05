@@ -6,7 +6,14 @@ import re
 import os
 
 app = Flask(__name__)
-CORS(app)  # Permite requisições de outros domínios
+# Configuração CORS mais específica para produção
+CORS(app, origins=[
+    "http://localhost:3000",
+    "http://localhost:5500", 
+    "http://127.0.0.1:5500",
+    "https://*.netlify.app",
+    "https://netlify.app"
+], supports_credentials=True)
 
 DB_PATH = os.path.join(os.path.dirname(__file__), 'usuarios.db')
 
@@ -27,6 +34,14 @@ def cria_tabela():
     ''')
     conn.commit()
     conn.close()
+
+@app.route('/health', methods=['GET'])
+def health_check():
+    return jsonify({
+        'status': 'OK',
+        'message': 'Backend funcionando!',
+        'service': 'Marcelo Real Estate API'
+    }), 200
 
 cria_tabela()
 
@@ -97,4 +112,6 @@ def login():
         return jsonify({'erro': 'Usuário não encontrado.'}), 404
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+    cria_tabela()  # Inicializa o banco
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port, debug=False)

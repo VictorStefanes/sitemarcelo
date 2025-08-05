@@ -1,3 +1,12 @@
+# Netlify redirects para Marcelo Imóveis
 /dashboard/* /dashboard.html 200
 /admin/* /dashboard.html 200
+
+# Redirects específicos para páginas de imóveis
+/lancamentos /lancamentos.html 200
+/mais-procurados /mais-procurados.html 200
+/beira-mar /beira-mar.html 200
+/pronto-morar /pronto-morar.html 200
+
+# SPA fallback - deve ser o último
 /* /index.html 200

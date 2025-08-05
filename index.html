@@ -330,6 +330,13 @@
         <i class="fas fa-arrow-up"></i>
     </button>
     
+    <!-- Botão Fixo WhatsApp -->
+    <button id="whatsappFixedBtn" class="whatsapp-fixed-btn" onclick="openWhatsAppWithMessage('Olá! Vim do site e gostaria de mais informações sobre os imóveis disponíveis.')" title="Falar no WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+        <span class="whatsapp-text">WhatsApp</span>
+        <div class="whatsapp-pulse"></div>
+    </button>
+    
     <div id="loginModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
@@ -1011,7 +1018,7 @@
     /* Botão Fixo Voltar ao Topo */
     .scroll-to-top-fixed {
         position: fixed;
-        bottom: 30px;
+        bottom: 100px;
         right: 30px;
         width: 55px;
         height: 55px;
@@ -1048,13 +1055,138 @@
         transform: translateY(-2px) scale(1.05);
     }
     
+    /* Botão Fixo WhatsApp */
+    .whatsapp-fixed-btn {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        width: 65px;
+        height: 65px;
+        background: linear-gradient(135deg, #25d366 0%, #128c7e 100%);
+        border: none;
+        border-radius: 50%;
+        color: white;
+        font-size: 1.8rem;
+        cursor: pointer;
+        box-shadow: 0 6px 25px rgba(37, 211, 102, 0.4);
+        transition: all 0.3s ease;
+        z-index: 1001;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+    }
+    
+    .whatsapp-fixed-btn::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, transparent 100%);
+        border-radius: 50%;
+        transition: opacity 0.3s ease;
+        opacity: 0;
+    }
+    
+    .whatsapp-fixed-btn:hover {
+        transform: scale(1.1);
+        box-shadow: 0 8px 35px rgba(37, 211, 102, 0.6);
+    }
+    
+    .whatsapp-fixed-btn:hover::before {
+        opacity: 1;
+    }
+    
+    .whatsapp-fixed-btn:active {
+        transform: scale(1.05);
+    }
+    
+    .whatsapp-text {
+        position: absolute;
+        right: 100%;
+        top: 50%;
+        transform: translateY(-50%);
+        background: #25d366;
+        color: white;
+        padding: 8px 15px;
+        border-radius: 20px;
+        font-size: 0.9rem;
+        font-weight: 500;
+        white-space: nowrap;
+        margin-right: 10px;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+    }
+    
+    .whatsapp-text::after {
+        content: '';
+        position: absolute;
+        right: -8px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 0;
+        height: 0;
+        border-left: 8px solid #25d366;
+        border-top: 8px solid transparent;
+        border-bottom: 8px solid transparent;
+    }
+    
+    .whatsapp-fixed-btn:hover .whatsapp-text {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(-50%) translateX(-10px);
+    }
+    
+    .whatsapp-pulse {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        border-radius: 50%;
+        background: #25d366;
+        animation: whatsappPulse 2s infinite;
+        z-index: -1;
+    }
+    
+    @keyframes whatsappPulse {
+        0% {
+            transform: scale(1);
+            opacity: 0.8;
+        }
+        50% {
+            transform: scale(1.3);
+            opacity: 0.3;
+        }
+        100% {
+            transform: scale(1.6);
+            opacity: 0;
+        }
+    }
+    
     @media (max-width: 768px) {
         .scroll-to-top-fixed {
             width: 50px;
             height: 50px;
-            bottom: 20px;
+            bottom: 90px;
             right: 20px;
             font-size: 1.1rem;
+        }
+        
+        .whatsapp-fixed-btn {
+            width: 60px;
+            height: 60px;
+            bottom: 20px;
+            right: 20px;
+            font-size: 1.6rem;
+        }
+        
+        .whatsapp-text {
+            display: none;
         }
     }
     
@@ -1277,6 +1409,7 @@
     </style>
     
     <!-- Scripts -->
+    <script src="js/api-config.js"></script>
     <script src="js/config.js"></script>
     <script src="js/auth-system.js"></script>
     <script src="js/script.js"></script>
@@ -1290,6 +1423,12 @@
             const phoneNumber = '5582887801260'; // Número atualizado
             const defaultMessage = 'Olá! Vim do site da Marcelo Imóveis e gostaria de mais informações.';
             const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(defaultMessage)}`;
+            window.open(url, '_blank');
+        }
+        
+        function openWhatsAppWithMessage(message) {
+            const phoneNumber = '5582887801260';
+            const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
             window.open(url, '_blank');
         }
         

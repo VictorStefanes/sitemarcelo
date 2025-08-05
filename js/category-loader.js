@@ -9,7 +9,38 @@ class CategoryLoader {
         const baseUrl = window.Config ? window.Config.apiBaseURL : 'http://localhost:5001';
         this.apiUrl = `${baseUrl}/properties`;
         this.currentCategory = this.detectCategory();
-        this.init();
+        
+        // Limpa qualquer conteúdo imediatamente
+        this.clearInitialContent();
+        
+        // Inicializa quando DOM estiver pronto
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', () => this.init());
+        } else {
+            this.init();
+        }
+    }
+
+    clearInitialContent() {
+        // Limpa imediatamente qualquer conteúdo que possa estar carregado
+        const containers = document.querySelectorAll('.properties-grid, .grid, .lancamentos-grid');
+        containers.forEach(container => {
+            if (container) {
+                // Remove qualquer conteúdo anterior imediatamente
+                container.innerHTML = '';
+                container.style.minHeight = '200px';
+                container.style.display = 'block';
+                
+                // Insere placeholder de loading personalizado
+                const categoryName = this.getCategoryDisplayName();
+                container.innerHTML = `
+                    <div class="instant-loading" style="display: flex; align-items: center; justify-content: center; min-height: 200px; color: #666;">
+                        <i class="fas fa-spinner fa-spin" style="margin-right: 10px; color: #d4af37;"></i>
+                        Carregando ${categoryName.toLowerCase()}...
+                    </div>
+                `;
+            }
+        });
     }
 
     detectCategory() {
@@ -43,22 +74,40 @@ class CategoryLoader {
     }
 
     showLoadingState() {
-        const container = document.querySelector('.properties-grid, .grid, .lancamentos-grid');
-        if (container) {
-            container.innerHTML = `
-                <div class="loading-state">
-                    <i class="fas fa-spinner fa-spin" style="font-size: 3rem; color: #d4af37; margin-bottom: 1rem;"></i>
-                    <h3>Carregando imóveis...</h3>
-                    <p>Aguarde enquanto buscamos os imóveis disponíveis.</p>
-                </div>
-            `;
-        }
+        const containers = document.querySelectorAll('.properties-grid, .grid, .lancamentos-grid');
+        containers.forEach(container => {
+            if (container) {
+                // Limpa imediatamente qualquer conteúdo anterior
+                container.innerHTML = '';
+                container.style.minHeight = '200px'; // Evita mudança de layout
+                
+                // Insere loading sem delay
+                container.innerHTML = `
+                    <div class="loading-state" style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 200px;">
+                        <i class="fas fa-spinner fa-spin" style="font-size: 2rem; color: #d4af37; margin-bottom: 1rem;"></i>
+                        <h3 style="margin: 0; color: #666;">Carregando ${this.getCategoryDisplayName()}...</h3>
+                        <p style="margin: 0.5rem 0 0 0; color: #999; font-size: 0.9rem;">Aguarde um momento</p>
+                    </div>
+                `;
+            }
+        });
         
         // Atualiza contador
         const counter = document.querySelector('.properties-count');
         if (counter) {
             counter.textContent = 'Carregando...';
+            counter.style.opacity = '0.7';
         }
+    }
+
+    getCategoryDisplayName() {
+        const names = {
+            'lancamentos': 'Lançamentos',
+            'mais-procurados': 'Mais Procurados',
+            'beira-mar': 'Beira Mar',
+            'pronto-morar': 'Pronto para Morar'
+        };
+        return names[this.currentCategory] || 'imóveis';
     }
 
     async loadCategoryProperties() {
@@ -84,14 +133,27 @@ class CategoryLoader {
     }
 
     renderProperties(properties) {
-        const container = document.querySelector('.properties-grid, .grid, .lancamentos-grid');
-        if (!container) {
+        const containers = document.querySelectorAll('.properties-grid, .grid, .lancamentos-grid');
+        const targetContainer = containers[0]; // Usa o primeiro container encontrado
+        
+        if (!targetContainer) {
             console.warn('Container de propriedades não encontrado');
             return;
         }
 
-        container.innerHTML = properties.map(property => this.getPropertyCardHTML(property)).join('');
+        // Remove altura mínima e renderiza as propriedades
+        targetContainer.style.minHeight = '';
+        targetContainer.innerHTML = properties.map(property => this.getPropertyCardHTML(property)).join('');
+        
+        // Inicializa sliders dos cards
         this.initializeCardSliders();
+        
+        // Adiciona animação de fade-in
+        targetContainer.style.opacity = '0';
+        setTimeout(() => {
+            targetContainer.style.transition = 'opacity 0.3s ease';
+            targetContainer.style.opacity = '1';
+        }, 50);
     }
 
     getPropertyCardHTML(property) {
@@ -222,10 +284,23 @@ class CategoryLoader {
     }
 
     updateCounters(total) {
-        // Atualiza contadores na página
+        // Atualiza contadores na página com transição suave
         const counter = document.querySelector('.results-count, .properties-count');
         if (counter) {
-            counter.textContent = `${total} ${total === 1 ? 'imóvel encontrado' : 'imóveis encontrados'}`;
+            counter.style.transition = 'opacity 0.3s ease';
+            counter.style.opacity = '1';
+            
+            const categoryName = this.getCategoryDisplayName();
+            if (total === 0) {
+                counter.textContent = `Nenhum imóvel encontrado em ${categoryName}`;
+                counter.style.color = '#999';
+            } else if (total === 1) {
+                counter.textContent = `1 imóvel em ${categoryName}`;
+                counter.style.color = '#333';
+            } else {
+                counter.textContent = `${total} imóveis em ${categoryName}`;
+                counter.style.color = '#333';
+            }
         }
         
         // Atualiza título da página
@@ -242,8 +317,9 @@ class CategoryLoader {
     }
 
     showEmptyState() {
-        const container = document.querySelector('.properties-grid, .grid, .lancamentos-grid');
-        if (!container) return;
+        const containers = document.querySelectorAll('.properties-grid, .grid, .lancamentos-grid');
+        const targetContainer = containers[0];
+        if (!targetContainer) return;
         
         const categoryMessages = {
             'lancamentos': {
@@ -274,19 +350,29 @@ class CategoryLoader {
             message: 'Os imóveis aparecerão aqui quando forem adicionados.'
         };
         
-        container.innerHTML = `
-            <div class="empty-state">
-                <i class="${config.icon}" style="font-size: 4rem; color: #d4af37; margin-bottom: 2rem;"></i>
-                <h3>${config.title}</h3>
-                <p>${config.message}</p>
+        // Remove altura mínima e insere conteúdo vazio
+        targetContainer.style.minHeight = '';
+        targetContainer.innerHTML = `
+            <div class="empty-state" style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 300px; text-align: center; opacity: 0; transition: opacity 0.3s ease;">
+                <i class="${config.icon}" style="font-size: 3rem; color: #d4af37; margin-bottom: 1.5rem;"></i>
+                <h3 style="margin-bottom: 1rem; color: #333;">${config.title}</h3>
+                <p style="margin-bottom: 2rem; color: #666; max-width: 400px;">${config.message}</p>
                 <div class="empty-actions">
-                    <a href="index.html" class="btn-primary">
+                    <a href="index.html" class="btn-primary" style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 12px 24px; background: linear-gradient(135deg, #d4af37 0%, #f1d366 100%); color: #1a1a1a; text-decoration: none; border-radius: 8px; font-weight: 600; transition: all 0.3s ease;">
                         <i class="fas fa-arrow-left"></i>
                         Voltar ao início
                     </a>
                 </div>
             </div>
         `;
+        
+        // Fade in do conteúdo
+        setTimeout(() => {
+            const emptyState = targetContainer.querySelector('.empty-state');
+            if (emptyState) {
+                emptyState.style.opacity = '1';
+            }
+        }, 50);
     }
 
     setupFilters() {
@@ -312,26 +398,43 @@ if (window.location.pathname.includes('lancamentos') ||
     window.location.pathname.includes('beira-mar') || 
     window.location.pathname.includes('pronto-morar')) {
     
-    // Limpeza imediata para evitar flash de conteúdo
-    function clearInitialContent() {
-        const container = document.querySelector('.properties-grid, .grid, .lancamentos-grid');
-        if (container) {
-            // Remove o empty-state inicial imediatamente
-            const emptyState = container.querySelector('.empty-state');
-            if (emptyState) {
-                emptyState.style.display = 'none';
+    // Limpeza imediata e otimizada para evitar qualquer flash
+    function immediateCleanup() {
+        const containers = document.querySelectorAll('.properties-grid, .grid, .lancamentos-grid');
+        containers.forEach(container => {
+            if (container) {
+                // Remove qualquer conteúdo imediatamente
+                container.innerHTML = '';
+                
+                // Detecta categoria atual
+                const path = window.location.pathname;
+                let categoryName = 'imóveis';
+                if (path.includes('lancamentos')) categoryName = 'lançamentos';
+                else if (path.includes('mais-procurados')) categoryName = 'mais procurados';
+                else if (path.includes('beira-mar')) categoryName = 'beira mar';
+                else if (path.includes('pronto-morar')) categoryName = 'prontos para morar';
+                
+                // Insere loading personalizado instantaneamente
+                container.style.minHeight = '200px';
+                container.innerHTML = `
+                    <div style="display: flex; align-items: center; justify-content: center; min-height: 200px; color: #666; font-family: inherit;">
+                        <i class="fas fa-spinner fa-spin" style="margin-right: 10px; color: #d4af37; font-size: 1.2rem;"></i>
+                        Carregando ${categoryName}...
+                    </div>
+                `;
             }
-        }
+        });
     }
     
-    // Executa a limpeza assim que o script for carregado
+    // Executa limpeza imediatamente, independente do estado do DOM
+    immediateCleanup();
+    
+    // Inicializa o CategoryLoader
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', clearInitialContent);
+        document.addEventListener('DOMContentLoaded', () => {
+            window.categoryLoader = new CategoryLoader();
+        });
     } else {
-        clearInitialContent();
-    }
-    
-    document.addEventListener('DOMContentLoaded', () => {
         window.categoryLoader = new CategoryLoader();
-    });
+    }
 }

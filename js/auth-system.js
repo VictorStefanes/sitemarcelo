@@ -4,18 +4,19 @@
 
 class AuthSystem {
     constructor() {
-        // Usa configuração dinâmica se disponível, senão fallback
-        this.apiBaseURL = window.Config ? window.Config.apiBaseURL : 'http://localhost:5001';
+        // Usa configuração dinâmica da API se disponível
+        this.apiBaseURL = window.API_CONFIG ? window.API_CONFIG.BASE_URL : 'http://localhost:5000';
         
         // Detecta o caminho correto para o dashboard
         const currentPath = window.location.pathname;
         if (currentPath.includes('/html/')) {
             this.dashboardURL = './dashboard.html';
         } else {
-            this.dashboardURL = './html/dashboard.html';
+            this.dashboardURL = 'dashboard.html';
         }
         
         console.log('🚀 AuthSystem inicializado');
+        console.log('🌐 API URL:', this.apiBaseURL);
         console.log('🎯 Dashboard URL:', this.dashboardURL);
         
         this.isLoggedIn = this.checkAuthStatus();

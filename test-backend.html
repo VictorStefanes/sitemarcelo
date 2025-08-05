@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🧪 Teste de Conectividade - Backend</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            min-height: 100vh;
+        }
+        .container {
+            background: rgba(255,255,255,0.1);
+            padding: 30px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+        .test-section {
+            background: rgba(255,255,255,0.1);
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        .status {
+            padding: 10px 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+            font-weight: bold;
+        }
+        .success { background: rgba(76, 175, 80, 0.3); border: 1px solid #4CAF50; }
+        .error { background: rgba(244, 67, 54, 0.3); border: 1px solid #F44336; }
+        .loading { background: rgba(255, 193, 7, 0.3); border: 1px solid #FFC107; }
+        button {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 5px;
+        }
+        button:hover { background: #45a049; }
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 8px;
+            background: rgba(255,255,255,0.1);
+            color: white;
+            margin: 10px 0;
+        }
+        input::placeholder { color: rgba(255,255,255,0.7); }
+        .json-output {
+            background: rgba(0,0,0,0.3);
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            white-space: pre-wrap;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧪 Teste de Conectividade - Backend API</h1>
+        <p>Use esta página para testar se o backend está funcionando corretamente após o deploy.</p>
+
+        <div class="test-section">
+            <h3>📋 1. Configurar URL do Backend</h3>
+            <input type="text" id="backendUrl" placeholder="https://seu-backend.onrender.com" value="http://localhost:5000">
+            <button onclick="saveUrl()">💾 Salvar URL</button>
+        </div>
+
+        <div class="test-section">
+            <h3>🏥 2. Health Check</h3>
+            <p>Verifica se o backend está online e funcionando.</p>
+            <button onclick="testHealth()">🔍 Testar Health</button>
+            <div id="healthStatus"></div>
+            <div id="healthResponse" class="json-output"></div>
+        </div>
+
+        <div class="test-section">
+            <h3>🔐 3. Teste de Login</h3>
+            <p>Testa o endpoint de login com as credenciais do Marcelo.</p>
+            <button onclick="testLogin()">🧪 Testar Login</button>
+            <div id="loginStatus"></div>
+            <div id="loginResponse" class="json-output"></div>
+        </div>
+
+        <div class="test-section">
+            <h3>📊 4. Teste CORS</h3>
+            <p>Verifica se o CORS está configurado corretamente.</p>
+            <button onclick="testCORS()">🌐 Testar CORS</button>
+            <div id="corsStatus"></div>
+            <div id="corsResponse" class="json-output"></div>
+        </div>
+    </div>
+
+    <script>
+        let currentBackendUrl = 'http://localhost:5000';
+
+        function saveUrl() {
+            const url = document.getElementById('backendUrl').value.trim();
+            if (url) {
+                currentBackendUrl = url.endsWith('/') ? url.slice(0, -1) : url;
+                showStatus('healthStatus', 'success', `✅ URL salva: ${currentBackendUrl}`);
+            }
+        }
+
+        function showStatus(elementId, type, message) {
+            const element = document.getElementById(elementId);
+            element.className = `status ${type}`;
+            element.textContent = message;
+        }
+
+        function showResponse(elementId, data) {
+            document.getElementById(elementId).textContent = JSON.stringify(data, null, 2);
+        }
+
+        async function testHealth() {
+            showStatus('healthStatus', 'loading', '🔄 Testando health check...');
+            
+            try {
+                const response = await fetch(`${currentBackendUrl}/health`);
+                const data = await response.json();
+                
+                if (response.ok) {
+                    showStatus('healthStatus', 'success', '✅ Backend online e funcionando!');
+                    showResponse('healthResponse', data);
+                } else {
+                    showStatus('healthStatus', 'error', '❌ Backend retornou erro');
+                    showResponse('healthResponse', data);
+                }
+            } catch (error) {
+                showStatus('healthStatus', 'error', `❌ Erro de conexão: ${error.message}`);
+                showResponse('healthResponse', { error: error.message });
+            }
+        }
+
+        async function testLogin() {
+            showStatus('loginStatus', 'loading', '🔄 Testando login...');
+            
+            try {
+                const response = await fetch(`${currentBackendUrl}/login`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        username: 'marcelo',
+                        senha: 'marcelo123!'
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    showStatus('loginStatus', 'success', '✅ Login funcionando corretamente!');
+                    showResponse('loginResponse', data);
+                } else {
+                    showStatus('loginStatus', 'error', '❌ Erro no login');
+                    showResponse('loginResponse', data);
+                }
+            } catch (error) {
+                showStatus('loginStatus', 'error', `❌ Erro de conexão: ${error.message}`);
+                showResponse('loginResponse', { error: error.message });
+            }
+        }
+
+        async function testCORS() {
+            showStatus('corsStatus', 'loading', '🔄 Testando CORS...');
+            
+            try {
+                const response = await fetch(`${currentBackendUrl}/health`, {
+                    method: 'GET',
+                    mode: 'cors',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    showStatus('corsStatus', 'success', '✅ CORS configurado corretamente!');
+                    showResponse('corsResponse', {
+                        status: 'CORS OK',
+                        response: data,
+                        headers: {
+                            'Access-Control-Allow-Origin': response.headers.get('Access-Control-Allow-Origin') || 'Não definido'
+                        }
+                    });
+                } else {
+                    showStatus('corsStatus', 'error', '❌ Problema com CORS');
+                    showResponse('corsResponse', data);
+                }
+            } catch (error) {
+                if (error.message.includes('CORS')) {
+                    showStatus('corsStatus', 'error', '❌ Erro de CORS - Backend não permite requisições desta origem');
+                } else {
+                    showStatus('corsStatus', 'error', `❌ Erro: ${error.message}`);
+                }
+                showResponse('corsResponse', { error: error.message });
+            }
+        }
+
+        // Auto-load na página
+        document.addEventListener('DOMContentLoaded', function() {
+            showStatus('healthStatus', 'loading', '🔄 Página carregada. Configure a URL do backend e teste!');
+        });
+    </script>
+</body>
+</html>

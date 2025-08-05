@@ -15,6 +15,26 @@
   status = 200
 
 [[redirects]]
+  from = "/lancamentos"
+  to = "/lancamentos.html"
+  status = 200
+
+[[redirects]]
+  from = "/mais-procurados"
+  to = "/mais-procurados.html"
+  status = 200
+
+[[redirects]]
+  from = "/beira-mar"
+  to = "/beira-mar.html"
+  status = 200
+
+[[redirects]]
+  from = "/pronto-morar"
+  to = "/pronto-morar.html"
+  status = 200
+
+[[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
@@ -25,4 +45,20 @@
     X-Frame-Options = "DENY"
     X-XSS-Protection = "1; mode=block"
     X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    
+[[headers]]
+  for = "/css/*"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+    
+[[headers]]
+  for = "/js/*"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+    
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=2592000"
     Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https:;"
