@@ -1,0 +1,21 @@
+# Ignore backend files - Netlify is frontend only
+site-marcelo/backend/
+*.py
+*.pyc
+__pycache__/
+*.db
+*.sqlite3
+
+# Keep only frontend files
+!*.html
+!*.css
+!*.js
+!*.png
+!*.jpg
+!*.jpeg
+!*.gif
+!*.svg
+!*.webp
+!*.ico
+!_redirects
+!netlify.toml
