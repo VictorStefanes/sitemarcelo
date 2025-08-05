@@ -360,7 +360,7 @@ class IntegratedPropertyLoader {
     // Métodos para ações dos botões
     contactProperty(propertyId) {
         const message = `Olá! Tenho interesse no imóvel ID: ${propertyId}. Poderia me enviar mais informações?`;
-        const whatsappUrl = `https://wa.me/5582887801260?text=${encodeURIComponent(message)}`;
+        const whatsappUrl = `https://wa.me/5582988780126?text=${encodeURIComponent(message)}`;
         window.open(whatsappUrl, '_blank');
     }
 

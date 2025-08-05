@@ -52,6 +52,20 @@ class RealDashboardData {
         this.data.properties.push(property);
         this.saveData();
         console.log('🏠 Propriedade adicionada:', property);
+        
+        // Força sincronização com as páginas
+        this.triggerPropertySync();
+    }
+    
+    // Dispara sincronização com as páginas
+    triggerPropertySync() {
+        if (window.propertySync) {
+            console.log('🔄 Sincronizando nova propriedade com páginas...');
+            window.propertySync.forcSync();
+        } else if (window.forceSyncProperties) {
+            console.log('🔄 Forçando sincronização via método global...');
+            window.forceSyncProperties();
+        }
     }
 
     // Registra uma venda
@@ -77,7 +91,10 @@ class RealDashboardData {
         }
         
         this.saveData();
-        console.log('💰 Venda registrada:', sale);
+        
+        // Sincroniza após mudança de status da propriedade
+        this.triggerPropertySync();
+        console.log('💰 Venda registrada e sincronizada:', sale);
     }
 
     // Adiciona lead/visualização
@@ -324,6 +341,10 @@ class RealDashboardData {
     importData(data) {
         this.data = data;
         this.saveData();
+        
+        // Força sincronização após importação de dados
+        this.triggerPropertySync();
+        console.log('📥 Dados importados e sincronizados');
     }
 
     resetData() {

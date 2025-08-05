@@ -56,17 +56,50 @@ class IndexHighlights {
 
     async fetchLatestProperties(section, limit = 4) {
         try {
-            // Conectar com API usando configuração dinâmica
+            // PRIORIDADE 1: Dados sincronizados do dashboard
+            const categoryKey = `${section}Properties`;
+            const storedData = localStorage.getItem(categoryKey);
+            
+            if (storedData) {
+                const properties = JSON.parse(storedData);
+                const availableProperties = properties.filter(p => p.status === 'disponivel');
+                console.log(`✅ Carregado ${availableProperties.length} imóveis de ${section} do localStorage`);
+                
+                // Ordena por data de criação (mais recentes primeiro) e limita
+                return availableProperties
+                    .sort((a, b) => new Date(b.createdAt || b.created || Date.now()) - new Date(a.createdAt || a.created || Date.now()))
+                    .slice(0, limit);
+            }
+            
+            // PRIORIDADE 2: Dados principais do dashboard
+            const dashboardData = localStorage.getItem('marceloImoveisData');
+            if (dashboardData) {
+                const data = JSON.parse(dashboardData);
+                if (data.properties && data.properties.length > 0) {
+                    const sectionProperties = data.properties.filter(p => 
+                        p.categoria === section && p.status === 'disponivel'
+                    );
+                    console.log(`✅ Carregado ${sectionProperties.length} imóveis de ${section} do dashboard principal`);
+                    
+                    // Ordena por data de criação (mais recentes primeiro) e limita
+                    return sectionProperties
+                        .sort((a, b) => new Date(b.createdAt || b.created || Date.now()) - new Date(a.createdAt || a.created || Date.now()))
+                        .slice(0, limit);
+                }
+            }
+            
+            // FALLBACK: Tenta API (para compatibilidade)
             const baseUrl = window.Config ? window.Config.apiBaseURL : 'http://localhost:5001';
             const response = await fetch(`${baseUrl}/properties?category=${section}&limit=${limit}`);
             if (!response.ok) throw new Error('API não disponível');
-            const data = await response.json();
+            const apiData = await response.json();
             
-            // Se não há dados, retorna array vazio para mostrar empty state
-            return data.properties || [];
+            console.log(`✅ Carregado ${apiData.properties?.length || 0} imóveis de ${section} da API`);
+            return apiData.properties || [];
+            
         } catch (error) {
-            console.warn('API não disponível - mostrando estado vazio');
-            // Não retorna dados mock, retorna vazio para mostrar empty state
+            console.warn(`❌ Erro ao carregar ${section}:`, error.message);
+            console.log('📋 Mostrando estado vazio para', section);
             return [];
         }
     }
@@ -128,7 +161,7 @@ class IndexHighlights {
                         </div>
                     ` : ''}
                     <div class="property-actions">
-                        <button class="btn-whatsapp" onclick="window.open('https://wa.me/5582887801260?text=Olá! Tenho interesse no imóvel: ${encodeURIComponent(property.title)}', '_blank')">
+                        <button class="btn-whatsapp" onclick="window.open('https://wa.me/5582988780126?text=Olá! Tenho interesse no imóvel: ${encodeURIComponent(property.title)}', '_blank')">
                             <i class="fab fa-whatsapp"></i>
                             WhatsApp
                         </button>

@@ -56,7 +56,9 @@ class DashboardPropertySync {
 
     // Converte propriedade do dashboard para formato das páginas
     convertProperty(dashboardProp) {
-        return {
+        console.log('🔄 Convertendo propriedade do dashboard:', dashboardProp);
+        
+        const converted = {
             id: dashboardProp.id || `prop_${Date.now()}`,
             titulo: dashboardProp.title || dashboardProp.titulo || 'Imóvel sem título',
             preco: dashboardProp.price || dashboardProp.preco || 0,
@@ -66,7 +68,7 @@ class DashboardPropertySync {
             garagem: dashboardProp.garage || dashboardProp.garagem || 0,
             area: dashboardProp.area || 0,
             tipo: this.mapPropertyType(dashboardProp.type || dashboardProp.tipo),
-            categoria: this.mapToCategory(dashboardProp.type || dashboardProp.tipo),
+            categoria: dashboardProp.categoria || this.mapToCategory(dashboardProp.type || dashboardProp.tipo),
             descricao: dashboardProp.description || dashboardProp.descricao || '',
             imagens: dashboardProp.images || ['assets/images/fundo.jpg'], // Imagem padrão
             status: dashboardProp.status || 'disponivel',
@@ -75,8 +77,13 @@ class DashboardPropertySync {
             // Campos extras para compatibilidade
             preco_formatado: this.formatPrice(dashboardProp.price || dashboardProp.preco || 0),
             localizacao_simplificada: this.simplifyLocation(dashboardProp.location || dashboardProp.localizacao || ''),
-            destaque: false // Por padrão não é destaque
+            destaque: dashboardProp.destaque || false,
+            // Para ordenação na página inicial (últimos 4)
+            created: dashboardProp.createdAt || new Date().toISOString()
         };
+        
+        console.log('✅ Propriedade convertida para páginas:', converted);
+        return converted;
     }
 
     // Mapeia tipos do dashboard para tipos das páginas

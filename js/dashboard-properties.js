@@ -268,11 +268,18 @@ class DashboardProperties {
     }
 
     validatePropertyData(data) {
-        const required = ['titulo', 'tipo', 'preco', 'area', 'endereco'];
+        const required = [
+            {field: 'title', label: 'Título'},
+            {field: 'type', label: 'Tipo'},
+            {field: 'price', label: 'Preço'},
+            {field: 'area', label: 'Área'},
+            {field: 'location', label: 'Localização'},
+            {field: 'category', label: 'Categoria'}
+        ];
         
-        for (let field of required) {
-            if (!data[field] || data[field].trim() === '') {
-                window.dashboardUI?.showNotification(`Campo ${field} é obrigatório`, 'error');
+        for (let item of required) {
+            if (!data[item.field] || data[item.field].toString().trim() === '') {
+                window.dashboardUI?.showNotification(`Campo ${item.label} é obrigatório`, 'error');
                 return false;
             }
         }
@@ -290,23 +297,41 @@ class DashboardProperties {
                 this.properties[index] = { ...this.properties[index], ...data, updated: new Date() };
             }
         } else {
-            // Nova propriedade
+            // Nova propriedade - usar o sistema real de dados
             const newProperty = {
-                ...data,
-                id: Date.now(),
-                created: new Date(),
-                updated: new Date(),
-                status: 'disponivel',
-                images: []
+                titulo: data.title || data.titulo,
+                tipo: data.type || data.tipo,
+                preco: data.price || data.preco,
+                area: data.area,
+                quartos: data.bedrooms || data.quartos || 0,
+                banheiros: data.bathrooms || data.banheiros || 0,
+                vagas: data.parking || data.vagas || 0,
+                endereco: data.location || data.endereco,
+                descricao: data.description || data.descricao || '',
+                caracteristicas: data.features || data.caracteristicas || '',
+                categoria: data.category || data.categoria,
+                status: data.status || 'disponivel',
+                images: data.images || []
             };
-            this.properties.push(newProperty);
+
+            // Usar o sistema real de dados
+            if (window.realDashboard) {
+                window.realDashboard.addProperty(newProperty);
+                console.log('✅ Propriedade adicionada via RealDashboardData');
+            } else {
+                console.warn('⚠️ RealDashboardData não encontrado, usando array local');
+                newProperty.id = Date.now();
+                newProperty.created = new Date();
+                newProperty.updated = new Date();
+                this.properties.push(newProperty);
+            }
         }
 
         this.renderProperties();
         this.updateStats();
         this.closePropertyModal();
         
-        const message = isEdit ? 'Propriedade atualizada' : 'Propriedade adicionada';
+        const message = isEdit ? 'Propriedade atualizada' : 'Propriedade adicionada com sucesso!';
         window.dashboardUI?.showNotification(message, 'success');
     }
 

@@ -94,7 +94,7 @@
 
 ## 📞 **NÚMEROS E MENSAGENS**
 
-### **Número WhatsApp:** +55 82 8878-0126
+### **Número WhatsApp:** +55 82 9 8878-0126
 
 ### **Mensagens por Página:**
 1. **Home:** Interesse geral nos imóveis
