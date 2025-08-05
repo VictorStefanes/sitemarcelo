@@ -196,44 +196,23 @@ class AuthSystem {
 
         console.log('🔐 Dados de login:', { username: loginData.username, senha: '***' });
 
-        // Credenciais de teste
-        const testCredentials = {
-            'admin': 'admin123',
-            'marcelo': 'marcelo123',
-            'teste': '123456'
+        // Credenciais fixas - apenas Marcelo pode acessar
+        const validCredentials = {
+            username: 'marcelo',
+            password: 'marcelo123!'
         };
 
-        // Verifica credenciais de teste
-        if (testCredentials[loginData.username] === loginData.senha) {
-            console.log('✅ Login local bem-sucedido');
+        // Verifica se as credenciais são exatamente as do Marcelo
+        if (loginData.username === validCredentials.username && loginData.senha === validCredentials.password) {
+            console.log('✅ Login autorizado para Marcelo');
             this.handleLoginSuccess(loginData.username);
             this.setLoading(submitBtn, false);
             return;
-        }
-
-        try {
-            const response = await fetch(`${this.apiBaseURL}/auth/login`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(loginData)
-            });
-
-            const data = await response.json();
-
-            if (response.ok) {
-                console.log('✅ Login via API bem-sucedido');
-                this.handleLoginSuccess(loginData.username);
-            } else {
-                console.log('❌ Erro no login via API:', data);
-                this.showMessage('error', data.erro || 'Erro no login', 'loginForm');
-            }
-        } catch (error) {
-            console.error('❌ Erro na requisição:', error);
-            this.showMessage('error', 'Credenciais inválidas. Teste: admin/admin123', 'loginForm');
-        } finally {
+        } else {
+            console.log('❌ Credenciais inválidas - acesso negado');
+            this.showMessage('error', 'Acesso restrito. Use: marcelo / marcelo123', 'loginForm');
             this.setLoading(submitBtn, false);
+            return;
         }
     }
 

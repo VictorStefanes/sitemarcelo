@@ -29,11 +29,21 @@ class DashboardAuth {
         const sessionTime = localStorage.getItem('session_time');
         
         if (session && sessionTime) {
+            const userData = JSON.parse(session);
             const now = new Date().getTime();
             const sessionStart = parseInt(sessionTime);
             const sessionDuration = 24 * 60 * 60 * 1000; // 24 horas
             
-            return (now - sessionStart) < sessionDuration;
+            // Verifica se a sessão é válida E se o usuário é o Marcelo
+            const isValidSession = (now - sessionStart) < sessionDuration;
+            const isAuthorizedUser = userData.username === 'marcelo';
+            
+            if (!isAuthorizedUser) {
+                console.log('❌ Usuário não autorizado:', userData.username);
+                return false;
+            }
+            
+            return isValidSession;
         }
         
         return false;
