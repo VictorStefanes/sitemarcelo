@@ -296,7 +296,7 @@ class CategoryLoader {
 
     contactWhatsApp(propertyId, title) {
         const message = `Olá! Tenho interesse no imóvel: ${title}`;
-        const whatsappUrl = `https://wa.me/5582999999999?text=${encodeURIComponent(message)}`;
+        const whatsappUrl = `https://wa.me/5582887801260?text=${encodeURIComponent(message)}`;
         window.open(whatsappUrl, '_blank');
     }
 

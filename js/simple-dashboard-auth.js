@@ -17,21 +17,40 @@ class SimpleDashboardAuth {
 
     init() {
         // Verifica se está na página de dashboard
-        if (!this.isDashboardPage()) return;
+        if (!this.isDashboardPage()) {
+            console.log('📍 Não é página de dashboard, auth não inicializada');
+            return;
+        }
+        
+        // Evita loops de inicialização
+        if (this.isInitializing) {
+            console.log('⚠️ Auth já inicializando, ignorando...');
+            return;
+        }
+        this.isInitializing = true;
         
         console.log('🔐 Inicializando autenticação do dashboard...');
         
-        // Verifica se já está autenticado
-        if (this.isAuthenticated()) {
-            this.showDashboard();
-        } else {
-            this.showLoginForm();
-        }
+        // Aguarda um breve momento para garantir que o DOM carregou
+        setTimeout(() => {
+            // Verifica se já está autenticado
+            if (this.isAuthenticated()) {
+                this.showDashboard();
+            } else {
+                this.showLoginForm();
+            }
+            this.isInitializing = false;
+        }, 100);
     }
 
     isDashboardPage() {
-        return window.location.pathname.includes('dashboard') || 
-               window.location.pathname.includes('admin');
+        const path = window.location.pathname.toLowerCase();
+        const filename = path.split('/').pop();
+        
+        return filename === 'dashboard.html' || 
+               path.includes('/dashboard') || 
+               path.includes('admin') ||
+               filename === 'dashboard';
     }
 
     isAuthenticated() {
@@ -88,6 +107,12 @@ class SimpleDashboardAuth {
     }
 
     showLoginForm() {
+        // Se não estiver na página dashboard, redireciona
+        if (!this.isDashboardPage()) {
+            window.location.href = 'dashboard.html';
+            return;
+        }
+        
         // Remove qualquer conteúdo do dashboard
         document.body.innerHTML = '';
         document.body.className = 'login-page';
@@ -342,9 +367,16 @@ class SimpleDashboardAuth {
     }
 
     showDashboard() {
-        // Recarrega a página para mostrar o dashboard
+        // Se a página está no estado de login, restaura o conteúdo original
         if (document.body.className === 'login-page') {
-            window.location.reload();
+            // Remove a classe de login
+            document.body.className = '';
+            
+            // Redireciona para o dashboard original apenas se necessário
+            if (!document.querySelector('.dashboard-sidebar')) {
+                window.location.href = 'dashboard.html';
+                return;
+            }
         }
         
         // Adiciona botão de logout no dashboard se existir

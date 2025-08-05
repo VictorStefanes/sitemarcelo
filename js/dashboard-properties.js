@@ -67,39 +67,16 @@ class DashboardProperties {
     }
 
     loadProperties() {
-        // Simulação de dados - Em produção viria do backend
-        this.properties = [
-            {
-                id: 1,
-                titulo: 'Apartamento Luxury Ponta Verde',
-                tipo: 'apartamento',
-                preco: 850000,
-                area: 120,
-                quartos: 3,
-                banheiros: 2,
-                endereco: 'Ponta Verde, Maceió/AL',
-                status: 'disponivel',
-                destaque: true,
-                images: ['assets/images/apt1.jpg'],
-                created: new Date('2024-01-15'),
-                updated: new Date('2024-01-20')
-            },
-            {
-                id: 2,
-                titulo: 'Casa Duplex Farol',
-                tipo: 'casa',
-                preco: 1200000,
-                area: 250,
-                quartos: 4,
-                banheiros: 3,
-                endereco: 'Farol, Maceió/AL',
-                status: 'disponivel',
-                destaque: false,
-                images: ['assets/images/casa1.jpg'],
-                created: new Date('2024-01-10'),
-                updated: new Date('2024-01-18')
-            }
-        ];
+        // Carrega dados reais do localStorage
+        const saved = localStorage.getItem('marceloImoveisData');
+        if (saved) {
+            const data = JSON.parse(saved);
+            this.properties = data.properties || [];
+        } else {
+            this.properties = [];
+        }
+        
+        console.log('📋 Propriedades carregadas:', this.properties.length);
 
         this.renderProperties();
         this.updateStats();

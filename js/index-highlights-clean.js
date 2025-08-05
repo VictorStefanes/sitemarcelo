@@ -127,7 +127,7 @@ class IndexHighlights {
                         </div>
                     ` : ''}
                     <div class="property-actions">
-                        <button class="btn-whatsapp" onclick="window.open('https://wa.me/5582999999999?text=Olá! Tenho interesse no imóvel: ${encodeURIComponent(property.title)}', '_blank')">
+                        <button class="btn-whatsapp" onclick="window.open('https://wa.me/5582887801260?text=Olá! Tenho interesse no imóvel: ${encodeURIComponent(property.title)}', '_blank')">
                             <i class="fab fa-whatsapp"></i>
                             WhatsApp
                         </button>

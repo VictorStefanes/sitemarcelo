@@ -85,15 +85,34 @@ class IntegratedPropertyLoader {
     // PRIORIDADE 1: Dados do Dashboard (via sincronização)
     loadFromDashboard() {
         try {
+            // Primeiro verifica se há dados do dashboard principal
+            const dashboardData = localStorage.getItem('marceloImoveisData');
+            if (dashboardData) {
+                const data = JSON.parse(dashboardData);
+                if (data.properties && data.properties.length > 0) {
+                    console.log(`🔍 Dashboard principal tem ${data.properties.length} propriedades`);
+                    // Filtra propriedades para a categoria atual
+                    const filtered = data.properties.filter(p => {
+                        return p.categoria === this.currentCategory && p.status === 'disponivel';
+                    });
+                    if (filtered.length > 0) {
+                        console.log(`✅ Carregado ${filtered.length} imóveis do dashboard principal para ${this.currentCategory}`);
+                        return filtered;
+                    }
+                }
+            }
+            
+            // Fallback: verifica dados já sincronizados por categoria
             const categoryKey = `${this.currentCategory}Properties`;
             const stored = localStorage.getItem(categoryKey);
             
             if (stored) {
                 const properties = JSON.parse(stored);
-                console.log(`✅ Carregado ${properties.length} imóveis do dashboard para ${this.currentCategory}`);
+                console.log(`✅ Carregado ${properties.length} imóveis sincronizados para ${this.currentCategory}`);
                 return properties.filter(p => p.status === 'disponivel'); // Apenas disponíveis
             }
             
+            console.log(`❌ Nenhum dado encontrado no dashboard para ${this.currentCategory}`);
             return null;
         } catch (error) {
             console.error('Erro ao carregar do dashboard:', error);
@@ -341,7 +360,7 @@ class IntegratedPropertyLoader {
     // Métodos para ações dos botões
     contactProperty(propertyId) {
         const message = `Olá! Tenho interesse no imóvel ID: ${propertyId}. Poderia me enviar mais informações?`;
-        const whatsappUrl = `https://wa.me/5511999999999?text=${encodeURIComponent(message)}`;
+        const whatsappUrl = `https://wa.me/5582887801260?text=${encodeURIComponent(message)}`;
         window.open(whatsappUrl, '_blank');
     }
 

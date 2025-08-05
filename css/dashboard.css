@@ -459,7 +459,8 @@ body {
         transform: translateX(-100%);
     }
     
-    .dashboard-sidebar.active {
+    .dashboard-sidebar.active,
+    .dashboard-sidebar.mobile-open {
         transform: translateX(0);
     }
     
@@ -491,6 +492,19 @@ body {
 }
 
 @media (max-width: 768px) {
+    .dashboard-sidebar {
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+    }
+    
+    .dashboard-sidebar.mobile-open {
+        transform: translateX(0);
+    }
+    
+    .mobile-menu-toggle {
+        display: flex;
+    }
+    
     .header-stats {
         display: none;
     }
@@ -513,6 +527,33 @@ body {
     
     .stat-content h3 {
         font-size: 2rem;
+    }
+    
+    /* Melhorias adicionais para mobile */
+    .dashboard-main {
+        margin-left: 0;
+        padding: 10px;
+    }
+    
+    .stats-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    .property-card {
+        margin-bottom: 15px;
+    }
+    
+    .property-form {
+        padding: 15px;
+    }
+    
+    .form-row {
+        flex-direction: column;
+    }
+    
+    .form-group {
+        margin-bottom: 15px;
     }
 }
 

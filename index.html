@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/empty-states.css">
     <link rel="stylesheet" href="css/dropdown.css">
+    <link rel="stylesheet" href="css/mobile-menu.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
@@ -15,11 +16,18 @@
 
 <body>
     <header>
+        <!-- Mobile Menu Toggle -->
+        <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Menu">
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+        </button>
+        
         <h1 id="animated-heading">
             <img id="svg1" src="assets/svg/1.svg" alt="Escrita 1" class="hidden svg-text">
             <img id="svg2" src="assets/svg/2.svg" alt="Escrita 2" class="hidden svg-text">
         </h1>
-        <nav>
+        <nav id="mainNav">
             <ul>
                 <li><a href="index.html">Home</a></li>
                 <li><a href="#sobre">Sobre</a></li>
@@ -1514,6 +1522,69 @@
                         whatsappSection.style.transform = 'translateY(0)';
                     }, 1000);
                 }, 3000);
+            }
+            
+            // Mobile Menu Functionality
+            const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+            const mainNav = document.getElementById('mainNav');
+            let overlay = null;
+            
+            if (mobileMenuToggle && mainNav) {
+                mobileMenuToggle.addEventListener('click', function() {
+                    const isOpen = mainNav.classList.contains('open');
+                    
+                    if (isOpen) {
+                        closeMobileMenu();
+                    } else {
+                        openMobileMenu();
+                    }
+                });
+                
+                function openMobileMenu() {
+                    mainNav.classList.add('open');
+                    mobileMenuToggle.classList.add('active');
+                    
+                    // Create overlay
+                    overlay = document.createElement('div');
+                    overlay.className = 'mobile-overlay active';
+                    document.body.appendChild(overlay);
+                    
+                    // Close menu when clicking overlay
+                    overlay.addEventListener('click', closeMobileMenu);
+                    
+                    // Prevent body scroll
+                    document.body.style.overflow = 'hidden';
+                }
+                
+                function closeMobileMenu() {
+                    mainNav.classList.remove('open');
+                    mobileMenuToggle.classList.remove('active');
+                    
+                    if (overlay) {
+                        overlay.remove();
+                        overlay = null;
+                    }
+                    
+                    // Restore body scroll
+                    document.body.style.overflow = '';
+                }
+                
+                // Close menu when clicking nav links
+                const navLinks = mainNav.querySelectorAll('a');
+                navLinks.forEach(link => {
+                    link.addEventListener('click', closeMobileMenu);
+                });
+                
+                // Handle dropdown in mobile
+                const dropdown = document.querySelector('.dropdown');
+                if (dropdown) {
+                    dropdown.addEventListener('click', function(e) {
+                        if (window.innerWidth <= 768) {
+                            e.preventDefault();
+                            this.classList.toggle('active');
+                        }
+                    });
+                }
             }
         });
     </script>
