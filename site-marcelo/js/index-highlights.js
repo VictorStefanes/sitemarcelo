@@ -88,18 +88,28 @@ class IndexHighlights {
     }
 
     getPropertyCardHTML(property) {
+        // Compatibilidade entre formatos dashboard/api
+        const title = property.title || property.titulo || 'Imóvel sem título';
+        const location = property.location || property.localizacao || 'Localização não informada';
+        const price = property.price || property.preco || property.preco_formatado || 'Preço não informado';
+        const images = property.images || property.imagens || ['assets/images/fundo.jpg'];
+        const bedrooms = property.bedrooms || property.quartos || 0;
+        const bathrooms = property.bathrooms || property.banheiros || 0;
+        const parking = property.parking || property.garagem || property.vagas || 0;
+        const area = property.area || 0;
+        
         return `
             <div class="property-card" data-property-id="${property.id}">
                 <button class="nav-arrow prev" aria-label="Slide anterior">‹</button>
                 <button class="nav-arrow next" aria-label="Próximo slide">›</button>
                 <div class="property-image">
-                    ${property.images.map((image, index) => `
+                    ${images.map((image, index) => `
                         <div class="property-slide" aria-hidden="${index === 0 ? 'false' : 'true'}" ${index > 0 ? 'style="display:none"' : ''}>
-                            <img src="${image}" alt="${property.title}">
+                            <img src="${image}" alt="${title}">
                         </div>
                     `).join('')}
                     <div class="dots-container" role="tablist">
-                        ${property.images.map((_, index) => `
+                        ${images.map((_, index) => `
                             <button class="dot ${index === 0 ? 'active' : ''}" role="tab" 
                                 aria-selected="${index === 0}" aria-controls="slide${index + 1}"></button>
                         `).join('')}
@@ -107,28 +117,28 @@ class IndexHighlights {
                 </div>
                 <div class="property-content">
                     <div class="location">
-                        <h2>${property.location}</h2>
-                        <p class="property-title">${property.title}</p>
+                        <h2>${location}</h2>
+                        <p class="property-title">${title}</p>
                     </div>
                     <div class="property-details">
                         <div class="details-row">
-                            <span><i class="fas fa-bed"></i> ${property.bedrooms || 0}</span>
-                            <span><i class="fas fa-bath"></i> ${property.bathrooms || 0}</span>
-                            <span><i class="fas fa-car"></i> ${property.parking || 0}</span>
-                            <span><i class="fas fa-ruler-combined"></i> ${property.area}</span>
+                            <span><i class="fas fa-bed"></i> ${bedrooms}</span>
+                            <span><i class="fas fa-bath"></i> ${bathrooms}</span>
+                            <span><i class="fas fa-car"></i> ${parking}</span>
+                            <span><i class="fas fa-ruler-combined"></i> ${area}m²</span>
                         </div>
                         <div class="price-info">
-                            <p class="price">${property.price}</p>
+                            <p class="price">${price}</p>
                             ${property.condominio ? `<p class="condominio">+ Cond. ${property.condominio}</p>` : ''}
                         </div>
                     </div>
-                    ${property.tags ? `
+                    ${property.tags || property.caracteristicas ? `
                         <div class="property-tags">
-                            ${property.tags.slice(0, 2).map(tag => `<span class="tag">${tag}</span>`).join('')}
+                            ${(property.tags || property.caracteristicas || '').split(',').slice(0, 2).map(tag => `<span class="tag">${tag.trim()}</span>`).join('')}
                         </div>
                     ` : ''}
                     <div class="property-actions">
-                        <button class="btn-whatsapp" onclick="window.open('https://wa.me/5582988780126?text=Olá! Tenho interesse no imóvel: ${encodeURIComponent(property.title)}', '_blank')">
+                        <button class="btn-whatsapp" onclick="window.open('https://wa.me/5582988780126?text=Olá! Tenho interesse no imóvel: ${encodeURIComponent(title)}', '_blank')">
                             <i class="fab fa-whatsapp"></i>
                             WhatsApp
                         </button>

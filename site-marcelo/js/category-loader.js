@@ -63,12 +63,52 @@ class CategoryLoader {
 
     async loadCategoryProperties() {
         try {
-            // Carrega TODOS os imóveis da categoria (sem limite)
+            // PRIORIDADE 1: Dados sincronizados do dashboard por categoria
+            const categoryKey = `${this.currentCategory}Properties`;
+            const storedData = localStorage.getItem(categoryKey);
+            
+            if (storedData) {
+                const properties = JSON.parse(storedData);
+                const availableProperties = properties.filter(p => p.status === 'disponivel');
+                console.log(`✅ Carregado ${availableProperties.length} imóveis de ${this.currentCategory} do localStorage`);
+                
+                if (availableProperties.length === 0) {
+                    this.showEmptyState();
+                } else {
+                    this.renderProperties(availableProperties);
+                    this.updateCounters(availableProperties.length);
+                }
+                return;
+            }
+            
+            // PRIORIDADE 2: Dados principais do dashboard
+            const dashboardData = localStorage.getItem('marceloImoveisData');
+            if (dashboardData) {
+                const data = JSON.parse(dashboardData);
+                if (data.properties && data.properties.length > 0) {
+                    const categoryProperties = data.properties.filter(p => 
+                        p.categoria === this.currentCategory && p.status === 'disponivel'
+                    );
+                    console.log(`✅ Carregado ${categoryProperties.length} imóveis de ${this.currentCategory} do dashboard principal`);
+                    
+                    if (categoryProperties.length === 0) {
+                        this.showEmptyState();
+                    } else {
+                        this.renderProperties(categoryProperties);
+                        this.updateCounters(categoryProperties.length);
+                    }
+                    return;
+                }
+            }
+            
+            // FALLBACK: Tenta API (para compatibilidade)
             const response = await fetch(`${this.apiUrl}?category=${this.currentCategory}`);
             if (!response.ok) throw new Error('API não disponível');
             
             const data = await response.json();
             const properties = data.properties || [];
+            
+            console.log(`✅ Carregado ${properties.length} imóveis de ${this.currentCategory} da API`);
             
             if (properties.length === 0) {
                 this.showEmptyState();
@@ -78,7 +118,8 @@ class CategoryLoader {
             }
             
         } catch (error) {
-            console.error('Erro ao buscar imóveis:', error);
+            console.warn(`❌ Erro ao buscar imóveis de ${this.currentCategory}:`, error.message);
+            console.log('📋 Mostrando estado vazio para', this.currentCategory);
             this.showEmptyState();
         }
     }
@@ -95,8 +136,18 @@ class CategoryLoader {
     }
 
     getPropertyCardHTML(property) {
-        const images = property.images && property.images.length > 0 ? property.images : ['../assets/images/default-property.jpg'];
-        const features = Array.isArray(property.features) ? property.features : [];
+        // Compatibilidade entre formatos dashboard/api
+        const title = property.title || property.titulo || 'Imóvel sem título';
+        const location = property.location || property.localizacao || 'Localização não informada';
+        const price = property.price || property.preco || property.preco_formatado || 'Preço não informado';
+        const images = property.images || property.imagens || ['../assets/images/default-property.jpg'];
+        const bedrooms = property.bedrooms || property.quartos || 0;
+        const bathrooms = property.bathrooms || property.banheiros || 0;
+        const parking = property.parking || property.garagem || property.vagas || 0;
+        const area = property.area || 0;
+        const description = property.description || property.descricao || '';
+        const features = property.features || property.caracteristicas || '';
+        const featuresArray = typeof features === 'string' ? features.split(',').map(f => f.trim()).filter(f => f) : (Array.isArray(features) ? features : []);
         
         return `
             <div class="property-card" data-property-id="${property.id}">
@@ -107,7 +158,7 @@ class CategoryLoader {
                     <div class="carousel-images">
                         ${images.map((image, index) => `
                             <div class="carousel-slide ${index === 0 ? 'active' : ''}" style="${index > 0 ? 'display: none;' : ''}">
-                                <img src="${image}" alt="${property.title}">
+                                <img src="${image}" alt="${title}">
                             </div>
                         `).join('')}
                     </div>
@@ -123,38 +174,38 @@ class CategoryLoader {
                 
                 <div class="property-content">
                     <div class="property-header">
-                        <h3 class="property-title">${property.title}</h3>
+                        <h3 class="property-title">${title}</h3>
                         <p class="property-location">
                             <i class="fas fa-map-marker-alt"></i>
-                            ${property.location}
+                            ${location}
                         </p>
                     </div>
                     
                     <div class="property-details">
                         <div class="details-grid">
-                            ${property.bedrooms ? `<span><i class="fas fa-bed"></i> ${property.bedrooms} quartos</span>` : ''}
-                            ${property.bathrooms ? `<span><i class="fas fa-bath"></i> ${property.bathrooms} banheiros</span>` : ''}
-                            ${property.area ? `<span><i class="fas fa-ruler-combined"></i> ${property.area}m²</span>` : ''}
-                            ${property.parking ? `<span><i class="fas fa-car"></i> ${property.parking} vagas</span>` : ''}
+                            ${bedrooms ? `<span><i class="fas fa-bed"></i> ${bedrooms} quartos</span>` : ''}
+                            ${bathrooms ? `<span><i class="fas fa-bath"></i> ${bathrooms} banheiros</span>` : ''}
+                            ${area ? `<span><i class="fas fa-ruler-combined"></i> ${area}m²</span>` : ''}
+                            ${parking ? `<span><i class="fas fa-car"></i> ${parking} vagas</span>` : ''}
                         </div>
                     </div>
                     
-                    ${property.description ? `
+                    ${description ? `
                         <div class="property-description">
-                            <p>${property.description.length > 100 ? property.description.substring(0, 100) + '...' : property.description}</p>
+                            <p>${description.length > 100 ? description.substring(0, 100) + '...' : description}</p>
                         </div>
                     ` : ''}
                     
-                    ${features.length > 0 ? `
+                    ${featuresArray.length > 0 ? `
                         <div class="property-features">
-                            ${features.slice(0, 3).map(feature => `<span class="feature-tag">${feature}</span>`).join('')}
-                            ${features.length > 3 ? `<span class="feature-more">+${features.length - 3} mais</span>` : ''}
+                            ${featuresArray.slice(0, 3).map(feature => `<span class="feature-tag">${feature}</span>`).join('')}
+                            ${featuresArray.length > 3 ? `<span class="feature-more">+${featuresArray.length - 3} mais</span>` : ''}
                         </div>
                     ` : ''}
                     
                     <div class="property-footer">
                         <div class="property-price">
-                            <span class="price">${property.price}</span>
+                            <span class="price">${price}</span>
                             ${property.condominio ? `<span class="condominio">+ Cond. ${property.condominio}</span>` : ''}
                         </div>
                         

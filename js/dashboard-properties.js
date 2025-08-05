@@ -37,6 +37,9 @@ class DashboardProperties {
             });
         }
 
+        // Setup upload de imagens
+        this.setupImageUpload();
+
         // Filtros
         const filterButtons = document.querySelectorAll('.filter-btn');
         filterButtons.forEach(btn => {
@@ -395,6 +398,86 @@ class DashboardProperties {
             const input = document.querySelector(`[name="${key}"]`);
             if (input) input.value = property[key];
         });
+    }
+
+    setupImageUpload() {
+        const uploadArea = document.getElementById('imageUploadArea');
+        const fileInput = document.getElementById('propertyImages');
+        const previewContainer = document.getElementById('imagesPreview');
+
+        if (!uploadArea || !fileInput) return;
+
+        // Clique na área de upload abre o seletor de arquivos
+        uploadArea.addEventListener('click', () => {
+            fileInput.click();
+        });
+
+        // Drag and drop
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.classList.add('drag-over');
+        });
+
+        uploadArea.addEventListener('dragleave', (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove('drag-over');
+        });
+
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove('drag-over');
+            
+            const files = Array.from(e.dataTransfer.files).filter(file => 
+                file.type.startsWith('image/')
+            );
+            
+            if (files.length > 0) {
+                this.handleImageFiles(files);
+            }
+        });
+
+        // Seleção de arquivos via input
+        fileInput.addEventListener('change', (e) => {
+            const files = Array.from(e.target.files);
+            if (files.length > 0) {
+                this.handleImageFiles(files);
+            }
+        });
+    }
+
+    handleImageFiles(files) {
+        const previewContainer = document.getElementById('imagesPreview');
+        if (!previewContainer) return;
+
+        // Limitar a 10 imagens
+        const limitedFiles = files.slice(0, 10);
+
+        // Limpar preview anterior
+        previewContainer.innerHTML = '';
+
+        limitedFiles.forEach((file, index) => {
+            const reader = new FileReader();
+            
+            reader.onload = (e) => {
+                const imagePreview = document.createElement('div');
+                imagePreview.className = 'image-preview-item';
+                imagePreview.innerHTML = `
+                    <img src="${e.target.result}" alt="Preview ${index + 1}">
+                    <button type="button" class="remove-image" onclick="this.parentElement.remove()">
+                        <i class="fas fa-times"></i>
+                    </button>
+                `;
+                previewContainer.appendChild(imagePreview);
+            };
+            
+            reader.readAsDataURL(file);
+        });
+
+        // Atualizar texto da área de upload
+        const uploadText = document.querySelector('#imageUploadArea p');
+        if (uploadText) {
+            uploadText.textContent = `${limitedFiles.length} imagem(ns) selecionada(s)`;
+        }
     }
 
     closePropertyModal() {
