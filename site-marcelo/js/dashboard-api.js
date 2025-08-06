@@ -8,6 +8,7 @@ class DashboardAPI {
         // Usa configuração dinâmica se disponível
         const baseUrl = window.Config ? window.Config.apiBaseURL : 'http://localhost:5001';
         this.apiUrl = `${baseUrl}/properties`; // URL da API real do backend Flask
+        this.baseUrl = baseUrl;
         this.isOnlineMode = false;
         this.init();
     }
@@ -15,16 +16,24 @@ class DashboardAPI {
     async init() {
         // Verifica se a API está disponível
         try {
-            const checkUrl = window.Config ? window.Config.getApiUrl('/properties?limit=1') : 'http://localhost:5001/properties?limit=1';
-            const response = await fetch(checkUrl);
+            const checkUrl = `${this.baseUrl}/health`; // Verifica endpoint de health
+            const response = await fetch(checkUrl, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            });
+            
             if (response.ok) {
                 this.isOnlineMode = true;
                 console.log('✅ Dashboard API conectada ao backend Flask');
+                console.log('🔗 URL da API:', this.baseUrl);
             } else {
-                throw new Error('API não respondeu');
+                throw new Error('API não respondeu com sucesso');
             }
         } catch (error) {
-            console.warn('⚠️ Backend não disponível, usando modo offline');
+            console.warn('⚠️ Backend não disponível:', error.message);
+            console.log('📱 Usando modo offline/localStorage');
             this.isOnlineMode = false;
         }
     }
