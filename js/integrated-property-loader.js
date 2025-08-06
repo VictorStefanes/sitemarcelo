@@ -139,78 +139,10 @@ class IntegratedPropertyLoader {
         }
     }
 
-    // PRIORIDADE 3: Mock Properties (última opção)
+    // PRIORIDADE 3: Retorna vazio (sem dados mock)
     loadMockProperties() {
-        const mockData = {
-            'lancamentos': [
-                {
-                    id: 'mock_lanc_1',
-                    titulo: 'Apartamento Moderno - Centro',
-                    preco: 450000,
-                    localizacao: 'Centro, Cidade',
-                    quartos: 3,
-                    banheiros: 2,
-                    garagem: 2,
-                    area: 85,
-                    tipo: 'apartamento',
-                    categoria: 'lancamentos',
-                    imagens: ['assets/images/fundo.jpg'],
-                    status: 'disponivel'
-                }
-            ],
-            'mais-procurados': [
-                {
-                    id: 'mock_proc_1',
-                    titulo: 'Casa Familiar - Bairro Nobre',
-                    preco: 680000,
-                    localizacao: 'Bairro Nobre, Cidade',
-                    quartos: 4,
-                    banheiros: 3,
-                    garagem: 2,
-                    area: 180,
-                    tipo: 'casa',
-                    categoria: 'mais-procurados',
-                    imagens: ['assets/images/fundo.jpg'],
-                    status: 'disponivel'
-                }
-            ],
-            'beira-mar': [
-                {
-                    id: 'mock_mar_1',
-                    titulo: 'Terreno Vista para o Mar',
-                    preco: 320000,
-                    localizacao: 'Orla, Litoral',
-                    quartos: 0,
-                    banheiros: 0,
-                    garagem: 0,
-                    area: 500,
-                    tipo: 'terreno',
-                    categoria: 'beira-mar',
-                    imagens: ['assets/images/fundo.jpg'],
-                    status: 'disponivel'
-                }
-            ],
-            'pronto-morar': [
-                {
-                    id: 'mock_pronto_1',
-                    titulo: 'Apartamento Pronto para Morar',
-                    preco: 380000,
-                    localizacao: 'Vila Nova, Cidade',
-                    quartos: 2,
-                    banheiros: 1,
-                    garagem: 1,
-                    area: 65,
-                    tipo: 'apartamento',
-                    categoria: 'pronto-morar',
-                    imagens: ['assets/images/fundo.jpg'],
-                    status: 'disponivel'
-                }
-            ]
-        };
-
-        const properties = mockData[this.currentCategory] || [];
-        console.log(`⚠️ Usando dados mock: ${properties.length} imóveis para ${this.currentCategory}`);
-        return properties;
+        console.log(`ℹ️ Nenhuma propriedade cadastrada para ${this.currentCategory}`);
+        return [];
     }
 
     renderProperties(properties) {

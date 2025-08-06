@@ -213,6 +213,15 @@ class RealDashboardData {
         console.log('📊 Dashboard atualizado com estatísticas reais:', stats);
     }
 
+    // Atualiza gráficos (delega para a instância global de gráficos)
+    updateCharts(stats) {
+        if (window.realDashboardCharts && typeof window.realDashboardCharts.updateAll === 'function') {
+            window.realDashboardCharts.updateAll(stats);
+        } else if (window.realDashboardCharts && typeof window.realDashboardCharts.setupCharts === 'function') {
+            window.realDashboardCharts.setupCharts();
+        }
+    }
+
     // Atualiza tendências baseadas em dados reais
     updateTrends(stats) {
         // Se não há dados suficientes, esconde as tendências

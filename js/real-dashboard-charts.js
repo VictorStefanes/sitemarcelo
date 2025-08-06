@@ -403,4 +403,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
+// Cria instância global para compatibilidade
+window.realDashboardCharts = new RealDashboardCharts();
+
 console.log('📊 Sistema de gráficos reais carregado');

@@ -66,7 +66,8 @@ class DashboardProperties {
             { id: 'comercial', label: 'Comercial', count: 0 }
         ];
 
-        this.renderFilters(filters);
+        // Filtros são renderizados pelo HTML, apenas configuramos os eventos
+        console.log('🔍 Filtros configurados:', filters);
     }
 
     loadProperties() {

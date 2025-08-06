@@ -6,9 +6,8 @@
     <title>Dashboard - Marcelo Imóveis</title>
     
     <!-- CSS Files -->
-    <link rel="stylesheet" href="css/dashboard.css">
-    <link rel="stylesheet" href="css/dashboard-animations.css">
-    <link rel="stylesheet" href="css/real-dashboard.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="../css/dashboard-animations.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
@@ -62,7 +61,7 @@
         </nav>
 
         <div class="sidebar-footer">
-            <a href="index.html" class="back-to-site">
+            <a href="../html/index.html" class="back-to-site">
                 <i class="fas fa-arrow-left"></i>
                 <span>Voltar ao Site</span>
             </a>
@@ -95,26 +94,6 @@
         <div class="dashboard-content" id="dashboardContent">
             <!-- Overview Section -->
             <section class="content-section dashboard-section active" id="overview" data-section="overview">
-                <!-- Botões de Ação Rápida -->
-                <div class="quick-actions">
-                    <button class="action-btn primary" onclick="openModal('addPropertyModal')">
-                        <i class="fas fa-plus"></i>
-                        Adicionar Propriedade
-                    </button>
-                    <button class="action-btn success" onclick="openModal('addSaleModal')">
-                        <i class="fas fa-handshake"></i>
-                        Registrar Venda
-                    </button>
-                    <button class="action-btn info" onclick="openModal('addLeadModal')">
-                        <i class="fas fa-user-plus"></i>
-                        Novo Lead
-                    </button>
-                    <button class="action-btn warning" onclick="incrementPageViews()">
-                        <i class="fas fa-eye"></i>
-                        +1 Visualização
-                    </button>
-                </div>
-
                 <div class="stats-grid">
                     <div class="stat-card gradient-blue">
                         <div class="stat-icon">
@@ -123,9 +102,9 @@
                         <div class="stat-content">
                             <h3 id="totalProperties">0</h3>
                             <p>Total de Imóveis</p>
-                            <span class="trend" id="propertiesTrend" style="display: none;">
+                            <span class="trend positive">
                                 <i class="fas fa-arrow-up"></i>
-                                Dados reais
+                                +12% este mês
                             </span>
                         </div>
                     </div>
@@ -137,9 +116,9 @@
                         <div class="stat-content">
                             <h3 id="totalSales">0</h3>
                             <p>Vendas Realizadas</p>
-                            <span class="trend" id="salesTrend" style="display: none;">
+                            <span class="trend positive">
                                 <i class="fas fa-arrow-up"></i>
-                                Dados reais
+                                +8% este mês
                             </span>
                         </div>
                     </div>
@@ -151,9 +130,9 @@
                         <div class="stat-content">
                             <h3 id="totalViews">0</h3>
                             <p>Visualizações</p>
-                            <span class="trend" id="viewsTrend" style="display: none;">
+                            <span class="trend positive">
                                 <i class="fas fa-arrow-up"></i>
-                                Dados reais
+                                +25% este mês
                             </span>
                         </div>
                     </div>
@@ -165,9 +144,9 @@
                         <div class="stat-content">
                             <h3 id="totalRevenue">R$ 0</h3>
                             <p>Receita Total</p>
-                            <span class="trend" id="revenueTrend" style="display: none;">
+                            <span class="trend positive">
                                 <i class="fas fa-arrow-up"></i>
-                                Dados reais
+                                +15% este mês
                             </span>
                         </div>
                     </div>
@@ -260,7 +239,47 @@
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="propertyLocation">Localização *</label>
-                                <input type="text" id="propertyLocation" name="location" placeholder="Bairro - Cidade/Estado" required>
+                                <div class="location-selectors">
+                                    <select id="propertyState" name="state" required>
+                                        <option value="">Selecione o estado</option>
+                                        <option value="AL">Alagoas</option>
+                                        <option value="AC">Acre</option>
+                                        <option value="AP">Amapá</option>
+                                        <option value="AM">Amazonas</option>
+                                        <option value="BA">Bahia</option>
+                                        <option value="CE">Ceará</option>
+                                        <option value="DF">Distrito Federal</option>
+                                        <option value="ES">Espírito Santo</option>
+                                        <option value="GO">Goiás</option>
+                                        <option value="MA">Maranhão</option>
+                                        <option value="MT">Mato Grosso</option>
+                                        <option value="MS">Mato Grosso do Sul</option>
+                                        <option value="MG">Minas Gerais</option>
+                                        <option value="PA">Pará</option>
+                                        <option value="PB">Paraíba</option>
+                                        <option value="PR">Paraná</option>
+                                        <option value="PE">Pernambuco</option>
+                                        <option value="PI">Piauí</option>
+                                        <option value="RJ">Rio de Janeiro</option>
+                                        <option value="RN">Rio Grande do Norte</option>
+                                        <option value="RS">Rio Grande do Sul</option>
+                                        <option value="RO">Rondônia</option>
+                                        <option value="RR">Roraima</option>
+                                        <option value="SC">Santa Catarina</option>
+                                        <option value="SP">São Paulo</option>
+                                        <option value="SE">Sergipe</option>
+                                        <option value="TO">Tocantins</option>
+                                    </select>
+                                    
+                                    <select id="propertyCity" name="city" required disabled>
+                                        <option value="">Selecione a cidade</option>
+                                    </select>
+                                    
+                                    <select id="propertyNeighborhood" name="neighborhood" required disabled>
+                                        <option value="">Selecione o bairro</option>
+                                    </select>
+                                </div>
+                                <input type="hidden" id="propertyLocation" name="location">
                             </div>
                             <div class="form-group">
                                 <label for="propertyStatus">Status *</label>
@@ -364,80 +383,18 @@
         </div>
     </main>
 
-    <!-- Incluir Modais -->
-    <div id="modalsContainer"></div>
-
     <!-- Scripts -->
-    <script src="js/api-config.js"></script>
-    <script src="js/config.js"></script>
-    <script src="js/dashboard-api.js"></script>
-    <script src="js/dashboard-auth.js"></script>
+    <script src="../js/config.js"></script>
+    <script src="../js/real-dashboard-data.js"></script>
+    <script src="../js/dashboard-property-sync.js"></script>
+    <script src="../js/dashboard-api.js"></script>
+    <script src="../js/dashboard-auth.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    
-    <!-- Novo Sistema de Dados Reais -->
-    <script src="js/simple-dashboard-auth.js"></script>
-    <script src="js/real-dashboard-data.js"></script>
-    <script src="js/real-dashboard-charts.js"></script>
-    <script src="js/dashboard-property-sync.js"></script>
-    
-    <!-- Scripts do Dashboard Original -->
-    <script src="js/dashboard-backend.js"></script>
-    <script src="js/dashboard-core.js"></script>
-    <script src="js/dashboard-ui.js"></script>
-    <script src="js/dashboard-properties.js"></script>
-
-    <script>
-        // Carrega os modais
-        fetch('dashboard-modals.html')
-            .then(response => response.text())
-            .then(html => {
-                document.getElementById('modalsContainer').innerHTML = html;
-            })
-            .catch(error => {
-                console.error('Erro ao carregar modais:', error);
-            });
-
-        // Função para incrementar visualizações manualmente
-        function incrementPageViews() {
-            if (window.realDashboard) {
-                window.realDashboard.incrementViews();
-                showNotification('👁️ Visualização adicionada!', 'info');
-            }
-        }
-
-        // Integração com sistema de notificações existente
-        if (typeof showNotification === 'undefined') {
-            window.showNotification = function(message, type = 'info') {
-                const notification = document.createElement('div');
-                notification.className = `notification notification-${type}`;
-                notification.textContent = message;
-                
-                notification.style.cssText = `
-                    position: fixed;
-                    top: 20px;
-                    right: 20px;
-                    background: ${type === 'success' ? '#28a745' : type === 'error' ? '#dc3545' : '#007bff'};
-                    color: white;
-                    padding: 15px 20px;
-                    border-radius: 8px;
-                    z-index: 10000;
-                    font-weight: 600;
-                    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-                    animation: slideInRight 0.3s ease-out;
-                `;
-                
-                document.body.appendChild(notification);
-                
-                setTimeout(() => {
-                    notification.style.animation = 'slideOutRight 0.3s ease-in';
-                    setTimeout(() => {
-                        if (document.body.contains(notification)) {
-                            document.body.removeChild(notification);
-                        }
-                    }, 300);
-                }, 3000);
-            };
-        }
-    </script>
+    <script src="../js/dashboard-backend.js"></script>
+    <script src="../js/dashboard-core.js"></script>
+    <script src="../js/dashboard-ui.js"></script>
+    <script src="../js/dashboard-properties.js"></script>
+    <script src="../js/dashboard-analytics.js"></script>
+    <script src="js/location-manager.js"></script>
 </body>
 </html>
