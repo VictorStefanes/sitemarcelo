@@ -28,6 +28,37 @@ class Config {
             apiBaseUrl: this.API_BASE_URL,
             hostname: window.location.hostname
         });
+        
+        // Limpeza única do localStorage - remover dados antigos
+        this.clearOldStorageData();
+    }
+    
+    clearOldStorageData() {
+        const propertyKeys = [
+            'dashboard_properties',
+            'marceloImoveisData', 
+            'mockProperties',
+            'beira-marProperties',
+            'mais-procuradosProperties',
+            'lancamentosProperties', 
+            'pronto-morarProperties',
+            'beiraMarProperties',
+            'maisProcuradosProperties',
+            'novosLancamentosProperties',
+            'prontoMorarProperties'
+        ];
+        
+        let cleaned = false;
+        propertyKeys.forEach(key => {
+            if (localStorage.getItem(key)) {
+                localStorage.removeItem(key);
+                cleaned = true;
+            }
+        });
+        
+        if (cleaned) {
+            console.log('🧹 LocalStorage limpo - dados antigos removidos');
+        }
     }
     
     // Getter para compatibilidade com código existente

@@ -30,6 +30,22 @@ class HomepagePropertiesManager {
 
     async loadSectionProperties(category, sectionId) {
         try {
+            // PRIORIDADE 1: Dados do localStorage (sincronizados do dashboard)
+            const categoryKey = `${category}Properties`;
+            const storedData = localStorage.getItem(categoryKey);
+            
+            if (storedData) {
+                const properties = JSON.parse(storedData);
+                const availableProperties = properties
+                    .filter(p => p.status === 'disponivel')
+                    .slice(0, 4); // Apenas os primeiros 4
+                    
+                console.log(`📋 ${category}: ${availableProperties.length} imóveis carregados do localStorage`);
+                this.renderProperties(availableProperties, sectionId);
+                return;
+            }
+            
+            // PRIORIDADE 2: API (fallback)
             const response = await fetch(`${this.apiUrl}/properties?category=${category}&limit=4`);
             
             if (!response.ok) {
@@ -39,8 +55,7 @@ class HomepagePropertiesManager {
             const data = await response.json();
             const properties = data.properties || [];
 
-            console.log(`📋 ${category}: ${properties.length} imóveis carregados`);
-            
+            console.log(`📋 ${category}: ${properties.length} imóveis carregados da API`);
             this.renderProperties(properties, sectionId);
             
         } catch (error) {

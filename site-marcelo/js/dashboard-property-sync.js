@@ -79,7 +79,7 @@ class DashboardPropertySync {
             garagem: dashboardProp.garage || dashboardProp.garagem || 0,
             area: dashboardProp.area || 0,
             tipo: this.mapPropertyType(dashboardProp.type || dashboardProp.tipo),
-            categoria: dashboardProp.categoria || this.mapToCategory(dashboardProp.type || dashboardProp.tipo),
+            categoria: dashboardProp.category || dashboardProp.categoria || this.mapToCategory(dashboardProp.type || dashboardProp.tipo),
             descricao: dashboardProp.description || dashboardProp.descricao || '',
             imagens: dashboardProp.images || ['assets/images/fundo.jpg'], // Imagem padrão
             status: dashboardProp.status || 'disponivel',
@@ -219,18 +219,20 @@ if (typeof window !== 'undefined') {
     // Aguarda DOM carregar
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', () => {
-            window.propertySync = new DashboardPropertySync();
-            window.forceSyncProperties = () => window.propertySync.forcSync();
+            window.dashboardPropertySync = new DashboardPropertySync();
+            window.propertySync = window.dashboardPropertySync; // Alias para compatibilidade
+            window.forceSyncProperties = () => window.dashboardPropertySync.syncDashboardToPages();
         });
     } else {
-        window.propertySync = new DashboardPropertySync();
-        window.forceSyncProperties = () => window.propertySync.forcSync();
+        window.dashboardPropertySync = new DashboardPropertySync();
+        window.propertySync = window.dashboardPropertySync; // Alias para compatibilidade
+        window.forceSyncProperties = () => window.dashboardPropertySync.syncDashboardToPages();
     }
     
     // Força sincronização após 1 segundo (garante que outros scripts carregaram)
     setTimeout(() => {
-        if (window.propertySync) {
-            window.propertySync.forcSync();
+        if (window.dashboardPropertySync) {
+            window.dashboardPropertySync.syncDashboardToPages();
         }
     }, 1000);
 }

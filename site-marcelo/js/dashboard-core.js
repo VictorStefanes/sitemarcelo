@@ -34,10 +34,11 @@ class DashboardCore {
             this.properties = JSON.parse(stored);
         }
         
-        // Load sample data if empty
-        if (this.properties.length === 0) {
-            this.loadSampleData();
-        }
+        // Não carregar dados de amostra por padrão - iniciando limpo
+        // if (this.properties.length === 0) {
+        //     this.loadSampleData();
+        // }
+        console.log(`💾 Dashboard carregado com ${this.properties.length} propriedades`);
     }
 
     loadSampleData() {
@@ -741,6 +742,11 @@ class DashboardCore {
 
         this.saveData();
         
+        // Força sincronização com páginas públicas
+        if (window.dashboardPropertySync) {
+            window.dashboardPropertySync.syncDashboardToPages();
+        }
+        
         if (backendResult.success) {
             this.showSuccessMessage(existingIndex !== -1 ? 'Propriedade atualizada com sucesso!' : 'Propriedade salva com sucesso!');
         } else {
@@ -791,6 +797,12 @@ class DashboardCore {
             // Remove localmente
             this.properties = this.properties.filter(p => p.id !== id);
             this.saveData();
+            
+            // Força sincronização com páginas públicas
+            if (window.dashboardPropertySync) {
+                window.dashboardPropertySync.syncDashboardToPages();
+            }
+            
             this.renderProperties();
             this.updateDashboard();
             
