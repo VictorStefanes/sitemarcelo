@@ -12,8 +12,8 @@ class Config {
         
         // URLs da API baseadas no ambiente
         if (this.isProduction) {
-            // Em produção, assume que a API está na mesma origem
-            this.API_BASE_URL = window.location.origin;
+            // Em produção, usa o backend do Render
+            this.API_BASE_URL = 'https://marcelo-imoveis-api.onrender.com';
         } else {
             // Em desenvolvimento, usa localhost
             this.API_BASE_URL = 'http://localhost:5001';

@@ -1,1 +1,1 @@
-web: cd site-marcelo/backend && gunicorn --bind 0.0.0.0:$PORT properties_api:app
+web: cd backend && gunicorn --bind 0.0.0.0:$PORT api:app
