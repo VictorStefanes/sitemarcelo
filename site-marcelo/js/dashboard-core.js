@@ -187,7 +187,7 @@ class DashboardCore {
         }
 
         // Image upload
-        const imageInput = document.querySelector('#property-images');
+        const imageInput = document.querySelector('#propertyImages');
         if (imageInput) {
             imageInput.addEventListener('change', (e) => {
                 this.handleImageUpload(e);
@@ -198,7 +198,7 @@ class DashboardCore {
         const uploadArea = document.querySelector('.image-upload-area');
         if (uploadArea) {
             uploadArea.addEventListener('click', () => {
-                document.querySelector('#property-images').click();
+                document.querySelector('#propertyImages').click();
             });
 
             // Drag and drop functionality
@@ -510,6 +510,11 @@ class DashboardCore {
     // ===========================================
     updatePropertiesView() {
         this.renderProperties();
+        
+        // Ensure action buttons are clickable after rendering
+        setTimeout(() => {
+            this.setupPropertyActions();
+        }, 100);
     }
 
     renderProperties() {
@@ -628,21 +633,33 @@ class DashboardCore {
     }
 
     setupPropertyActions() {
-        document.querySelectorAll('[data-action]').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                const action = e.target.closest('[data-action]').dataset.action;
-                const id = e.target.closest('[data-action]').dataset.id;
-                
-                switch(action) {
-                    case 'edit':
-                        this.editProperty(id);
-                        break;
-                    case 'delete':
-                        this.deleteProperty(id);
-                        break;
-                }
-            });
-        });
+        // Remove existing listeners to prevent duplicates
+        const container = document.querySelector('.properties-grid');
+        if (!container) return;
+
+        // Use event delegation for better performance and reliability
+        container.removeEventListener('click', this.handlePropertyAction);
+        container.addEventListener('click', this.handlePropertyAction.bind(this));
+    }
+
+    handlePropertyAction(e) {
+        const actionButton = e.target.closest('[data-action]');
+        if (!actionButton) return;
+
+        e.preventDefault();
+        e.stopPropagation();
+
+        const action = actionButton.dataset.action;
+        const id = actionButton.dataset.id;
+        
+        switch(action) {
+            case 'edit':
+                this.editProperty(id);
+                break;
+            case 'delete':
+                this.deleteProperty(id);
+                break;
+        }
     }
 
     getFilteredProperties() {

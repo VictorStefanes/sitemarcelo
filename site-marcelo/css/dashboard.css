@@ -417,6 +417,85 @@ body {
 }
 
 /* ===========================================
+   PROPERTY ACTIONS
+   =========================================== */
+.property-actions {
+    display: flex;
+    gap: 8px;
+    padding: 16px;
+    border-top: 1px solid #eee;
+}
+
+.action-btn {
+    flex: 1;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition-fast);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    text-decoration: none;
+    min-height: 36px;
+}
+
+.action-btn i {
+    font-size: 13px;
+}
+
+.edit-btn {
+    background: var(--gradient-blue);
+    color: white;
+    border: 1px solid transparent;
+}
+
+.edit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-medium);
+    background: linear-gradient(135deg, #5a6fd8 0%, #6a5acd 100%);
+}
+
+.delete-btn {
+    background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%);
+    color: white;
+    border: 1px solid transparent;
+}
+
+.delete-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-medium);
+    background: linear-gradient(135deg, #ff5252 0%, #d32f2f 100%);
+}
+
+.action-btn:active {
+    transform: translateY(0);
+}
+
+.action-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none !important;
+}
+
+/* Responsive Property Actions */
+@media (max-width: 768px) {
+    .property-actions {
+        padding: 12px;
+        gap: 6px;
+    }
+    
+    .action-btn {
+        padding: 6px 12px;
+        font-size: 13px;
+        min-height: 32px;
+    }
+}
+
+/* ===========================================
    CHARTS
    =========================================== */
 .charts-container {
@@ -459,8 +538,9 @@ body {
         transform: translateX(-100%);
     }
     
-    .dashboard-sidebar.active {
+    .dashboard-sidebar.mobile-open {
         transform: translateX(0);
+        box-shadow: 2px 0 15px rgba(0,0,0,0.3);
     }
     
     .mobile-menu-toggle {
@@ -473,10 +553,13 @@ body {
     
     .dashboard-header {
         padding: 20px 25px;
+        margin-left: 0;
     }
     
     .dashboard-content {
         padding: 25px 20px;
+        margin-left: 0;
+        width: 100%;
     }
     
     .stats-grid {

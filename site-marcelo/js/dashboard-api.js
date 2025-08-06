@@ -17,19 +17,24 @@ class DashboardAPI {
         // Verifica se a API está disponível
         try {
             const checkUrl = `${this.baseUrl}/health`; // Verifica endpoint de health
+            console.log('🔍 Testando conexão com:', checkUrl);
+            
             const response = await fetch(checkUrl, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
-                }
+                },
+                mode: 'cors'
             });
             
             if (response.ok) {
+                const data = await response.json();
                 this.isOnlineMode = true;
                 console.log('✅ Dashboard API conectada ao backend Flask');
                 console.log('🔗 URL da API:', this.baseUrl);
+                console.log('📊 Status do backend:', data);
             } else {
-                throw new Error('API não respondeu com sucesso');
+                throw new Error(`API respondeu com status ${response.status}`);
             }
         } catch (error) {
             console.warn('⚠️ Backend não disponível:', error.message);

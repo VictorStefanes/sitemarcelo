@@ -49,8 +49,12 @@ class DashboardAuth {
         localStorage.removeItem('user_session');
         localStorage.removeItem('session_time');
         
-        // Redireciona para a página principal
-        window.location.href = 'index.html';
+        console.log('🔒 Usuário não autenticado, redirecionando para index');
+        
+        // Pequeno delay para garantir que localStorage foi limpo
+        setTimeout(() => {
+            window.location.href = 'index.html';
+        }, 100);
     }
 
     setupSessionCheck() {

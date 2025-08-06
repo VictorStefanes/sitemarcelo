@@ -19,6 +19,8 @@
             <img id="svg1" src="../assets/svg/1.svg" alt="Escrita 1" class="hidden svg-text">
             <img id="svg2" src="../assets/svg/2.svg" alt="Escrita 2" class="hidden svg-text">
         </h1>
+        
+        <!-- Menu Desktop -->
         <nav>
             <ul>
                 <li><a href="index.html">Home</a></li>
@@ -41,7 +43,32 @@
                 </li>
             </ul>
         </nav>
+        
+        <!-- Menu Mobile Toggle -->
+        <button class="mobile-menu-toggle" id="mobileMenuToggle">
+            ☰
+        </button>
     </header>
+
+    <!-- Menu Mobile -->
+    <nav class="mobile-nav" id="mobileNav">
+        <button class="mobile-close" id="mobileClose">×</button>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="#sobre">Sobre</a></li>
+            <li><a href="lancamentos.html">Lançamentos</a></li>
+            <li><a href="mais-procurados.html">Mais Procurados</a></li>
+            <li><a href="beira-mar.html">Beira Mar</a></li>
+            <li><a href="pronto-morar.html">Pronto para Morar</a></li>
+            <li><a href="#contato">Contato</a></li>
+            <li>
+                <button id="mobile-login-btn" class="login-icon nav-login-btn" aria-label="Login" style="background: none; border: 1px solid white; color: white; padding: 10px 20px; border-radius: 5px;">
+                    <span class="user-emoji">👤</span>
+                    <span class="login-text">Login</span>
+                </button>
+            </li>
+        </ul>
+    </nav>
 
     <main>
         <!-- Seção Principal -->
@@ -1370,6 +1397,43 @@
                     }, 1000);
                 }, 3000);
             }
+        });
+    </script>
+    
+    <!-- Script do Menu Mobile -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileToggle = document.getElementById('mobileMenuToggle');
+            const mobileNav = document.getElementById('mobileNav');
+            const mobileClose = document.getElementById('mobileClose');
+            const mobileLoginBtn = document.getElementById('mobile-login-btn');
+            
+            // Abrir menu mobile
+            mobileToggle?.addEventListener('click', function() {
+                mobileNav.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            });
+            
+            // Fechar menu mobile
+            mobileClose?.addEventListener('click', function() {
+                mobileNav.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            });
+            
+            // Fechar ao clicar em link
+            mobileNav?.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    mobileNav.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                }
+            });
+            
+            // Login mobile
+            mobileLoginBtn?.addEventListener('click', function() {
+                mobileNav.classList.remove('active');
+                document.body.style.overflow = 'auto';
+                document.getElementById('login-btn')?.click();
+            });
         });
     </script>
     

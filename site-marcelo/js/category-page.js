@@ -286,7 +286,7 @@ window.openPropertyDetails = function(propertyId) {
 };
 
 window.contactWhatsApp = function(propertyTitle, location = '', price = '') {
-    const phoneNumber = '5582999999999'; // Substitua pelo número real
+    const phoneNumber = '5582987654321'; // Número do Marcelo Augusto
     let message = `Olá! Tenho interesse no imóvel: ${propertyTitle}`;
     if (location) message += `\nLocalização: ${location}`;
     if (price) message += `\nPreço: ${price}`;

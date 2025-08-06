@@ -78,6 +78,85 @@ li a:hover {
 }
 
 /* ========================================
+   MENU HAMBURGER MOBILE
+======================================== */
+
+.mobile-menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 10px;
+    z-index: 1001;
+}
+
+.mobile-nav {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.95);
+    z-index: 1000;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.mobile-nav.active {
+    display: flex;
+}
+
+.mobile-nav ul {
+    flex-direction: column;
+    gap: 30px;
+    text-align: center;
+}
+
+.mobile-nav li {
+    margin: 0;
+}
+
+.mobile-nav a {
+    font-size: 24px;
+    color: white;
+}
+
+.mobile-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .mobile-menu-toggle {
+        display: block;
+    }
+    
+    header nav {
+        display: none;
+    }
+    
+    header {
+        padding: 10px 20px;
+        height: 80px;
+    }
+    
+    body {
+        overflow-x: hidden;
+        max-width: 100vw;
+    }
+}
+
+/* ========================================
    COMPONENTE DROPDOWN
 ======================================== */
 

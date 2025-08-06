@@ -203,7 +203,7 @@ window.openPropertyDetails = function(propertyId) {
 };
 
 window.contactWhatsApp = function(propertyTitle) {
-    const phoneNumber = '5582999999999'; // Substitua pelo número real
+    const phoneNumber = '5582987654321'; // Número do Marcelo Augusto
     const message = `Olá! Tenho interesse no imóvel: ${propertyTitle}`;
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
