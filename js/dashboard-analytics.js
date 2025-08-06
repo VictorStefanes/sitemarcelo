@@ -11,11 +11,22 @@ class DashboardAnalytics {
 
     init() {
         console.log('📊 Inicializando Dashboard Analytics...');
+        this.destroyExistingCharts();
         this.loadAnalyticsData();
         this.initializeCharts();
         this.setupDateRangePicker();
         this.isInitialized = true;
         console.log('✅ Dashboard Analytics inicializado');
+    }
+
+    destroyExistingCharts() {
+        // Destroy all existing charts to prevent conflicts
+        Object.values(this.charts).forEach(chart => {
+            if (chart && typeof chart.destroy === 'function') {
+                chart.destroy();
+            }
+        });
+        this.charts = {};
     }
 
     loadAnalyticsData() {
@@ -65,6 +76,11 @@ class DashboardAnalytics {
     createSalesChart() {
         const ctx = document.getElementById('salesChart');
         if (!ctx) return;
+
+        // Destroy existing chart if it exists
+        if (this.charts.sales) {
+            this.charts.sales.destroy();
+        }
 
         const data = this.analyticsData.salesData.monthly;
 
@@ -145,6 +161,11 @@ class DashboardAnalytics {
         const ctx = document.getElementById('propertyTypeChart');
         if (!ctx) return;
 
+        // Destroy existing chart if it exists
+        if (this.charts.propertyType) {
+            this.charts.propertyType.destroy();
+        }
+
         const data = this.analyticsData.salesData.byType;
 
         this.charts.propertyType = new Chart(ctx, {
@@ -193,6 +214,11 @@ class DashboardAnalytics {
     createViewsChart() {
         const ctx = document.getElementById('viewsChart');
         if (!ctx) return;
+
+        // Destroy existing chart if it exists
+        if (this.charts.views) {
+            this.charts.views.destroy();
+        }
 
         const data = this.analyticsData.viewsData.daily;
         const labels = data.map((_, index) => {
@@ -246,6 +272,11 @@ class DashboardAnalytics {
     createConversionChart() {
         const ctx = document.getElementById('conversionChart');
         if (!ctx) return;
+
+        // Destroy existing chart if it exists
+        if (this.charts.conversion) {
+            this.charts.conversion.destroy();
+        }
 
         const performance = this.analyticsData.performance;
 
